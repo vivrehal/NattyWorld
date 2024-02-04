@@ -2,7 +2,7 @@ import { app } from "./app.js";
 import connectTodb from "./db.js";
 import 'dotenv/config';
 
-import { dbtest } from "./pages/dbtest/index.js";
+import {router} from "./routes/dbtest/index.js";
 
 connectTodb(process.env.DB_URI).then(()=>{
     try {
@@ -18,7 +18,8 @@ connectTodb(process.env.DB_URI).then(()=>{
     console.log("DB connection failed !! ", err)
 })
 
-
-app.all("/dbtest", dbtest)
+// Testing the DB methods
+// import "./pages/dbtest/index.js";
+app.use("/dbtest", router);
 
 
