@@ -1,0 +1,656 @@
+{
+    "modelName": "NattyWorld",
+    "collections": [
+        {
+            "collectionName": "User",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "error": {},
+                    "primaryKey": true,
+                    "required": true,
+                    "GUID": "f56bcba6-0655-46b4-871c-5d8d4c9f93c5"
+                },
+                {
+                    "name": "Name",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "c2b78d99-2ccd-42f6-82cc-fbb447e1ca33",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "6070157a-0bab-4e83-86fb-c972bb12e244",
+                    "name": "email",
+                    "required": true,
+                    "error": {}
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "b2d6dcee-a9fb-46ea-8c30-7c015534b429",
+                    "name": "password",
+                    "encrypt": true,
+                    "encryptionOptions": {
+                        "GUID": "024bb1a7-b6b0-41a0-bc74-952a2ab628bf",
+                        "algorithm": "deterministic"
+                    },
+                    "required": true,
+                    "minLength": 8,
+                    "error": {}
+                },
+                {
+                    "name": "DOB",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "date",
+                    "primaryKey": false,
+                    "error": {},
+                    "required": true,
+                    "GUID": "6f2954c7-3d69-474b-ae0b-57cbccd7ff11"
+                },
+                {
+                    "name": "Workouts",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "objectId",
+                            "error": {},
+                            "GUID": "a19c72aa-efa3-49bb-9fe3-f522e9cb1b36",
+                            "arrayItem": true,
+                            "childRelationships": [
+                                "9763b55d-085f-4e6c-a40b-c388b169b837"
+                            ],
+                            "displayName": "W1"
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "ea2cc2be-8f37-485f-8927-2c0d2fca6416",
+                    "foreignCollection": "91c2f45f-8554-4d46-899c-36641a081df4",
+                    "error": {}
+                },
+                {
+                    "name": "CurrentWorkout",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "error": {},
+                    "GUID": "bb8b8453-30ec-4097-b53f-8b5427c3d163",
+                    "childRelationships": [
+                        "6eb19315-005a-4467-9549-8eed965d4dc4"
+                    ]
+                },
+                {
+                    "name": "Diets",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "objectId",
+                            "error": {},
+                            "GUID": "f84849c9-85e8-4b35-9194-4da9af843751",
+                            "arrayItem": true,
+                            "displayName": "D1",
+                            "childRelationships": [
+                                "53bbd73b-35e6-42ce-998d-1c4fccd04fad"
+                            ]
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "5485bcff-1e21-4585-a761-a15e862dd7b5",
+                    "foreignCollection": "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+                    "error": {}
+                },
+                {
+                    "name": "CurrentDiet",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "error": {},
+                    "GUID": "4475f571-c2b1-41d1-a578-90d05b863e48",
+                    "childRelationships": [
+                        "a834c7e0-970e-480d-b216-5e9fafd2cff9"
+                    ]
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "8a1ea55b-688c-491c-afab-25c82ca81cfd"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [
+                {
+                    "GUID": "a8d6621d-55e8-42d3-a902-e4449dd949ad",
+                    "name": "New User",
+                    "read": false,
+                    "readWrite": false
+                }
+            ],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "27433428-f297-436e-976e-a169918983ed",
+            "bucketId": "2fd91586-28d2-4c8b-bfd4-7838c02c9540"
+        },
+        {
+            "collectionName": "Workouts",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "primaryKey": true,
+                    "required": true,
+                    "GUID": "ae0b5609-0335-49c6-9f67-8cfdac21ac04",
+                    "error": {},
+                    "relationshipType": "Foreign Key",
+                    "foreignCollection": "27433428-f297-436e-976e-a169918983ed",
+                    "foreignField": [
+                        "27433428-f297-436e-976e-a169918983ed",
+                        "bb8b8453-30ec-4097-b53f-8b5427c3d163"
+                    ],
+                    "parentRelationship": "6eb19315-005a-4467-9549-8eed965d4dc4"
+                },
+                {
+                    "name": "plan",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "document",
+                    "properties": [],
+                    "additionalProperties": false,
+                    "error": {},
+                    "required": true,
+                    "GUID": "0c9a8082-ec62-4dc7-bd10-f3103c2ceda4"
+                },
+                {
+                    "name": "Time Taken",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "dc319ac2-a7ba-4fff-a432-08544c38d9d7",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "c03f5f78-f01e-43af-87dc-109b979c15d1"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "91c2f45f-8554-4d46-899c-36641a081df4",
+            "bucketId": "2fd91586-28d2-4c8b-bfd4-7838c02c9540"
+        },
+        {
+            "collectionName": "Diet",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "error": {},
+                    "primaryKey": true,
+                    "GUID": "35bf6e08-3c92-4eb8-97e9-255795416ab0",
+                    "childRelationships": [
+                        "55cc888c-16ee-41a4-abff-773c1c71feb8"
+                    ],
+                    "relationshipType": "Foreign Key",
+                    "foreignCollection": "27433428-f297-436e-976e-a169918983ed",
+                    "foreignField": [
+                        "27433428-f297-436e-976e-a169918983ed",
+                        "4475f571-c2b1-41d1-a578-90d05b863e48"
+                    ],
+                    "parentRelationship": "a834c7e0-970e-480d-b216-5e9fafd2cff9"
+                },
+                {
+                    "name": "plan",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "error": {},
+                    "GUID": "675575f7-e62f-44ee-9e9b-22d6d93edd70"
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "dd1b4836-5355-4efa-a141-87b110120c24"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+            "bucketId": "2fd91586-28d2-4c8b-bfd4-7838c02c9540"
+        }
+    ],
+    "buckets": [
+        {
+            "name": "Website",
+            "type": "bucket",
+            "collectionIds": [
+                "27433428-f297-436e-976e-a169918983ed",
+                "91c2f45f-8554-4d46-899c-36641a081df4",
+                "9d790ce2-f6d2-4486-b55b-e57d03d1b953"
+            ],
+            "backgroundColor": {
+                "r": 216,
+                "g": 0,
+                "b": 115,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "GUID": "2fd91586-28d2-4c8b-bfd4-7838c02c9540"
+        }
+    ],
+    "views": [],
+    "relationships": [
+        {
+            "name": "fk Diet._id to User.Diets.[0]",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "27433428-f297-436e-976e-a169918983ed",
+                    "5485bcff-1e21-4585-a761-a15e862dd7b5",
+                    "f84849c9-85e8-4b35-9194-4da9af843751"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+                    "35bf6e08-3c92-4eb8-97e9-255795416ab0"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "parentCollection": "27433428-f297-436e-976e-a169918983ed",
+            "childCollection": "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+            "GUID": "53bbd73b-35e6-42ce-998d-1c4fccd04fad",
+            "hackoladeStyles": {
+                "GUID": "dfaa7732-a90e-4a66-9a22-c1c5ebdb0bd3",
+                "autoPositioning": true,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 955,
+                        "y": 938
+                    },
+                    {
+                        "x": 860,
+                        "y": 938
+                    },
+                    {
+                        "x": 860,
+                        "y": 931
+                    },
+                    {
+                        "x": 765,
+                        "y": 931
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk Workouts._id to User.Workouts.[0]",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "27433428-f297-436e-976e-a169918983ed",
+                    "ea2cc2be-8f37-485f-8927-2c0d2fca6416",
+                    "a19c72aa-efa3-49bb-9fe3-f522e9cb1b36"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "91c2f45f-8554-4d46-899c-36641a081df4",
+                    "ae0b5609-0335-49c6-9f67-8cfdac21ac04"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "parentCollection": "27433428-f297-436e-976e-a169918983ed",
+            "childCollection": "91c2f45f-8554-4d46-899c-36641a081df4",
+            "GUID": "9763b55d-085f-4e6c-a40b-c388b169b837",
+            "hackoladeStyles": {
+                "GUID": "01b889c9-6abc-44b5-8e8e-d87d22a949eb",
+                "autoPositioning": true,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 927,
+                        "y": 801
+                    },
+                    {
+                        "x": 846,
+                        "y": 801
+                    },
+                    {
+                        "x": 846,
+                        "y": 842
+                    },
+                    {
+                        "x": 765,
+                        "y": 842
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk Workouts._id to User.CurrentWorkout",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "27433428-f297-436e-976e-a169918983ed",
+                    "bb8b8453-30ec-4097-b53f-8b5427c3d163"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "91c2f45f-8554-4d46-899c-36641a081df4",
+                    "ae0b5609-0335-49c6-9f67-8cfdac21ac04"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "parentCollection": "27433428-f297-436e-976e-a169918983ed",
+            "childCollection": "91c2f45f-8554-4d46-899c-36641a081df4",
+            "GUID": "6eb19315-005a-4467-9549-8eed965d4dc4",
+            "hackoladeStyles": {
+                "GUID": "cd614871-5974-4a4c-8151-bf863fb1cf39",
+                "autoPositioning": false,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 927,
+                        "y": 784.6666666666666
+                    },
+                    {
+                        "x": 858,
+                        "y": 784.6666666666666
+                    },
+                    {
+                        "x": 858,
+                        "y": 912.75
+                    },
+                    {
+                        "x": 765,
+                        "y": 912.75
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        },
+        {
+            "name": "fk Diet._id to User.CurrentDiet",
+            "relationshipType": "Foreign Key",
+            "parentField": [
+                [
+                    "27433428-f297-436e-976e-a169918983ed",
+                    "4475f571-c2b1-41d1-a578-90d05b863e48"
+                ]
+            ],
+            "parentCardinality": "1",
+            "childField": [
+                [
+                    "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+                    "35bf6e08-3c92-4eb8-97e9-255795416ab0"
+                ]
+            ],
+            "isActivated": true,
+            "childCardinality": "0..n",
+            "parentCollection": "27433428-f297-436e-976e-a169918983ed",
+            "childCollection": "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+            "GUID": "a834c7e0-970e-480d-b216-5e9fafd2cff9",
+            "hackoladeStyles": {
+                "GUID": "2a4cdfd4-d115-4ad5-9d14-11b1e04cd95c",
+                "autoPositioning": false,
+                "type": "Orthogonal",
+                "thickness": 2,
+                "color": "#79c4ff",
+                "dataType": "",
+                "shape": [
+                    {
+                        "x": 955,
+                        "y": 950.6666666666666
+                    },
+                    {
+                        "x": 871.5,
+                        "y": 950.6666666666666
+                    },
+                    {
+                        "x": 871.5,
+                        "y": 968.25
+                    },
+                    {
+                        "x": 765,
+                        "y": 968.25
+                    }
+                ],
+                "sides": [
+                    "left",
+                    "right"
+                ]
+            }
+        }
+    ],
+    "users": [],
+    "diagramViews": [],
+    "idToNameHashTable": {
+        "2fd91586-28d2-4c8b-bfd4-7838c02c9540": "Website",
+        "27433428-f297-436e-976e-a169918983ed": "User",
+        "f56bcba6-0655-46b4-871c-5d8d4c9f93c5": "_id",
+        "c2b78d99-2ccd-42f6-82cc-fbb447e1ca33": "Name",
+        "6070157a-0bab-4e83-86fb-c972bb12e244": "email",
+        "b2d6dcee-a9fb-46ea-8c30-7c015534b429": "password",
+        "6f2954c7-3d69-474b-ae0b-57cbccd7ff11": "DOB",
+        "ea2cc2be-8f37-485f-8927-2c0d2fca6416": "Workouts",
+        "91c2f45f-8554-4d46-899c-36641a081df4": "Workouts",
+        "ae0b5609-0335-49c6-9f67-8cfdac21ac04": "_id",
+        "0c9a8082-ec62-4dc7-bd10-f3103c2ceda4": "plan",
+        "dc319ac2-a7ba-4fff-a432-08544c38d9d7": "Time Taken",
+        "5485bcff-1e21-4585-a761-a15e862dd7b5": "Diets",
+        "9d790ce2-f6d2-4486-b55b-e57d03d1b953": "Diet",
+        "35bf6e08-3c92-4eb8-97e9-255795416ab0": "_id",
+        "53bbd73b-35e6-42ce-998d-1c4fccd04fad": "fk Diet._id to User.Diets.[0]",
+        "9763b55d-085f-4e6c-a40b-c388b169b837": "fk Workouts._id to User.Workouts.[0]",
+        "675575f7-e62f-44ee-9e9b-22d6d93edd70": "plan",
+        "6eb19315-005a-4467-9549-8eed965d4dc4": "fk Workouts._id to User.CurrentWorkout",
+        "bb8b8453-30ec-4097-b53f-8b5427c3d163": "CurrentWorkout",
+        "4475f571-c2b1-41d1-a578-90d05b863e48": "CurrentDiet",
+        "a834c7e0-970e-480d-b216-5e9fafd2cff9": "fk Diet._id to User.CurrentDiet"
+    },
+    "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "0c952684-6000-4d04-86aa-a9df5d9e4328"
+    },
+    "polyglotDefinitions": {
+        "type": "polyglotDefinitions",
+        "properties": [],
+        "GUID": "8fad21aa-c071-440d-b8f0-c4e6535db5d9"
+    },
+    "externalDefinitions": {
+        "type": "externalDefinitions",
+        "properties": [],
+        "GUID": "02c3feff-4df4-4354-9831-d4b52e58e659"
+    },
+    "sources": [],
+    "decorativeSymbols": [],
+    "dbVersion": "v7.x",
+    "dbVendor": "MongoDB",
+    "appTarget": "MONGODB",
+    "creationTS": "2024-02-03T17:02:14.817Z",
+    "GUID": "19ff8428-9cd8-44ec-91a3-f2fe9775136d",
+    "isLineageEnabled": false,
+    "hackoladeMeta": {
+        "validationErrors": {
+            "modelName": false
+        }
+    },
+    "lastModifTS": "2024-02-04T04:20:03.283Z",
+    "persistenceSchemaVersion": "7",
+    "isCreatedByPlugin": true,
+    "pluginInformation": {
+        "pluginEngineVersion": "1.0.0"
+    },
+    "applicationInformation": {
+        "version": "7.2.2"
+    },
+    "settings": {
+        "centralPane": {
+            "dbLevel": {
+                "erd": [
+                    {
+                        "GUID": "27433428-f297-436e-976e-a169918983ed",
+                        "x": 469,
+                        "y": 753,
+                        "width": 296,
+                        "height": 267,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "91c2f45f-8554-4d46-899c-36641a081df4",
+                        "x": 927,
+                        "y": 752,
+                        "width": 209,
+                        "height": 98,
+                        "color": {}
+                    },
+                    {
+                        "GUID": "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
+                        "x": 955,
+                        "y": 900,
+                        "width": 175,
+                        "height": 76,
+                        "color": {}
+                    }
+                ],
+                "erdDefinitions": {
+                    "erd": [],
+                    "rootPath": [],
+                    "entities": [],
+                    "decorativeSymbols": []
+                },
+                "buckets": [
+                    {
+                        "x": 429,
+                        "y": 712,
+                        "GUID": "2fd91586-28d2-4c8b-bfd4-7838c02c9540"
+                    }
+                ],
+                "collapsedNodes": [],
+                "activeRelationship": "",
+                "activeRelationshipFields": {
+                    "childField": [],
+                    "parentField": []
+                },
+                "selectedCollections": [],
+                "displayColorPicker": false,
+                "graphView": {
+                    "erd": [],
+                    "buckets": [],
+                    "decorativeSymbols": [],
+                    "forceLayout": true,
+                    "defaultLinkLength": 300
+                },
+                "diagramViews": [],
+                "decorativeSymbols": [],
+                "nestedCollectionsLayout": "horizontal",
+                "options": [
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "27433428-f297-436e-976e-a169918983ed"
+                    },
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "91c2f45f-8554-4d46-899c-36641a081df4"
+                    },
+                    {
+                        "autoWidth": false,
+                        "autoHeight": false,
+                        "GUID": "9d790ce2-f6d2-4486-b55b-e57d03d1b953"
+                    }
+                ],
+                "relationshipUpdateDisabled": false
+            },
+            "collectionLevel": {},
+            "changed": false
+        },
+        "dtDiagram": {
+            "collapsedNodes": [],
+            "shouldDistributeCollections": false
+        }
+    }
+}
