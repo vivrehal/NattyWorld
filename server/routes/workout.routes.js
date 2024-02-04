@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.route("/workoutList").get(getAllWorkouts)
 
-router.route("workoutList/:reqID").get(getWorkoutById)
+router.route("/workoutList/:reqID").get(getWorkoutById)
 
 router.route("/addWorkout").post(addWorkout)
 

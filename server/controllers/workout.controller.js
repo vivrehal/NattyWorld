@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { workoutModal } from "../models/workout.modal.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
+import mongoose from "mongoose";
 
 
 const getAllWorkouts=asyncHandler(async(req, res) => {
@@ -19,6 +20,7 @@ const getAllWorkouts=asyncHandler(async(req, res) => {
 const getWorkoutById=asyncHandler(async (req, res) => {
     console.log("Getting Workout");
     let reqID = req.params.reqID;
+    // console.log(reqID)
     if (!mongoose.Types.ObjectId.isValid(reqID)) {
       res.status(400);
       res.json({ message: "Record does not exist" });
