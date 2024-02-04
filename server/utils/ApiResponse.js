@@ -6,3 +6,5 @@ class ApiResponse{
         this.success=statusCode<400 // ok status range (100-399)
     }
 }
+
+export {ApiResponse}

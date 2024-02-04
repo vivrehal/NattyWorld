@@ -1,4 +1,4 @@
-const mogoose = require("mongoose");
+import mongoose from "mongoose";
 
 
 const workoutSchema = new mogoose.Schema({
@@ -16,4 +16,4 @@ const workoutSchema = new mogoose.Schema({
 })
 
 const workoutModal = new mogoose.model("Workout", workoutSchema);
-module.exports = { workoutModal };
+export { workoutModal };
