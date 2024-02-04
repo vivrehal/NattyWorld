@@ -46,6 +46,22 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref : "Diet"
     },
+    weight:{
+        type: Number,
+        required: true,
+        validate:{
+            validator: Number.isInteger,
+            message: `{VALUE} is not an number`
+        }
+    },
+    height:{
+        type: Number,
+        required: true,
+        validate:{
+            validator: Number.isInteger,
+            message: `{VALUE} is not an number`
+        }
+    },
     refreshToken:{
         type: String
     }
