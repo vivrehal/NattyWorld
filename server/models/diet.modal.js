@@ -6,3 +6,6 @@ const dietSchema = new mongoose.Schema({
         unique : true
     }
 })
+
+const deitModal = new mogoose.model("Diet", dietSchema);
+module.exports = { deitModal };

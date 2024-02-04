@@ -35,3 +35,5 @@ const userSchema = new mongoose.Schema({
 })
 
 // export const WorkoutModel
+const userModal = new mogoose.model("User", userSchema);
+module.exports = { userModal };
