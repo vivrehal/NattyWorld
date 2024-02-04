@@ -16,4 +16,4 @@ const workoutSchema = new mogoose.Schema({
 })
 
 const workoutModal = new mogoose.model("Workout", workoutSchema);
-module.exports = { workoutModal };
+export { workoutModal };

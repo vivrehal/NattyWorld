@@ -1,4 +1,4 @@
-const mogoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name : {
@@ -31,19 +31,19 @@ const userSchema = new mongoose.Schema({
         lowercase: true
     },
     workouts : [{
-        type: mogoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref : "Workout"
     }],
     diets : [{
-        type: mogoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref : "Diet"
     }],
     currentWorkout:{
-        type: mogoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref : "Workout"
     },
     currentDiet:{
-        type: mogoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref : "Diet"
     },
     refreshToken:{
@@ -55,5 +55,6 @@ const userSchema = new mongoose.Schema({
 })
 
 // export const WorkoutModel
-const userModal = new mogoose.model("User", userSchema);
-module.exports = { userModal };
+const userModal = new mongoose.model("User", userSchema);
+// module.exports = { userModal };
+export { userModal };
