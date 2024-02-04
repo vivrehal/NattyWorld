@@ -8,20 +8,20 @@ const userSchema = new mongoose.Schema({
     },
     username:{
         type:String,
-        required:true,
-        unique:true,
+        required:[true,"Username is required"],
+        unique:[true,"Username is not unique"],
         lowercase:true,
         trim:true,
     },
     email : {
         type: String,
-        required: true,
+        required: [true,"Email is required"],
         unique: true,
         lowercase: true
     },
     password : {
         type: String,
-        required: true,
+        required: [true,"Password is required"],
         unique: true,
    },
     dob : {
@@ -34,11 +34,24 @@ const userSchema = new mongoose.Schema({
         type: mogoose.Schema.ObjectId,
         ref : "Workout"
     }],
-    deits : [{
+    diets : [{
         type: mogoose.Schema.ObjectId,
         ref : "Diet"
     }],
+    currentWorkout:{
+        type: mogoose.Schema.ObjectId,
+        ref : "Workout"
+    },
+    currentDiet:{
+        type: mogoose.Schema.ObjectId,
+        ref : "Diet"
+    },
+    refreshToken:{
+        type: String
+    }
 
+},{
+    timestamps:true
 })
 
 // export const WorkoutModel
