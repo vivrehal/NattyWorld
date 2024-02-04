@@ -8,4 +8,4 @@ const dietSchema = new mongoose.Schema({
 })
 
 const deitModal = new mogoose.model("Diet", dietSchema);
-module.exports = { deitModal };
+module.exports = { dietModal };
