@@ -41,8 +41,23 @@ workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) =
         )
         .catch((error) => {
             // exceptionHandler 
+            console.log(error);
         })
 }
 
+workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
+    workoutModal.findById(reqId)
+    .then(
+      (dbRes) => {
+        successCallBack(dbRes);
+      },
+      (dbErr) => {
+        errorCallBack(dbErr);
+      }
+    )
+    .catch((error) => {
+      exceptionHandler(res, error);
+    });
+}
 
 export { workoutModal };
