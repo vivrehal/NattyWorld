@@ -2,7 +2,6 @@ import { app } from "./app.js";
 import connectTodb from "./db.js";
 import 'dotenv/config';
 
-import {router} from "./routes/workouts/index.js";
 
 connectTodb(process.env.DB_URI).then(()=>{
     try {
@@ -20,6 +19,6 @@ connectTodb(process.env.DB_URI).then(()=>{
 
 // Testing the DB methods
 // import "./pages/dbtest/index.js";
-app.use("/workouts", router);
+
 
 
