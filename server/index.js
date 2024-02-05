@@ -18,7 +18,7 @@ connectTodb(process.env.DB_URI).then(()=>{
 })
 
 // Testing the DB methods
-// import "./pages/dbtest/index.js";
-
-
-
+// import router from "./routes/workout.routes.js";
+// app.use("/workouts", router);
+import router from "./routes/diet.routes.js";
+app.use("diet", router);

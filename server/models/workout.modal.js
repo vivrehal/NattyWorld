@@ -8,7 +8,7 @@ const workoutSchema = new mongoose.Schema({
         unique: true,
     },
     plan: {
-        type : String, // Link of the pdf of the diet
+        type : String, // Link of the pdf of the workout
         unique : true
     }
 },{
@@ -29,6 +29,21 @@ workoutModal.showAllWorkout = (successCallBack, errorCallBack, res) => {
         })
 }
 
+workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
+    workoutModal.findById(reqId)
+    .then(
+      (dbRes) => {
+        successCallBack(dbRes);
+      },
+      (dbErr) => {
+        errorCallBack(dbErr);
+      }
+    )
+    .catch((error) => {
+      exceptionHandler(res, error);
+    });
+}
+
 workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) => {
     workoutModal.insertMany([newWorkout])
         .then(
@@ -45,19 +60,34 @@ workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) =
         })
 }
 
-workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
-    workoutModal.findById(reqId)
-    .then(
-      (dbRes) => {
-        successCallBack(dbRes);
-      },
-      (dbErr) => {
-        errorCallBack(dbErr);
-      }
-    )
-    .catch((error) => {
-      exceptionHandler(res, error);
-    });
-}
+workoutModal.updateWorkout = (reqId, update, successCallBack, errorCallBack, res ) => {
+    workoutModal.findByIdAndUpdate(reqId, update)
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+};
+
+workoutModal.deleteWorkout = (reqId, successCallBack, errorCallBack, res) => {
+    workoutModal.findByIdAndDelete(reqId)
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+};
 
 export { workoutModal };
