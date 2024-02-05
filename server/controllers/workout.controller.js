@@ -4,7 +4,6 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
 import mongoose from "mongoose";
 
-
 const getAllWorkouts=asyncHandler(async(req, res) => {
     console.log("Getting Data");
     workoutModal.showAllWorkout(

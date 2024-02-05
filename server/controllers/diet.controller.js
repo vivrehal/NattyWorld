@@ -4,19 +4,20 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
 import mongoose from "mongoose";
 
-const getAllDiets=asyncHandler(async(req, res) => {
+const getAllDiets = asyncHandler(async(req, res) => {
     console.log("Getting Data");
     dietModal.showAllDiet(
         (dbRes) => {
-            return res.status(200).json(new ApiResponse(200,dbRes,"Diet retrieved successfully"))
-          },
-          (dbErr) => {
+          console.log("Got Data");
+          return res.status(200).json(new ApiResponse(200,dbRes,"Diet retrieved successfully"))
+        },
+        (dbErr) => {
             throw new apiError(400,"error while fetching diets from db",[dbErr])
           }
     );
 })
 
-const getDietById=asyncHandler(async (req, res) => {
+const getDietById = asyncHandler(async (req, res) => {
     console.log("Getting Diet");
     let reqID = req.params.reqID;
     // console.log(reqID)
@@ -43,7 +44,7 @@ const getDietById=asyncHandler(async (req, res) => {
     );
 })
 
-const addDiet=asyncHandler(async(req, res) => {
+const addDiet = asyncHandler(async(req, res) => {
   console.log("Adding new Diet")
   let newDiet = req.body;
   dietModal.addNewDiet(
@@ -56,7 +57,7 @@ const addDiet=asyncHandler(async(req, res) => {
         res.json({ name: dbErr.name, message: dbErr.message });
       }
   )
-})
+});
 
 
 export {getAllDiets, getDietById, addDiet};
