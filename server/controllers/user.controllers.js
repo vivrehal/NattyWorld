@@ -2,6 +2,9 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { userModal } from "../models/user.modal.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
+import generateTokens from "../utils/tokenGenerator.js";
+import options from "../utils/cookieOptions.js";
+import { User } from "lucide-react";
 
 const registerUser=asyncHandler(async(req,res)=>{
     // get data from frontend
@@ -73,4 +76,80 @@ const registerUser=asyncHandler(async(req,res)=>{
     )
 })
 
-export {registerUser}
+const loginUser=asyncHandler(async(req,res)=>{
+    //get credentials
+    // validate credentials
+    // find user
+    // password compare
+    // geerate access and refresh tokens
+    // send tokens in cookie
+
+    const {usernameOrEmail, password}=req.body
+    if(!usernameOrEmail || !password){
+        throw new apiError(400, "username or password is required")
+    }
+
+    const user=await userModal.findOne({usernameOrEmail})
+
+    if(!user){
+        throw new apiError(404, "User not found")
+    }
+
+    const isPasswordValid=await user.comparePassword(password)
+
+    if(!isPasswordValid){
+        throw new apiError(402, "Invalid user credentials")
+    }
+
+    const{refreshToken, accessToken}=await generateTokens(user._id)
+
+    // console.log(refreshToken)
+
+    const loggedInUser= await userModal.findById(user._id).select("-password -refreshToken")
+
+    const cookieOptions=options
+    // console.log(logg)
+    return res
+        .status(200)
+        .cookie("accessToken",accessToken,cookieOptions)
+        .cookie("refreshToken",refreshToken,cookieOptions)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    loggedInUser, accessToken, refreshToken
+                },
+                "User logged In successfully"
+            )
+        )
+    
+
+})
+
+const logoutUser= asyncHandler(async(req,res)=>{
+    await userModal.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                refreshToken:"undefined"
+            }
+        },
+        {
+            new:true
+        }
+    )
+
+    return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken",options)
+    .json(
+        new ApiResponse(200,{},"User Logged out")
+    )
+})
+
+export {
+    registerUser,
+    loginUser,
+    logoutUser
+    }
