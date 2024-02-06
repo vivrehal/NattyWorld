@@ -18,7 +18,7 @@ Welcome to NattyWorld, your go-to destination for personalized fitness plans and
   
 - **User Authentication:** Secure authentication mechanisms ensure the privacy and security of your personal information.
 
-**Getting Started:**
+**How to Use:**
 
 1. **Registration:**
    - Sign up for an account on NattyWorld by providing basic information such as your name and email address.
