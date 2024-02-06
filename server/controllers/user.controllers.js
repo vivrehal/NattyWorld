@@ -5,6 +5,8 @@ import { apiError } from "../utils/apiError.js"
 import generateTokens from "../utils/tokenGenerator.js";
 import options from "../utils/cookieOptions.js";
 import { User } from "lucide-react";
+import mongoose from "mongoose";
+
 
 const registerUser=asyncHandler(async(req,res)=>{
     // get data from frontend
@@ -148,8 +150,70 @@ const logoutUser= asyncHandler(async(req,res)=>{
     )
 })
 
+const updateUser = asyncHandler(async(req, res) => {
+	console.log("Updating User");
+	let reqID = req.params.reqID;
+	let newUser = req.body;
+	console.log(reqID + " " + newUser);
+
+	if (!mongoose.Types.ObjectId.isValid(reqID)) {
+	  res.status(400);
+	  res.send({ message: "Record does not exist" });
+	  res.end();
+	  return;
+	}
+  
+	userModal.updateUser(
+	  reqID,
+	  newUser,
+	  (dbRes) => {
+		if (dbRes) {
+		  res.send({ message: "Record updated successfully" });
+		} else {
+		  res.status(400);
+		  res.send({ message: "Record does not exist" });
+		}
+	  },
+	  (dbErr) => {
+		res.status(400);
+		res.send({ name: dbErr.name, message: dbErr.message });
+	  },
+	  res
+	);
+})
+
+const deleteUser = asyncHandler( async(req, res) => {
+	let reqID = req.params.reqID;
+
+	if (!mongoose.Types.ObjectId.isValid(reqID)) {
+	  res.status(400);
+	  res.send({ message: "Record does not exist" });
+	  res.end();
+	  return;
+	}
+  
+  userModal.deleteUser(
+	  reqID,
+	  (dbRes) => {
+		if (dbRes) {
+		  res.send({ message: "Record deleted successfully" });
+		} else {
+		  res.status(400);
+		  res.send({ message: "Record does not exist" });
+		}
+	  },
+	  (dbErr) => {
+		res.status(400);
+		res.send({ name: dbErr.name, message: dbErr.message });
+	  },
+	  res
+	);
+})
+
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    updateUser,
+    deleteUser
     }

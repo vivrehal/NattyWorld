@@ -113,4 +113,36 @@ userSchema.methods.generateAccessToken=function(){
 }
 
 const userModal = new mongoose.model("User", userSchema);
+
+
+userModal.updateUser = (reqID, update, successCallBack, errorCallBack, res ) => {
+    userModal.findByIdAndUpdate(reqID, update)
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+};
+
+userModal.deleteUser = (reqID, successCallBack, errorCallBack, res) => {
+    userModal.findByIdAndDelete(reqID)
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+};
+
 export { userModal };
