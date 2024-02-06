@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 import  jwt from "jsonwebtoken";
-import {dietModal} from "./diet.modal.js";
-import {workoutModal} from "./workout.modal.js";
 
 const userSchema = new mongoose.Schema({
     name : {
