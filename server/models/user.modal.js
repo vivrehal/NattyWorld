@@ -145,4 +145,5 @@ userModal.deleteUser = (reqID, successCallBack, errorCallBack, res) => {
       });
 };
 
+// userModal.addWorkout = (re)
 export { userModal };
