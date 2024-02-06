@@ -21,6 +21,7 @@ app.use(cookieParser())
 import userRouter from './routes/user.routes.js'
 import workoutRouter from './routes/workout.routes.js'
 import dietRouter from "./routes/diet.routes.js";
+import aiRouter from "./routes/ai.routes.js";
 
 
 
@@ -29,5 +30,6 @@ import dietRouter from "./routes/diet.routes.js";
 app.use("/api/v1/users",userRouter) // (/api/v1 is just for convention for defining api and version for future updation)
 app.use("/api/v1/workouts",workoutRouter)
 app.use("/api/v1/diet",dietRouter);
+app.use("/api/v1/ai",aiRouter);
 
 export {app}

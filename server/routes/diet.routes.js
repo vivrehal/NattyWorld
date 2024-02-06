@@ -1,6 +1,6 @@
 import express from "express";
 // import { addDiet, getAllDiets, getDietById, updateDiet, deleteDiet } from "../controllers/diet.controller.js";
-import { getAllDiets, getDietById, addDiet, updateDiet, deleteDiet } from "../controllers/diet.controller.js";
+import {getAllDiets, getDietById, addDiet, updateDiet, deleteDiet} from "../controllers/diet.controllers.js";
 const dietRouter = express.Router();
 
 // console.log("In routes")

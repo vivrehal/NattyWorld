@@ -1,5 +1,5 @@
 import express from "express";
-import { addWorkout, getAllWorkouts, getWorkoutById, updateWorkout, deleteWorkout } from "../controllers/workout.controller.js";
+import { addWorkout, getAllWorkouts, getWorkoutById, updateWorkout, deleteWorkout } from "../controllers/workout.controllers.js";
 const router = express.Router();
 
 router.route("/workoutList").get(getAllWorkouts)

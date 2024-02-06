@@ -7,9 +7,10 @@ const router=Router();
 
 router.route("/register").post(registerUser)
 router.route("/login").post(loginUser)
-router.route("/updateUser/:reqID").put(updateUser)
-router.route("/deleteUser/:reqID").delete(deleteUser)
+
 // secured routes
+router.route("/updateUser/:reqID").put(verifyJWT,updateUser)
+router.route("/deleteUser/:reqID").delete(verifyJWT,deleteUser)
 router.route("/logout").post(verifyJWT ,logoutUser)
 router.route("/refresh_token").post(logoutUser)
 
