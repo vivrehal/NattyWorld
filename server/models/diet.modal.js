@@ -29,6 +29,21 @@ dietModal.showAllDiet = (successCallBack, errorCallBack, res) => {
         })
 }
 
+dietModal.findDietByID = (reqID, successCallBack, errorCallBack) =>{
+    dietModal.findById(reqID)
+    .then(
+      (dbRes) => {
+        successCallBack(dbRes);
+      },
+      (dbErr) => {
+        errorCallBack(dbErr);
+      }
+    )
+    .catch((error) => {
+      exceptionHandler(res, error);
+    });
+}
+
 dietModal.addNewDiet = (newDiet, successCallBack, errorCallBack, res) => {
     dietModal.insertMany([newDiet])
         .then(
@@ -45,18 +60,35 @@ dietModal.addNewDiet = (newDiet, successCallBack, errorCallBack, res) => {
         })
 }
 
-dietModal.findDietByID = (reqId, successCallBack, errorCallBack) =>{
-    dietModal.findById(reqId)
-    .then(
-      (dbRes) => {
-        successCallBack(dbRes);
-      },
-      (dbErr) => {
-        errorCallBack(dbErr);
-      }
-    )
-    .catch((error) => {
-      exceptionHandler(res, error);
-    });
-}
+
+dietModal.updateDiet = (reqID, update, successCallBack, errorCallBack, res ) => {
+    dietModal.findByIdAndUpdate(reqID, update)
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+};
+
+dietModal.deleteDiet = (reqID, successCallBack, errorCallBack, res) => {
+    dietModal.findByIdAndDelete(reqID)
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+};
+
 export { dietModal };

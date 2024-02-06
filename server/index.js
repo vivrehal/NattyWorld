@@ -17,4 +17,3 @@ connectTodb(process.env.DB_URI).then(()=>{
     console.log("DB connection failed !! ", err)
 })
 
-
