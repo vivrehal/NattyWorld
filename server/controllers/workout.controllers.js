@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { workoutModal } from "../models/workout.modal.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
+import { userModal } from "../models/user.modal.js";
 import mongoose from "mongoose";
 
 const getAllWorkouts=asyncHandler(async(req, res) => {
@@ -46,17 +47,28 @@ const getWorkoutById=asyncHandler(async (req, res) => {
 const addWorkout=asyncHandler(async(req, res) => {
 	// console.log(req.user)
     const newWorkout = req.body;
-	console.log(req.user);
-    workoutModal.addNewWorkout(
-        newWorkout,
+	let prevWorkouts = await userModal.findById(req.user["_id"]);
+	console.log(prevWorkouts["workouts"]);
+	if(!prevWorkouts){
+		throw new apiError(500, "The workouts array not found")
+	}
+
+
+	let workoutBody;
+	await workoutModal.addNewWorkout(
+		newWorkout,
         (dbRes) => {
+		  workoutBody = dbRes;
           res.send(dbRes);
         },
         (dbErr) => {
           res.status(400);
           res.json({ name: dbErr.name, message: dbErr.message });
-        },
+        }
     )
+
+	// Adding the workoutID to user's workout array
+
 })
 
 const updateWorkout = asyncHandler(async(req, res) => {
