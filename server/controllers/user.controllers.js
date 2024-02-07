@@ -85,8 +85,8 @@ const loginUser=asyncHandler(async(req,res)=>{
     // password compare
     // geerate access and refresh tokens
     // send tokens in cookie
-
     const {usernameOrEmail, password}=req.body
+    console.log(usernameOrEmail + " " + password)
     if(!usernameOrEmail || !password){
         throw new apiError(400, "username or password is required")
     }
