@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+// import { userModal } from "./user.modal.js";
 
 const workoutSchema = new mongoose.Schema({
     name : {
@@ -44,12 +44,13 @@ workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
     });
 }
 
-workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) => {
+workoutModal.addNewWorkout = async (newWorkout, successCallBack, errorCallBack, userID) => {
+	// console.log(userID);
+
     workoutModal.create(newWorkout)
         .then(
             (dbRes) => {
-                successCallBack(dbRes);
-                return dbRes
+              successCallBack(dbRes);
             },
             (dbErr) => {
                 errorCallBack(dbErr);
@@ -59,7 +60,7 @@ workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) =
             // exceptionHandler 
             console.log(error);
         })
-
+      
 }
 
 workoutModal.updateWorkout = (reqId, update, successCallBack, errorCallBack, res ) => {

@@ -114,6 +114,20 @@ userSchema.methods.generateAccessToken=function(){
 
 const userModal = new mongoose.model("User", userSchema);
 
+userModal.findUserByID = (reqID, successCallBack, errorCallBack) =>{
+    userModal.findById(reqID)
+    .then(
+      (dbRes) => {
+        successCallBack(dbRes);
+      },
+      (dbErr) => {
+        errorCallBack(dbErr);
+      }
+    )
+    .catch((error) => {
+      exceptionHandler(res, error);
+    });
+}
 
 userModal.updateUser = (reqID, update, successCallBack, errorCallBack, res ) => {
     userModal.findByIdAndUpdate(reqID, update)
