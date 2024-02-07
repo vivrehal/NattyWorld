@@ -45,18 +45,5 @@ NattyWorld is committed to continuous improvement, and we welcome contributions 
 
 - **Feedback:** We value your feedback and strive to enhance the platform based on user input. Let us know how we can improve NattyWorld to better serve your fitness needs.
 
-**License:**
-
-NattyWorld is licensed under the [MIT License](#), allowing for free use, modification, and distribution of the software. See the [LICENSE](#) file for more details.
-
-**Connect with Us:**
-
-- Website: [NattyWorld](#)
-  
-- GitHub: [NattyWorld GitHub Repository](#)
-  
-- Email: [contact@nattyworld.com](mailto:contact@nattyworld.com)
-  
-- Social Media: Follow us on [Twitter](#), [Facebook](#), and [Instagram](#) for updates and announcements.
 
 **Start Your Fitness Journey with NattyWorld Today!**
