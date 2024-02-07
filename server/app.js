@@ -22,6 +22,7 @@ import userRouter from './routes/user.routes.js'
 import workoutRouter from './routes/workout.routes.js'
 import dietRouter from "./routes/diet.routes.js";
 import aiRouter from "./routes/ai.routes.js";
+import gymRouter from "./routes/gym.routes.js";
 
 
 
@@ -31,5 +32,5 @@ app.use("/api/v1/users",userRouter) // (/api/v1 is just for convention for defin
 app.use("/api/v1/workouts",workoutRouter)
 app.use("/api/v1/diet",dietRouter);
 app.use("/api/v1/ai",aiRouter);
-
+app.use("/api/v1/gym",gymRouter)
 export {app}
