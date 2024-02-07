@@ -247,6 +247,36 @@ const deleteUser = asyncHandler( async(req, res) => {
 	);
 })
 
+const generateAccessToken=asyncHandler(async(req, res)=>{
+    const token=req.cookies?.refreshToken
+        if(!token){
+            throw new apiError(401, "Unauthorized acess no refresh Token found")
+        }
+        
+        const decodedToken=jwt.verify(
+            token,
+            process.env.REFRESH_TOKEN_SECRET
+            )
+            
+            // console.log(token,"kj/h")
+        const user= await userModal.findById(decodedToken?._id)
+        if(!user){
+            throw new apiError(402, "No corresponding account found for token")
+        }
+        if(user.refreshToken!=token){
+            throw new apiError(401, "refresh token not matched with user id")
+        }
+
+        const {accessToken}=generateTokens(user._id);
+    
+        res
+        .status(201)
+        .cookie("accessToken", accessToken, options)
+        .json(
+            new ApiResponse(201, {accessToken}, "new access token generated successfully")
+        )
+})
+
 
 
 export {
@@ -254,5 +284,6 @@ export {
     loginUser,
     logoutUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    generateAccessToken
     }
