@@ -47,41 +47,31 @@ const getWorkoutById=asyncHandler(async (req, res) => {
 const addWorkout=asyncHandler(async(req, res) => {
 	// console.log(req.user)
     const newWorkout = req.body;
-	let prevWorkouts = await userModal.findById(req.user["_id"]);
-	console.log(prevWorkouts["workouts"]);
+	const user=req.user
 
-	if(!prevWorkouts || Array.isArray(prevWorkouts.workouts)){
-		throw new apiError(500, "The workouts array not found")
+	const workout=await workoutModal.addNewWorkout(
+		newWorkout
+	)
+
+	if(!workout){
+		throw new apiError(502, "could not add workout to db from model method")
 	}
 
-
-	let workoutBody;
-	await workoutModal.addNewWorkout(
-		newWorkout,
-        (dbRes) => {
-		  workoutBody = dbRes;
-          res.send(dbRes);
-        },
-        (dbErr) => {
-          res.status(400);
-          res.json({ name: dbErr.name, message: dbErr.message });
-        }
-    )
-
 	// Adding the workoutID to user's workout array
-	prevWorkouts.workouts.push(workoutBody._id);
+	user.workouts.push(workout._id);
 
 	const newUser=await userModal.findByIdAndUpdate(
-        req.user._id,
+        user._id,
         {
             $set: {
-                workouts:prevWorkouts?.workouts
+                workouts:user.workouts
             }
         },
         {
             new:true
         }
     )
+
 	if(!newUser){
 		throw new apiError(501, "cannot add workout in userSchema")
 	}
@@ -89,7 +79,7 @@ const addWorkout=asyncHandler(async(req, res) => {
 	res
 	.status(201)
 	.json(
-		new ApiResponse(201,newUser,"added workout in user workout list")
+		new ApiResponse(201,newUser.workouts,"added workout in user workout list")
 	)
 
 })

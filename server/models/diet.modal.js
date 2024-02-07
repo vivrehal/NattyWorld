@@ -44,20 +44,16 @@ dietModal.findDietByID = (reqID, successCallBack, errorCallBack) =>{
     });
 }
 
-dietModal.addNewDiet = (newDiet, successCallBack, errorCallBack, res) => {
-    dietModal.insertMany([newDiet])
-        .then(
-            (dbRes) => {
-                successCallBack(dbRes);
-            },
-            (dbErr) => {
-                errorCallBack(dbErr);
-            }
-        )
-        .catch((error) => {
-            // exceptionHandler 
-            console.log(error);
-        })
+dietModal.addNewDiet = async(newDiet) => {
+    try {
+        const diet=await workoutModal.create(newDiet)
+        if(!diet){
+            throw new apiError(501, "could not add diet in db")
+        }
+        return diet
+    } catch (error) {
+        throw new apiError(501, "error while adding workout in db")
+    }
 }
 
 

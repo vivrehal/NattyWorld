@@ -44,18 +44,41 @@ const getDietById = asyncHandler(async (req, res) => {
 })
 
 const addDiet = asyncHandler(async(req, res) => {
-  console.log("Adding new Diet")
-  let newDiet = req.body;
-  dietModal.addNewDiet(
-      newDiet,
-      (dbRes) => {
-        res.send(dbRes);
-      },
-      (dbErr) => {
-        res.status(400);
-        res.json({ name: dbErr.name, message: dbErr.message });
-      }
-  )
+	const newDiet = req.body;
+	const user=req.user
+
+	const diet=await dietModal.addNewWorkout(
+		newDiet
+	)
+
+	if(!diet){
+		throw new apiError(502, "could not add deit to db from model method")
+	}
+
+	// Adding the workoutID to user's workout array
+	user.diets.push(diet._id);
+
+	const newUser=await dietModal.findByIdAndUpdate(
+        user._id,
+        {
+            $set: {
+                diets:user.diets
+            }
+        },
+        {
+            new:true
+        }
+    )
+
+	if(!newUser){
+		throw new apiError(501, "cannot add diet in userSchema")
+	}
+
+	res
+	.status(201)
+	.json(
+		new ApiResponse(201,newUser.diets,"added workout in user workout list")
+	)
 });
 
 const updateDiet = asyncHandler(async(req, res) => {

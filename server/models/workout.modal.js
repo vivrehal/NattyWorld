@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { apiError } from "../utils/apiError.js";
 // import { userModal } from "./user.modal.js";
 
 const workoutSchema = new mongoose.Schema({
@@ -44,22 +45,14 @@ workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
     });
 }
 
-workoutModal.addNewWorkout = async (newWorkout, successCallBack, errorCallBack, userID) => {
+workoutModal.addNewWorkout = async (newWorkout) => {
 	// console.log(userID);
 
-    workoutModal.create(newWorkout)
-        .then(
-            (dbRes) => {
-              successCallBack(dbRes);
-            },
-            (dbErr) => {
-                errorCallBack(dbErr);
-            }
-        )
-        .catch((error) => {
-            // exceptionHandler 
-            console.log(error);
-        })
+    const workout=await workoutModal.create(newWorkout)
+    if(!workout){
+        throw new apiError(501, "could not add workout in db")
+    }
+    return workout
       
 }
 
