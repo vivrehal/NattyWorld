@@ -45,13 +45,11 @@ workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
 }
 
 workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) => {
-    let currID ;
-    console.log(req.user);
     workoutModal.create(newWorkout)
         .then(
             (dbRes) => {
                 successCallBack(dbRes);
-                currID = dbRes.insertedId;
+                return dbRes
             },
             (dbErr) => {
                 errorCallBack(dbErr);

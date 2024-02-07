@@ -44,9 +44,9 @@ const getWorkoutById=asyncHandler(async (req, res) => {
 })
   
 const addWorkout=asyncHandler(async(req, res) => {
-	console.log(req.user)
-    let newWorkout = req.body;
-	console.log(req.user);
+	// console.log(req.user)
+    const newWorkout = req.body;
+	// console.log(req.user);
     workoutModal.addNewWorkout(
         newWorkout,
         (dbRes) => {

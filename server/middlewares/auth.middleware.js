@@ -22,7 +22,7 @@ try {
         .select("-password -refreshToken")
     
         req.user=user
-    
+            // console.log("authorization complete")
         next();
 } catch (error) {
     throw new apiError(404, error?.mesage || "Invalid access token")
