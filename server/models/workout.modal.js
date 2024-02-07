@@ -46,7 +46,7 @@ workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
 
 workoutModal.addNewWorkout = (newWorkout, successCallBack, errorCallBack, res) => {
     let currID ;
-    workoutModal.collection.insertOne(newWorkout)
+    workoutModal.insertOne(newWorkout)
         .then(
             (dbRes) => {
                 successCallBack(dbRes);
