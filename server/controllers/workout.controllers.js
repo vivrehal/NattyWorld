@@ -49,7 +49,8 @@ const addWorkout=asyncHandler(async(req, res) => {
     const newWorkout = req.body;
 	let prevWorkouts = await userModal.findById(req.user["_id"]);
 	console.log(prevWorkouts["workouts"]);
-	if(!prevWorkouts){
+
+	if(!prevWorkouts || Array.isArray(prevWorkouts.workouts)){
 		throw new apiError(500, "The workouts array not found")
 	}
 
@@ -68,6 +69,28 @@ const addWorkout=asyncHandler(async(req, res) => {
     )
 
 	// Adding the workoutID to user's workout array
+	prevWorkouts.workouts.push(workoutBody._id);
+
+	const newUser=await userModal.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                workouts:prevWorkouts?.workouts
+            }
+        },
+        {
+            new:true
+        }
+    )
+	if(!newUser){
+		throw new apiError(501, "cannot add workout in userSchema")
+	}
+
+	res
+	.status(201)
+	.json(
+		new ApiResponse(201,newUser,"added workout in user workout list")
+	)
 
 })
 
