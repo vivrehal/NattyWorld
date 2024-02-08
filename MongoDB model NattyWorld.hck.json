@@ -127,6 +127,30 @@
                     "childRelationships": [
                         "a834c7e0-970e-480d-b216-5e9fafd2cff9"
                     ]
+                },
+                {
+                    "name": "Weight",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "fe04f8da-2978-42d1-8907-3c419731e6fe",
+                    "error": {}
+                },
+                {
+                    "name": "Height",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "6c057d2a-5e1b-4ff2-b79d-cf6e3848bb3a",
+                    "error": {}
+                },
+                {
+                    "name": "refresh Token",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "5cb747d3-c8b1-4c06-9907-bcdf36be46c5",
+                    "error": {}
                 }
             ],
             "definitions": {
@@ -176,6 +200,14 @@
                         "bb8b8453-30ec-4097-b53f-8b5427c3d163"
                     ],
                     "parentRelationship": "6eb19315-005a-4467-9549-8eed965d4dc4"
+                },
+                {
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "50f9eb02-c7d2-4f63-9241-43b274905cc2",
+                    "name": "name",
+                    "error": {}
                 },
                 {
                     "name": "plan",
@@ -241,6 +273,14 @@
                     "parentRelationship": "a834c7e0-970e-480d-b216-5e9fafd2cff9"
                 },
                 {
+                    "name": "name",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "3e6dd5a5-731a-4158-9824-3d55159fff47",
+                    "error": {}
+                },
+                {
                     "name": "plan",
                     "hackoladeMeta": {},
                     "isActivated": true,
@@ -272,7 +312,7 @@
     ],
     "buckets": [
         {
-            "name": "Website",
+            "name": "NattyWorld",
             "type": "bucket",
             "collectionIds": [
                 "27433428-f297-436e-976e-a169918983ed",
@@ -280,9 +320,9 @@
                 "9d790ce2-f6d2-4486-b55b-e57d03d1b953"
             ],
             "backgroundColor": {
-                "r": 216,
-                "g": 0,
-                "b": 115,
+                "r": 54,
+                "g": 69,
+                "b": 79,
                 "a": 1
             },
             "show": true,
@@ -316,7 +356,7 @@
             "GUID": "53bbd73b-35e6-42ce-998d-1c4fccd04fad",
             "hackoladeStyles": {
                 "GUID": "dfaa7732-a90e-4a66-9a22-c1c5ebdb0bd3",
-                "autoPositioning": true,
+                "autoPositioning": false,
                 "type": "Orthogonal",
                 "thickness": 2,
                 "color": "#79c4ff",
@@ -324,19 +364,11 @@
                 "shape": [
                     {
                         "x": 955,
-                        "y": 938
+                        "y": 947.5
                     },
                     {
-                        "x": 860,
-                        "y": 938
-                    },
-                    {
-                        "x": 860,
-                        "y": 931
-                    },
-                    {
-                        "x": 765,
-                        "y": 931
+                        "x": 763,
+                        "y": 947.5
                     }
                 ],
                 "sides": [
@@ -369,7 +401,7 @@
             "GUID": "9763b55d-085f-4e6c-a40b-c388b169b837",
             "hackoladeStyles": {
                 "GUID": "01b889c9-6abc-44b5-8e8e-d87d22a949eb",
-                "autoPositioning": true,
+                "autoPositioning": false,
                 "type": "Orthogonal",
                 "thickness": 2,
                 "color": "#79c4ff",
@@ -377,19 +409,19 @@
                 "shape": [
                     {
                         "x": 927,
-                        "y": 801
+                        "y": 805.9390213531158
                     },
                     {
-                        "x": 846,
-                        "y": 801
+                        "x": 845,
+                        "y": 805.9390213531158
                     },
                     {
-                        "x": 846,
-                        "y": 842
+                        "x": 845,
+                        "y": 890.6666666666666
                     },
                     {
-                        "x": 765,
-                        "y": 842
+                        "x": 763,
+                        "y": 890.6666666666666
                     }
                 ],
                 "sides": [
@@ -429,19 +461,19 @@
                 "shape": [
                     {
                         "x": 927,
-                        "y": 784.6666666666666
+                        "y": 787.9593475687437
                     },
                     {
-                        "x": 858,
-                        "y": 784.6666666666666
+                        "x": 856,
+                        "y": 787.9593475687437
                     },
                     {
-                        "x": 858,
-                        "y": 912.75
+                        "x": 856,
+                        "y": 910.8805248739044
                     },
                     {
-                        "x": 765,
-                        "y": 912.75
+                        "x": 763,
+                        "y": 910.8805248739044
                     }
                 ],
                 "sides": [
@@ -481,19 +513,11 @@
                 "shape": [
                     {
                         "x": 955,
-                        "y": 950.6666666666666
+                        "y": 981.546065774846
                     },
                     {
-                        "x": 871.5,
-                        "y": 950.6666666666666
-                    },
-                    {
-                        "x": 871.5,
-                        "y": 968.25
-                    },
-                    {
-                        "x": 765,
-                        "y": 968.25
+                        "x": 763,
+                        "y": 981.546065774846
                     }
                 ],
                 "sides": [
@@ -506,7 +530,7 @@
     "users": [],
     "diagramViews": [],
     "idToNameHashTable": {
-        "2fd91586-28d2-4c8b-bfd4-7838c02c9540": "Website",
+        "2fd91586-28d2-4c8b-bfd4-7838c02c9540": "NattyWorld",
         "27433428-f297-436e-976e-a169918983ed": "User",
         "f56bcba6-0655-46b4-871c-5d8d4c9f93c5": "_id",
         "c2b78d99-2ccd-42f6-82cc-fbb447e1ca33": "Name",
@@ -527,7 +551,12 @@
         "6eb19315-005a-4467-9549-8eed965d4dc4": "fk Workouts._id to User.CurrentWorkout",
         "bb8b8453-30ec-4097-b53f-8b5427c3d163": "CurrentWorkout",
         "4475f571-c2b1-41d1-a578-90d05b863e48": "CurrentDiet",
-        "a834c7e0-970e-480d-b216-5e9fafd2cff9": "fk Diet._id to User.CurrentDiet"
+        "a834c7e0-970e-480d-b216-5e9fafd2cff9": "fk Diet._id to User.CurrentDiet",
+        "fe04f8da-2978-42d1-8907-3c419731e6fe": "Weight",
+        "6c057d2a-5e1b-4ff2-b79d-cf6e3848bb3a": "Height",
+        "5cb747d3-c8b1-4c06-9907-bcdf36be46c5": "refresh Token",
+        "50f9eb02-c7d2-4f63-9241-43b274905cc2": "name",
+        "3e6dd5a5-731a-4158-9824-3d55159fff47": "name"
     },
     "definitions": {
         "type": "definitions",
@@ -557,7 +586,7 @@
             "modelName": false
         }
     },
-    "lastModifTS": "2024-02-04T04:20:03.283Z",
+    "lastModifTS": "2024-02-07T18:22:58.618Z",
     "persistenceSchemaVersion": "7",
     "isCreatedByPlugin": true,
     "pluginInformation": {
@@ -574,8 +603,8 @@
                         "GUID": "27433428-f297-436e-976e-a169918983ed",
                         "x": 469,
                         "y": 753,
-                        "width": 296,
-                        "height": 267,
+                        "width": 294,
+                        "height": 296,
                         "color": {}
                     },
                     {
@@ -583,15 +612,15 @@
                         "x": 927,
                         "y": 752,
                         "width": 209,
-                        "height": 98,
+                        "height": 108,
                         "color": {}
                     },
                     {
                         "GUID": "9d790ce2-f6d2-4486-b55b-e57d03d1b953",
                         "x": 955,
-                        "y": 900,
+                        "y": 902,
                         "width": 175,
-                        "height": 76,
+                        "height": 91,
                         "color": {}
                     }
                 ],

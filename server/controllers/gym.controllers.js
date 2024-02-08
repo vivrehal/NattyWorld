@@ -14,7 +14,7 @@ const findNearbyGyms=asyncHandler(async(req, res)=>{
         type: 'gym'
     },
     headers: {
-        'X-RapidAPI-Key': '613e5f48b5mshb5bc8c987ced152p1c6567jsnd24e699e5ec5',
+        'X-RapidAPI-Key': process.env.RAPID_API_KEY,
         'X-RapidAPI-Host': 'map-places.p.rapidapi.com'
     }
     };
