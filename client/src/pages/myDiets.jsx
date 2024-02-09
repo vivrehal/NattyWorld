@@ -19,9 +19,12 @@ const MyDiets = () => {
 		fetchDiet();
 	}, []);
 	// };
-
+	
+	const changeActiveIndex = (newIndex) => {
+		setIndex(newIndex);
+	}
 	var sidebarItems = dietPlans?.map((diet, index) => {
-		return <SidebarItem key={diet.name} name={diet.name} index={index} />;
+		return <SidebarItem key={diet.name} name={diet.name} index={index} changeIndex={changeActiveIndex}/>;
 	});
 	const getPlanName = () => {
 		// console.log()
@@ -31,7 +34,6 @@ const MyDiets = () => {
 
 		return "";
 	}
-
 	const getPlanBody = () => {
 		if(dietPlans != undefined && dietPlans != null) {
 			return dietPlans[activeIndex]?.plan;
@@ -39,6 +41,7 @@ const MyDiets = () => {
 
 		return "";
 	}
+
 
 	return (
 		<div className="flex">
