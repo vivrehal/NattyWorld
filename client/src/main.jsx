@@ -7,6 +7,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Home from './pages/home.jsx';
+import MyDiets from './pages/myDiets.jsx';
 
 import {
   createBrowserRouter,
@@ -21,6 +22,10 @@ const routers = createBrowserRouter([{
     {
       path:'',
       element:<Home/>
+    },
+    {
+      path:'/myDiets',
+      element:<MyDiets/>
     },
 
     
