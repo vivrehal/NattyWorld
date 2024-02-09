@@ -20,7 +20,7 @@ const NavBar = () => {
     // console.log(isLoggedIn)
   return (
     <>
-        <div className="flex flex-row bg-black h-16 text-slate-50 w-[100vw]">
+        <div className="flex flex-row bg-black h-16 text-slate-50 w-[100vw] ">
             <div className="flex flex-row px-3 py-2 justify-between w-[100vw] items-center">
                 <div className="siteName w-[20%]">
                     <h1 className="font-extrabold font-sans">NattyWorld</h1>
