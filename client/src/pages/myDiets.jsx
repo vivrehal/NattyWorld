@@ -9,7 +9,7 @@ const MyDiets = () => {
 			await fetch("http://localhost:9000/api/v1/diet/dietList")
 				.then(async (res) => {
 					let x = await res.json();
-					setDiet(x);
+					setDiet(x["data"]);
 				})
 				.catch((err) => {
 					console.log(err);
@@ -20,30 +20,51 @@ const MyDiets = () => {
 	}, []);
 	// };
 
-	var sidebarItems = dietPlans["data"]?.map((diet, index) => {
+	var sidebarItems = dietPlans?.map((diet, index) => {
 		return <SidebarItem key={diet.name} name={diet.name} index={index} />;
 	});
+	const getPlanName = () => {
+		// console.log()
+		if(dietPlans != undefined && dietPlans != null) {
+			return dietPlans[activeIndex]?.name;
+		}
+
+		return "";
+	}
+
+	const getPlanBody = () => {
+		if(dietPlans != undefined && dietPlans != null) {
+			return dietPlans[activeIndex]?.plan;
+		}
+
+		return "";
+	}
 
 	return (
 		<div className="flex">
 			{/* SideBar */}
-			<div className="sidebar flex-box fixed top-10 bottom-0 mt-6 lg:left-0 w-[20%] overflow-y-auto text-center bg-black
-				border-r-2 border-white ">
+			<div
+				className="sidebar flex-box mt-16 bottom-0 lg:left-0 w-[20%] overflow-y-auto text-center bg-black
+				border-r-2 border-white z-10"
+			>
 				<div className="text-gray-100 text-xl">
 					<div className="p-2.5 mt-1 flex items-center">
-						<h1 className="font-bold text-gray-200 text-[18px]">
-							My Diets
-						</h1>
+						<h1 className="font-bold text-gray-200 text-[18px]">My Diets</h1>
 					</div>
 				</div>
 				{/* Diet Plan's Names in the sidebar */}
 				{sidebarItems}
 			</div>
 			{/* Diet Display */}
-			<div className="flex-grow overflow-auto bg-gray-900 text-gray-200 text-[18px] w-[72%] h-[90vh]" style={{ marginLeft: "20%"}}>
+			<div
+				className="flex-grow overflow-auto mt-20 bg-black text-gray-200 text-[18px] w-[72%] h-[90vh] "
+				// style={{ marginLeft: "20%" }}
+			>
 				{/* Content of the diet display */}
-				jhgfd3<br></br>
-				erfg
+				<h1 className="font-bold mx-auto text-gray-200 text-[30px]">{getPlanName()}</h1>
+				<div className="plan-body">
+					{getPlanBody()}
+				</div>
 			</div>
 		</div>
 	);
