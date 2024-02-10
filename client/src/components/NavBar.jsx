@@ -21,7 +21,7 @@ const NavBar = () => {
     // console.log(isLoggedIn)
   return (
     <>
-        <div className="fixed flex-row bg-black h-16 text-slate-50 w-[100vw]">
+        <div className="fixed flex-row bg-[#0d0d0d] h-16 text-slate-50 w-[100vw]">
             <div className="flex flex-row px-10 py-2 justify-between w-[100vw] items-center">
                 <div className="siteName w-[20%]">
                     <h1 className="font-bold font-sans text-3xl">NattyWorld</h1>
@@ -38,7 +38,7 @@ const NavBar = () => {
                         {!{isLoggedIn}?
                         (<h2>kjh</h2>)
                         :
-                        (<button type="button" className="bg-black rounded-md px-3 py-2 hover:bg-[#353535]">
+                        (<button type="button" className="bg-[#0d0d0d] rounded-md px-3 py-2 hover:bg-[#353535]">
                             SIGN UP / LOGIN
                         </button>)
                         }

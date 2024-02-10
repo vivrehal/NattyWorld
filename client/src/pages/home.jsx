@@ -46,7 +46,7 @@ const Home = () => {
   const [currentUser, setcurrentUser] = useState("");
   return (
     <>
-      <div className=" px-16 pb-[12em] flex flex-col items-center bg-black text-slate-50 overflow-hidden">
+      <div className=" px-16 pb-[12em] flex flex-col items-center bg-[#0d0d0d] text-slate-50 overflow-hidden">
         <div className="hero h-[100vh] w-[100%] flex flex-row">
           <div className="leftContainer w-[50%] flex flex-col items-center justify-center">
             <div className="welcomeCon flex flex-col justify-start gap-4">
@@ -86,7 +86,7 @@ const Home = () => {
           <div className="flex flex-row justify-evenly featureWrapper w-[100%] p-4">
             {features.map((feature, index) => {
               return (
-                <div className=" p-3 bg-black rounded-[2em]" key={index}>
+                <div className=" p-3 bg-[#0d0d0d] rounded-[2em]" key={index}>
                   <div className="max-w-sm rounded overflow-hidden shadow-lg flex flex-col justify-center">
                     <FontAwesomeIcon
                       icon={feature.image}

@@ -6,8 +6,9 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import Home from './pages/home.jsx';
-import MyDiets from './pages/myDiets.jsx';
+import Home from './pages/Home.jsx';
+import MyDiets from './pages/MyDiets.jsx';
+import GenerateDiet from './pages/GenerateDiet.jsx';
 
 import {
   createBrowserRouter,
@@ -26,6 +27,10 @@ const routers = createBrowserRouter([{
     {
       path:'/myDiets',
       element:<MyDiets/>
+    },
+    {
+      path:'/generateDiet',
+      element:<GenerateDiet/>
     },
 
     
