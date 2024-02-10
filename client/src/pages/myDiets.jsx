@@ -6,14 +6,24 @@ const MyDiets = () => {
 	const [activeIndex, setIndex] = useState(0);
 	const [user, setUser] = useState({});
 
-	const fetchDietByID = () =>{
-		
+	const fetchDietByID = async (dietID) =>{
+		if(dietID) return await fetch("/api/v1/diet/dietList/" + dietID)
+								.then((res) => {
+									return res.json();
+								});
 	}
 	useEffect(() => {
 		const fetchDiet = async () => {
-			let data = user["diets"];
-			console.log(data)
-			// await 
+			if(!user["diets"]) return ;
+			let dietData = await user["diets"];
+			// console.log(data)
+			const promise =  dietData.map((ele) => {
+				// dietPlans.push(fetchDietByID(ele))
+				// console.log(dietPlans.slice(-1));forEach
+				return fetchDietByID(ele);
+			});
+			const resolvedDietPlans = await Promise.all(promise);
+			setDiet(resolvedDietPlans);
 		};
 		const login = async () => {
 			const response = await fetch("/api/v1/users/login", {
@@ -36,7 +46,7 @@ const MyDiets = () => {
 			// })
 			if(response.ok){
 				let data = await response.json();
-				console.log(data["data"]["loggedInUser"])
+				// console.log(data["data"]["loggedInUser"])
 				setUser(data["data"]["loggedInUser"])
 			}
 			fetchDiet();
@@ -44,7 +54,7 @@ const MyDiets = () => {
 
 		login()
 		// fetchDiet();
-	}, []);
+	}, [user]);
 	// };
 	
 	const changeActiveIndex = (newIndex) => {

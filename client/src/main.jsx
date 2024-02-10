@@ -18,6 +18,7 @@ import {
 } from "react-router-dom";
 import Diets from './pages/diets.jsx';
 import Login from './pages/login.jsx';
+import MyWorkouts from './pages/myWorkouts.jsx';
 
 
 const routers = createBrowserRouter([{
@@ -51,6 +52,10 @@ const routers = createBrowserRouter([{
     {
       path: 'allWorkouts',
       element: <Workouts/>
+    },
+    {
+      path: 'myWorkouts',
+      element: <MyWorkouts/>
     }
 
   ]}
