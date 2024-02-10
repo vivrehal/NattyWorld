@@ -9,6 +9,7 @@ import '@fontsource/roboto/700.css';
 import Home from './pages/Home.jsx';
 import MyDiets from './pages/MyDiets.jsx';
 import GenerateDiet from './pages/GenerateDiet.jsx';
+import GenerateWorkout from './pages/generateWorkout.jsx';
 
 import {
   createBrowserRouter,
@@ -31,6 +32,10 @@ const routers = createBrowserRouter([{
     {
       path:'/generateDiet',
       element:<GenerateDiet/>
+    },
+    {
+      path:'/generateWorkout',
+      element:<GenerateWorkout/>
     },
 
     

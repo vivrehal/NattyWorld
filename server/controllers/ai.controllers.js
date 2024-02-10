@@ -10,7 +10,7 @@ const getDietFromAi=asyncHandler(async(req,res)=>{
             apiKey : process.env.OPENAI_API_KEY
         });
 
-
+        console.log("reached")
         const{
             name, 
             country, 
@@ -22,14 +22,16 @@ const getDietFromAi=asyncHandler(async(req,res)=>{
             foodSource, 
             fitnessGoal, 
             otherPreferences,
-            macrosAmount,
-        }=req.body
+            protein,
+            carbs,
+            fats
+        }= req.body
 
         const prompt = `Generate a diet plan for ${name} with the following details:
-        - Age: ${age}
-        - Protein: ${macrosAmount.protein}
-            - Carbs: ${macrosAmount.carbs}
-            - Fats: ${macrosAmount.fats}
+            - Age: ${age}
+            - Protein: ${protein}
+            - Carbs: ${carbs}
+            - Fats: ${fats}
             - Total Daily Caloric Intake: ${totalCalories}
             - Food Source Type:  ${foodSource}
             - Gender: ${gender}
