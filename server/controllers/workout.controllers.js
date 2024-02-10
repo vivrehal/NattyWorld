@@ -6,13 +6,12 @@ import { userModal } from "../models/user.modal.js";
 import mongoose from "mongoose";
 
 const getAllWorkouts=asyncHandler(async(req, res) => {
-    console.log("Getting Data");
     workoutModal.showAllWorkout(
         (dbRes) => {
             return res.status(200).json(new ApiResponse(200,dbRes,"Workout retrieved successfully"))
           },
           (dbErr) => {
-            throw new apiError(400,"error while fetching workouts from db",[dbErr])
+            throw new apiError(400,"error while fetching workouts from db ",[dbErr])
           },
     );
 })
@@ -45,7 +44,6 @@ const getWorkoutById=asyncHandler(async (req, res) => {
 })
   
 const addWorkout=asyncHandler(async(req, res) => {
-	// console.log(req.user)
     const newWorkout = req.body;
 	const user=req.user
 

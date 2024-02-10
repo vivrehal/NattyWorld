@@ -10,11 +10,13 @@ import Home from './pages/Home.jsx';
 import MyDiets from './pages/MyDiets.jsx';
 import GenerateDiet from './pages/GenerateDiet.jsx';
 import GenerateWorkout from './pages/generateWorkout.jsx';
+import Workouts from './pages/workouts.jsx'
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Diets from './pages/diets.jsx';
 
 
 const routers = createBrowserRouter([{
@@ -37,8 +39,15 @@ const routers = createBrowserRouter([{
       path:'/generateWorkout',
       element:<GenerateWorkout/>
     },
+    {
+      path:'allDiets',
+      element: <Diets/>
+    },
+    {
+      path: 'allWorkouts',
+      element: <Workouts/>
+    }
 
-    
   ]}
 ]);
 
