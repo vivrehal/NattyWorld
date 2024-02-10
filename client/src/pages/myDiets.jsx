@@ -5,7 +5,16 @@ const MyDiets = () => {
 	const [dietPlans, setDiet] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
 	const [user, setUser] = useState({});
+
+	const fetchDietByID = () =>{
+		
+	}
 	useEffect(() => {
+		const fetchDiet = async () => {
+			let data = user["diets"];
+			console.log(data)
+			// await 
+		};
 		const login = async () => {
 			const response = await fetch("http://localhost:9000/api/v1/users/login", {
 				method: "POST",
@@ -30,18 +39,9 @@ const MyDiets = () => {
 				console.log(data["data"]["loggedInUser"])
 				setUser(data["data"]["loggedInUser"])
 			}
+			fetchDiet();
 		}
-		const fetchDiet = async () => {
-			let data = [];
-			await fetch("/api/v1/diet/dietList")
-				.then(async (res) => {
-					let x = await res.json();
-					setDiet(x["data"]);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		};
+
 		login()
 		// fetchDiet();
 	}, []);

@@ -3,6 +3,7 @@ import { dietModal } from "../models/diet.modal.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
 import mongoose from "mongoose";
+import { userModal } from "../models/user.modal.js";
 
 const getAllDiets = asyncHandler(async(req, res) => {
     dietModal.showAllDiet(
@@ -50,13 +51,13 @@ const addDiet = asyncHandler(async(req, res) => {
 	)
 
 	if(!diet){
-		throw new apiError(502, "could not add deit to db from model method")
+		// throw new apiError(502, "could not add deit to db from model method")
 	}
 
 	// Adding the workoutID to user's workout array
 	user.diets.push(diet._id);
 
-	const newUser=await dietModal.findByIdAndUpdate(
+	const newUser=await userModal.findByIdAndUpdate(
         user._id,
         {
             $set: {
@@ -69,7 +70,7 @@ const addDiet = asyncHandler(async(req, res) => {
     )
 
 	if(!newUser){
-		throw new apiError(501, "cannot add diet in userSchema")
+		// throw new apiError(501, "cannot add diet in userSchema")
 	}
 
 	res
