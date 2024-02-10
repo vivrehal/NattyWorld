@@ -11,7 +11,7 @@ const getAllWorkouts=asyncHandler(async(req, res) => {
             return res.status(200).json(new ApiResponse(200,dbRes,"Workout retrieved successfully"))
           },
           (dbErr) => {
-            throw new apiError(400,"error while fetching workouts from db",[dbErr])
+            throw new apiError(400,"error while fetching workouts from db ",[dbErr])
           },
     );
 })
