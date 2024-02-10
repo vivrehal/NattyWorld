@@ -16,7 +16,7 @@ const MyDiets = () => {
 			// await 
 		};
 		const login = async () => {
-			const response = await fetch("http://localhost:9000/api/v1/users/login", {
+			const response = await fetch("/api/v1/users/login", {
 				method: "POST",
 				body : JSON.stringify({
 					"usernameOrEmail" : "vivrehal",

@@ -47,6 +47,7 @@ dietModal.findDietByID = (reqID, successCallBack, errorCallBack) =>{
 
 dietModal.addNewDiet = async(newDiet) => {
     try {
+      console.log(newDiet)
         const diet=await dietModal.create(newDiet)
         if(!diet){
             throw new apiError(501, "could not add diet in db")

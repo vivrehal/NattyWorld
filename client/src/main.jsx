@@ -8,7 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Home from './pages/home.jsx';
 import MyDiets from './pages/myDiets.jsx';
-import GenerateDiet from './pages/generateDiet.jsx';
+import GenerateDiet from './pages/GenerateDiet.jsx';
 import GenerateWorkout from './pages/generateWorkout.jsx';
 import Workouts from './pages/workouts.jsx'
 
@@ -17,6 +17,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Diets from './pages/diets.jsx';
+import Login from './pages/login.jsx';
 
 
 const routers = createBrowserRouter([{
@@ -42,6 +43,10 @@ const routers = createBrowserRouter([{
     {
       path:'allDiets',
       element: <Diets/>
+    },
+    {
+      path:'login',
+      element: <Login/>
     },
     {
       path: 'allWorkouts',

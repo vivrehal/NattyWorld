@@ -40,7 +40,7 @@ const GenerateDiet = () => {
 
   const saveDiet = async (formData) => {
     const dietDetails={
-      title:`${formData.fitnessGoal} | ${formData.foodSource} | ${formData.gender} | ${formData.totalCalories}`,
+      name:`${formData.fitnessGoal} | ${formData.foodSource} | ${formData.gender} | ${formData.totalCalories}`,
       plan : dietPlan
     }
     const res = await fetch("/api/v1/diet/addDiet", {
@@ -262,7 +262,7 @@ const GenerateDiet = () => {
           <div className="generateBtn flex flex-row w-[100%] h-[10%] justify-center items-center">
                 <button
                   onClick={(e) => {
-                    saveDiet();
+                    saveDiet(formData);
                   }}
                   className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]"
                 >
