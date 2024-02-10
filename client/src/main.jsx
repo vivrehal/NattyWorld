@@ -6,9 +6,9 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import Home from './pages/Home.jsx';
-import MyDiets from './pages/MyDiets.jsx';
-import GenerateDiet from './pages/GenerateDiet.jsx';
+import Home from './pages/home.jsx';
+import MyDiets from './pages/myDiets.jsx';
+import GenerateDiet from './pages/generateDiet.jsx';
 import GenerateWorkout from './pages/generateWorkout.jsx';
 import Workouts from './pages/workouts.jsx'
 

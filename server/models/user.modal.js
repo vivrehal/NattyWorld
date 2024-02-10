@@ -125,7 +125,7 @@ userModal.findUserByID = (reqID, successCallBack, errorCallBack) =>{
       }
     )
     .catch((error) => {
-      exceptionHandler(res, error);
+      console.log(error)
     });
 }
 

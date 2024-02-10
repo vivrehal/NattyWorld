@@ -17,9 +17,7 @@ const getAllWorkouts=asyncHandler(async(req, res) => {
 })
 
 const getWorkoutById=asyncHandler(async (req, res) => {
-    console.log("Getting Workout");
     let reqID = req.params.reqID;
-    // console.log(reqID)
     if (!mongoose.Types.ObjectId.isValid(reqID)) {
       res.status(400);
       res.json({ message: "Record does not exist" });

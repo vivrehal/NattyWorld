@@ -45,7 +45,7 @@ const addDiet = asyncHandler(async(req, res) => {
 	const newDiet = req.body;
 	const user=req.user
 
-	const diet=await dietModal.addNewWorkout(
+	const diet=await dietModal.addNewDiet(
 		newDiet
 	)
 

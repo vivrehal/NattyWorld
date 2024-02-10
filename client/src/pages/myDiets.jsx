@@ -4,8 +4,35 @@ import SidebarItem from "../components/sidebarItem.jsx";
 const MyDiets = () => {
 	const [dietPlans, setDiet] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
+	const [user, setUser] = useState({});
 	useEffect(() => {
+		const login = async () => {
+			const response = await fetch("http://localhost:9000/api/v1/users/login", {
+				method: "POST",
+				body : JSON.stringify({
+					"usernameOrEmail" : "vivrehal",
+					"password" : "qwertyyyy12@."				
+				}),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			});
+			// console.log(await response.json())
+			// .then((res) =>{
+			// 	console.log(res)
+			// 	return res
+			// })
+			// .then((res) => {
+			// 	console.log(res)
+			// })
+			if(response.ok){
+				let data = await response.json();
+				console.log(data["data"]["loggedInUser"])
+				setUser(data["data"]["loggedInUser"])
+			}
+		}
 		const fetchDiet = async () => {
+			let data = [];
 			await fetch("/api/v1/diet/dietList")
 				.then(async (res) => {
 					let x = await res.json();
@@ -15,8 +42,8 @@ const MyDiets = () => {
 					console.log(err);
 				});
 		};
-
-		fetchDiet();
+		login()
+		// fetchDiet();
 	}, []);
 	// };
 	
