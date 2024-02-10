@@ -61,8 +61,8 @@ const GenerateDiet = () => {
                   <option value="">Weight Gain</option>
                   <option value="">Weight Loose</option>
                   <option value="">Maintain Weight and Fat Loss</option>
-                </select>     
-              </div>                                                  
+                </select>
+              </div>
               <div className="generateBtn flex flex-row w-[100%] h-[15%] justify-center items-center">
                 <button className=" py-2 px-4 rounded-md text-white bg-[#171717] hover:bg-[#17171779]">
                   GENERATE
