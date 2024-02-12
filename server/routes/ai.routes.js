@@ -6,7 +6,7 @@ import { getDietFromAi, getWorkoutFromAi } from "../controllers/ai.controllers.j
 const router=Router();
 
 
-router.route("/generateDiet").post(getDietFromAi)
+router.route("/generateDiet").post(verifyJWT, getDietFromAi)
 router.route("/generateWorkout").post(verifyJWT,getWorkoutFromAi)
 
 

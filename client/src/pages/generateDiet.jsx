@@ -51,9 +51,11 @@ const GenerateDiet = () => {
       body: JSON.stringify(dietDetails),
     });
     const response = await res.json();
+
     if (!response?.data) {
       alert("Cannot save Diet Plan");
-    }
+    } 
+    
   };
 
   const handleSubmit = async (e) => {

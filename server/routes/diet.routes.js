@@ -6,7 +6,7 @@ const dietRouter = express.Router();
 // console.log("In routes")
 dietRouter.route("/dietList").get(getAllDiets);
 
-dietRouter.route("/dietList/:reqID").get(getDietById);
+dietRouter.route("/dietList/:reqID").get(verifyJWT, getDietById);
 
 dietRouter.route("/addDiet").post(verifyJWT, addDiet);
 

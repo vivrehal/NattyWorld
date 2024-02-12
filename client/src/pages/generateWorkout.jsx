@@ -3,19 +3,20 @@ import React, { useState } from "react";
 const GenerateWorkout = () => {
   const [workoutPlan, setWorkoutPlan] = useState("");
   const [formData, setFormData] = useState({
-    name: "",
-    height: "",
-    weight: "",
-    gender: "",
-    age: "",
-    foodSource: "",
-    fitnessGoal: "",
-    protein: "",
-    carbs: "",
-    fats: "",
-    otherPreferences: "",
-    country: "",
-    totalCalories: "",
+        name:"", 
+        workoutLevel:"", 
+        age:"", 
+        gender:"", 
+        weight:"", 
+        height:"", 
+        daysAvailable:"", 
+        weakMuscle:"", 
+        workoutType:"",
+        fitnessGoal:"", 
+        otherPreferences:"",
+        sleepDuration:"",
+        workoutDuration:"",
+        splitType:"",
   });
 
   const handleInput = (e) => {
@@ -23,8 +24,8 @@ const GenerateWorkout = () => {
     console.log(formData);
   };
 
-  const generateworkoutByAI = async (formData) => {
-    const res = await fetch("/api/v1/ai/generateworkout", {
+  const generateWorkoutByAI = async (formData) => {
+    const res = await fetch("/api/v1/ai/generateWorkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,15 +36,15 @@ const GenerateWorkout = () => {
     if (!response?.data?.workoutPlan?.content) {
       alert("Cannot fetch workout Plan");
     }
-    setworkoutPlan(response.data.workoutPlan.content);
+    setWorkoutPlan(response.data.workoutPlan.content);
   };
 
-  const saveworkout = async (formData) => {
+  const saveWorkout = async (formData) => {
     const workoutDetails={
-      title:`${formData.fitnessGoal} | ${formData.foodSource} | ${formData.gender} | ${formData.totalCalories}`,
+      title:`${formData.fitnessGoal} | ${formData.splitType} | ${formData.gender} | ${formData.workoutDuration}`,
       plan : workoutPlan
     }
-    const res = await fetch("/api/v1/workout/addworkout", {
+    const res = await fetch("/api/v1/workout/addWorkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +59,7 @@ const GenerateWorkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await generateworkoutByAI(formData);
+    await generateWorkoutByAI(formData);
   };
 
   return (
@@ -80,6 +81,7 @@ const GenerateWorkout = () => {
                   type="text"
                 />
               </div>
+
               <div className="">
                 <label className="text-white" htmlFor="name">
                   Height (cms)
@@ -135,33 +137,69 @@ const GenerateWorkout = () => {
               </div>
               <div className="">
                 <label className="text-white" htmlFor="name">
-                  Total Calories
+                  Avaiable Days in a Week
                 </label>
                 <br />
                 <input
-                  name="totalCalories"
+                  name="daysAvailable"
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  min={1}
+                  max={7}
                 />
               </div>
               <div className="">
                 <label className="text-white" htmlFor="name">
-                  Food Source
+                  Workout Duration (hrs)
+                </label>
+                <br />
+                <input
+                  name="workoutDuration"
+                  onChange={(e) => handleInput(e)}
+                  className="py-1 px-4 w-[100%] rounded-md "
+                  type="number"
+                  min={0.5}
+                  max={4}
+                />
+              </div>
+
+              <div className="">
+                <label className="text-white" htmlFor="name">
+                  Sleep Duration (hrs)
+                </label>
+                <br />
+                <input
+                  name="sleepDuration"
+                  onChange={(e) => handleInput(e)}
+                  className="py-1 px-4 w-[100%] rounded-md "
+                  type="number"
+                  min={6}
+                  max={12}
+                />
+              </div>
+              <div className="">
+                <label className="text-white" htmlFor="name">
+                  Weak Muscle
                 </label>
                 <br />
                 <select
-                  name="foodSource"
+                  name="weakMuscle"
                   onChange={(e) => {
                     handleInput(e);
                   }}
                   id=""
                   className="py-1 px-4 w-[100%] rounded-md"
-                  value={workoutPlan.foodSource}
+                  value={workoutPlan.weakMuscle}
                 >
-                  <option value="">Select Food Source</option>
-                  <option value="veg">Veg</option>
-                  <option value="non veg">Non-Veg</option>
+                  <option value="">Select Muscle</option>
+                  <option value="chest">Chest</option>
+                  <option value="back">Back</option>
+                  <option value="triceps">Triceps</option>
+                  <option value="biceps">Biceps</option>
+                  <option value="legs and glutes">Legs & Glutes</option>
+                  <option value="shoulders">Shoulders</option>
+                  <option value="abs and core">Abs and Core</option>
                 </select>
               </div>
 
@@ -190,49 +228,83 @@ const GenerateWorkout = () => {
               </div>
 
               <div className="">
-                <h1 className="text-2xl text-white font-bold pb-3 pt-4">
-                  Macros :
-                </h1>
-                <div>
-                  <label className="text-white" htmlFor="name">
-                    Protein (gms)
-                  </label>
-                  <br />
-                  <input
-                    onChange={(e) => handleInput(e)}
-                    type="number"
-                    name="protein"
-                    id=""
-                    className="py-1 px-4 w-[100%] rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="text-white" htmlFor="name">
-                    Carbs (gms)
-                  </label>
-                  <br />
-                  <input
-                    onChange={(e) => handleInput(e)}
-                    type="number"
-                    name="carbs"
-                    id=""
-                    className="py-1 px-4 w-[100%] rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="text-white" htmlFor="name">
-                    Fats (gms)
-                  </label>
-                  <br />
-                  <input
-                    onChange={(e) => handleInput(e)}
-                    type="number"
-                    name="fats"
-                    id=""
-                    className="py-1 px-4 w-[100%] rounded-md"
-                  />
-                </div>
+                <label className="text-white" htmlFor="name">
+                  Workout Level
+                </label>
+                <br />
+                <select
+                  name="workoutLevel"
+                  id=""
+                  className="py-1 px-4 w-[100%] rounded-md"
+                  value={workoutPlan.workoutLevel}
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advance">Advance</option>
+                </select>
               </div>
+
+              <div className="">
+                <label className="text-white" htmlFor="name">
+                  Workout Type
+                </label>
+                <br />
+                <select
+                  name="workoutType"
+                  id=""
+                  className="py-1 px-4 w-[100%] rounded-md"
+                  value={workoutPlan.workoutType}
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                >
+                  <option value="Body Building">Body Building</option>
+                  <option value="Power Lifting">Power Lifting</option>
+                  <option value="Calisthenics">Calisthenics</option>
+                  <option value="Cross Fit">Cross Fit</option>
+                  <option value="Atheletic">Atheletic</option>
+                </select>
+              </div>
+
+              <div className="">
+                <label className="text-white" htmlFor="name">
+                  Split Type
+                </label>
+                <br />
+                <select
+                  name="splitType"
+                  id=""
+                  className="py-1 px-4 w-[100%] rounded-md"
+                  value={workoutPlan.splitType}
+                  onChange={(e) => {
+                    handleInput(e);
+                  }}
+                >
+                  <option value="Bro Split">Bro Split</option>
+                  <option value="Push Pull Legs">Push Pull Legs</option>
+                  <option value="Full Body">Full Body</option>
+                  <option value="Mix and Match">Mix and Match</option>
+                  <option value="Single Muscle">Single Muscle</option>
+                </select>
+              </div>
+
+              <div className="">
+                <label className="text-white" htmlFor="name">
+                  Other Preferences
+                </label>
+                <br />
+                <input
+                  name="otherPreferences"
+                  onChange={(e) => handleInput(e)}
+                  className="py-1 px-4 w-[100%] rounded-md focus:outline-none"
+                  type="text"
+                />
+              </div>
+
+
 
               <div className="generateBtn flex flex-row w-[100%] h-[15%] justify-center items-center">
                 <button
@@ -262,7 +334,7 @@ const GenerateWorkout = () => {
           <div className="generateBtn flex flex-row w-[100%] h-[10%] justify-center items-center">
                 <button
                   onClick={(e) => {
-                    saveworkout();
+                    saveWorkout();
                   }}
                   className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]"
                 >
