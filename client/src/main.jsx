@@ -8,7 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Home from './pages/home.jsx';
 import MyDiets from './pages/myDiets.jsx';
-import GenerateDiet from './pages/GenerateDiet.jsx';
+import GenerateDiet from './pages/generateDiet.jsx';
 import GenerateWorkout from './pages/generateWorkout.jsx';
 import Workouts from './pages/workouts.jsx'
 
@@ -19,7 +19,7 @@ import {
 import Diets from './pages/diets.jsx';
 import Login from './pages/login.jsx';
 import MyWorkouts from './pages/myWorkouts.jsx';
-
+import BMI from "./pages/bmi.jsx"
 
 const routers = createBrowserRouter([{
   path:'/',
@@ -56,6 +56,9 @@ const routers = createBrowserRouter([{
     {
       path: 'myWorkouts',
       element: <MyWorkouts/>
+    },{
+      path: 'bmi',
+      element:<BMI/>
     }
 
   ]}
