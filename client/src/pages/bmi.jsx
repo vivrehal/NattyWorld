@@ -1,16 +1,16 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 
 const BMI = () => {
 
-	const [result, setResult] = useState("");
+	// const [result, setResult] = useState("");
 
 	const calculate = () => {
-		let age = document.getElementById("age")?.value;
-		let weight = document.getElementById("weight")?.value;
-		let height = (document.getElementById("height")?.value)/100;
-		let neck = document.getElementById("neck")?.value;
-		let waist = document.getElementById("waist")?.value;
+		const age = document.getElementById("age").value;
+		const weight = document.getElementById("weight")?.value;
+		const height = (document.getElementById("height")?.value)/100;
+		const neck = document.getElementById("neck")?.value;
+		const waist = document.getElementById("waist")?.value;
 		// Checking for Null values and NaN values
 		if(!age || !weight || !height || !neck || !waist) {
 			alert("Please fill out all the details correctly and try again");
@@ -28,18 +28,44 @@ const BMI = () => {
 		else if(bmi < 25) category = "Normal";
 		else if(bmi < 30) category = "Overweight";
 		else category = "Obese";
-		
-		
-		
+				
 		
 		const resultElement = document.getElementById("results");
 		
 		bmiResult = "Your BMI Score is : <b>" + bmi + "</b><br/><br/>";
 		bmiResult += "Based on your BMI Score you are in the <b>" + category + "</b> category<br/>";
 		resultElement.innerHTML = bmiResult;
-		setResult(bmiResult);
 
 		// Calculating Body Fats
+		let bfp = 0; //Body Fat Percentage
+		if(document.getElementById("male").checked) {
+			if(age>=18){
+				bfp = (1.20 * bmi) + (0.23 * age) - 16.2 ;
+			}
+			else{
+				bfp = (1.51 * bmi) - (0.70 * age) - 2.2 
+			}
+		}
+		else{
+			if(age>=18){
+				bfp = (1.20 * bmi) + (0.23 * age) - 5.4 
+			}
+			else{
+				bfp = (1.51 * bmi) - (0.70 * age) + 1.4 
+			}
+		}
+
+		bfp = Math.round(bfp*100)/100;  // Rounding off BFP
+		let fatMass = (bfp * weight)/100;
+		fatMass = Math.round(fatMass*100)/100; 
+		let leanMass = weight - fatMass;
+		leanMass = Math.round(leanMass*100)/100; 
+
+		let fatResults = "Your Body Fat Percentage is : <b>" + bfp + "</b><br/>";
+		fatResults += "Amount of Fat Mass : <b>" + fatMass + "</b> Kgs<br/>";
+		fatResults += "Amount of Lean Mass : <b>" + leanMass + "</b> Kgs<br/>";
+		resultElement.innerHTML += fatResults;
+
 
 	}
 
@@ -59,11 +85,11 @@ const BMI = () => {
 					</div>
 					<div className="inputs text-left col-span-6  pt-4">
 						<label>
-							<input type="radio" name="gender" value="male" checked="true" />
+							<input type="radio" name="gender" id="male" checked="true" />
 							Male
 						</label>
 						<label className="ml-4">
-							<input type="radio" name="gender" value="female"/>
+							<input type="radio" name="gender"/>
 							Female
 						</label>
 						<br />
