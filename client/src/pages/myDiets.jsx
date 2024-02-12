@@ -16,10 +16,7 @@ const MyDiets = () => {
 		const fetchDiet = async () => {
 			if(!user["diets"]) return ;
 			let dietData = await user["diets"];
-			// console.log(data)
 			const promise =  dietData.map((ele) => {
-				// dietPlans.push(fetchDietByID(ele))
-				// console.log(dietPlans.slice(-1));forEach
 				return fetchDietByID(ele);
 			});
 			const resolvedDietPlans = await Promise.all(promise);
@@ -36,14 +33,7 @@ const MyDiets = () => {
 					"Content-Type": "application/json"
 				}
 			});
-			// console.log(await response.json())
-			// .then((res) =>{
-			// 	console.log(res)
-			// 	return res
-			// })
-			// .then((res) => {
-			// 	console.log(res)
-			// })
+
 			if(response.ok){
 				let data = await response.json();
 				// console.log(data["data"]["loggedInUser"])
