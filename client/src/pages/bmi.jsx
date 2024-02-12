@@ -1,8 +1,10 @@
 
-const Bmi = () => {
+const BMI = () => {
   return (
-    <div>Bmi</div>
+    <div>
+      
+    </div>
   )
 }
 
-export default Bmi
+export default BMI

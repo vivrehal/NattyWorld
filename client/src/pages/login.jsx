@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import loginBanner from "../assets/loginBanner.png";
 
@@ -28,8 +28,9 @@ const Login = () => {
         console.log("Error while validating User")
         return
       }
-      const reponse=await res.json();
-      if(reponse.status>=400){
+      const response=await res.json();
+
+      if(response.status>=400){
         alert("Error while validating User")
         console.log(response.error)
         return
