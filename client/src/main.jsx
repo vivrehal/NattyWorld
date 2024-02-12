@@ -1,5 +1,6 @@
 // import React from 'react'
 import ReactDOM from 'react-dom/client'
+import React from 'react';
 import App from './App.jsx'
 import './index.css'
 import '@fontsource/roboto/300.css';
@@ -11,6 +12,7 @@ import MyDiets from './pages/myDiets.jsx';
 import GenerateDiet from './pages/generateDiet.jsx';
 import GenerateWorkout from './pages/generateWorkout.jsx';
 import Workouts from './pages/workouts.jsx'
+
 
 import {
   createBrowserRouter,
@@ -66,7 +68,7 @@ const routers = createBrowserRouter([{
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <RouterProvider router={routers}/>
-  // </React.StrictMode>,
+  </React.StrictMode>,
 )

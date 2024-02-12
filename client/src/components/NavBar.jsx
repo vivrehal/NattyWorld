@@ -1,7 +1,42 @@
-import React,{useState} from 'react'
-import { NavLink } from 'react-router-dom'
+import React,{useEffect, useState} from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
+    const navigate=useNavigate()
+    const [loggedInUser, setloggedInUser] = useState(null)
+
+    useEffect(() => {
+        const getUserData=async()=>{
+            try {
+                    const userData= await fetch('/api/v1/users/getAuthStatus',{
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json'
+                        },
+                    })
+                    if(userData.status>=300){
+                        navigate('/login')
+                        alert("Session over ! Please Log in again")
+                    }
+                    else{
+                        const data=await userData.json();
+                        setloggedInUser(data);
+                        console.log(data)
+                    };
+            } catch (error) {
+                console.log(error);
+                alert("Some error occured while checking user authoriazation")
+            }
+            }
+            getUserData()
+    }, [])
+
+    useEffect(() => {
+      setloggedInUser(loggedInUser)
+    }, [setloggedInUser])
+    
+    
+    
 
     const items=[
         {
@@ -35,8 +70,8 @@ const NavBar = () => {
                 </div>
                 <div className="flex userProf w-[20%] justify-end">
                         
-                        {!{isLoggedIn}?
-                        (<h2>kjh</h2>)
+                        {{loggedInUser}?
+                        (<h2>{loggedInUser?.name.toUpperCase()}</h2>)
                         :
                         (<button type="button" className="bg-[#0d0d0d] rounded-md px-3 py-2 hover:bg-[#353535]">
                             SIGN UP / LOGIN

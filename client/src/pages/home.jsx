@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import workoutImg from "../assets/workout.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,7 +8,7 @@ import {
   faBicycle,
   faCalculator,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Testimonials from "../components/Testimonials";
 const Home = () => {
   const features = [
@@ -43,7 +43,39 @@ const Home = () => {
       desc: "",
     },
   ];
-  const [currentUser, setcurrentUser] = useState("");
+  const [currentUser, setcurrentUser] = useState("");  
+
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const getUserData=async()=>{
+        try {
+                const userData= await fetch('/api/v1/users/getAuthStatus',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                })
+                if(userData.status>=300){
+                  console.log(userData.error)
+                }
+                else{
+                    const data=await userData.json();
+                    setcurrentUser(data);
+                    console.log(data)
+                };
+        } catch (error) {
+            console.log(error);
+            alert("Some error occured while checking user authoriazation")
+        }
+        }
+        getUserData()
+}, [])
+
+useEffect(() => {
+  setcurrentUser(currentUser)
+}, [setcurrentUser])
+
   return (
     <>
       <div className=" px-16 pb-[12em] flex flex-col items-center bg-[#0d0d0d] text-slate-50 overflow-hidden">
@@ -52,7 +84,7 @@ const Home = () => {
             <div className="welcomeCon flex flex-col justify-start gap-4">
               <h1 className="text-7xl font-bold">WELCOME</h1>
               <h1 className="text-2xl">
-                {currentUser || (
+                {currentUser?.name?.toUpperCase() || (
                   <button className="px-4 py-3 font-semibold rounded-md border-2 border-[#353535a2] hover: hover:bg-[#353535a2]">
                     SIGN UP / LOGIN
                   </button>

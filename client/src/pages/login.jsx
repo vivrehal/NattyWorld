@@ -7,7 +7,6 @@ const Login = () => {
   const navigate=useNavigate()
   const [formData, setFormData] = useState({});
 
-
   const handleInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
