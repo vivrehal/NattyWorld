@@ -34,7 +34,7 @@ const BMI = () => {
 		
 		bmiResult = "Your BMI Score is : <b>" + bmi + "</b><br/><br/>";
 		bmiResult += "Based on your BMI Score you are in the <b>" + category + "</b> category<br/>";
-		resultElement.innerHTML = bmiResult;
+		resultElement.innerHTML = bmiResult
 
 		// Calculating Body Fats
 		let bfp = 0; //Body Fat Percentage
@@ -85,7 +85,7 @@ const BMI = () => {
 					</div>
 					<div className="inputs text-left col-span-6  pt-4">
 						<label>
-							<input type="radio" name="gender" id="male" checked="true" />
+							<input type="radio" name="gender" id="male" defaultChecked={true} />
 							Male
 						</label>
 						<label className="ml-4">
