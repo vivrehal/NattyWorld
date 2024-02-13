@@ -1,80 +1,20 @@
 import React, { useEffect, useState } from "react";
 import workoutImg from "../assets/workout.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faWeightScale,
-  faDumbbell,
-  faBowlFood,
-  faBicycle,
-  faCalculator,
-} from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
 import Testimonials from "../components/Testimonials";
+import Services from "../components/Services";
 const Home = () => {
-  const features = [
-    {
-      title: "Calculate BMI",
-      image: faWeightScale,
-      href: "",
-      desc: "",
-    },
-    {
-      title: "Generate Diet",
-      image: faBowlFood,
-      href: "",
-      desc: "",
-    },
-    {
-      title: "Generate Workout",
-      image: faBicycle,
-      href: "",
-      desc: "",
-    },
-    {
-      title: "Find Gyms Nearby",
-      image: faDumbbell,
-      href: "",
-      desc: "",
-    },
-    {
-      title: "Calorie Calculator",
-      image: faCalculator,
-      href: "",
-      desc: "",
-    },
-  ];
+
   const [currentUser, setcurrentUser] = useState("");  
 
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    const getUserData=async()=>{
-        try {
-                const userData= await fetch('/api/v1/users/getAuthStatus',{
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json'
-                    },
-                })
-                if(userData.status>=300){
-                  console.log(userData.error)
-                }
-                else{
-                    const data=await userData.json();
-                    setcurrentUser(data);
-                    console.log(data)
-                };
-        } catch (error) {
-            console.log(error);
-            alert("Some error occured while checking user authoriazation")
-        }
-        }
-        getUserData()
-}, [])
+    const user=JSON.parse(localStorage.getItem('user'));
+    console.log(user?.name)
+    setcurrentUser(user?.name);
+}, [setcurrentUser, localStorage])
 
-useEffect(() => {
-  setcurrentUser(currentUser)
-}, [setcurrentUser])
 
   return (
     <>
@@ -84,8 +24,8 @@ useEffect(() => {
             <div className="welcomeCon flex flex-col justify-start gap-4">
               <h1 className="text-7xl font-bold">WELCOME</h1>
               <h1 className="text-2xl">
-                {currentUser?.name?.toUpperCase() || (
-                  <button className="px-4 py-3 font-semibold rounded-md border-2 border-[#353535a2] hover: hover:bg-[#353535a2]">
+                {currentUser?.toUpperCase() || (
+                  <button onClick={()=>{navigate('/login')}} className="px-4 py-3 font-semibold rounded-md border-2 border-[#353535a2] hover: hover:bg-[#353535a2]">
                     SIGN UP / LOGIN
                   </button>
                 )}
@@ -111,40 +51,7 @@ useEffect(() => {
             />
           </div>
         </div>
-        <div className="features w-[100%] flex flex-col rounded-[2em] py-6 gap-4">
-          <div className="featureTitle self-center text-3xl font-bold">
-            <h2>CHOOSE AMONG VARIOUS FEATURES !</h2>
-          </div>
-          <div className="flex flex-row justify-evenly featureWrapper w-[100%] p-4">
-            {features.map((feature, index) => {
-              return (
-                <div className=" p-3 bg-[#0d0d0d] rounded-[2em]" key={index}>
-                  <div className="max-w-sm rounded overflow-hidden shadow-lg flex flex-col justify-center">
-                    <FontAwesomeIcon
-                      icon={feature.image}
-                      className="w-[6em] h-[6em] px-6 self-center"
-                    />
-                    <div className="px-6 py-4">
-                      <div className="font-bold text-xl mb-2 text-center">
-                        {feature.title}
-                      </div>
-                      <p className="text-gray-700 text-base text-center">
-                        {feature.desc}
-                      </p>
-                    </div>
-                    <div className="px-6 pt-4 pb-2 self-center">
-                      <NavLink to={feature.href}>
-                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                          TRY IT
-                        </span>
-                      </NavLink>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <Services/>
       </div>
     </>
   );

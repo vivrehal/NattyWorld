@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const GenerateDiet = () => {
   const [dietPlan, setDietPlan] = useState("");
+  const [currentUser, setcurrentUser] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
     height: "",
@@ -17,6 +18,12 @@ const GenerateDiet = () => {
     country: "",
     totalCalories: "",
   });
+
+  useEffect(() => {
+    const user=JSON.parse(localStorage.getItem('user'));
+    // console.log(user?.loggedInUser?.name)
+    setcurrentUser(user);
+}, [setcurrentUser])
 
   const handleInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,7 +62,7 @@ const GenerateDiet = () => {
     if (!response?.data) {
       alert("Cannot save Diet Plan");
     } 
-    
+
   };
 
   const handleSubmit = async (e) => {
@@ -80,6 +87,7 @@ const GenerateDiet = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md focus:outline-none"
                   type="text"
+                  defaultValue={currentUser?.name}
                 />
               </div>
               <div className="">
@@ -92,6 +100,7 @@ const GenerateDiet = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  defaultValue={currentUser?.height}
                 />
               </div>
               <div className="">
@@ -104,6 +113,7 @@ const GenerateDiet = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  defaultValue={currentUser?.weight}
                 />
               </div>
               <div className="">

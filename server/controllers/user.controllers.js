@@ -22,9 +22,18 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new apiError(400, "All fields required");
   }
   // console.log(typeof weight)
-  if ([weight, height].some((field) => typeof field !== "number")) {
-    throw new apiError(400, "Expected Number in Height and Weight Field");
-  }
+  
+	try {
+		  weight=parseInt(weight);
+		  height=parseInt(height);
+	} catch (error) {
+		throw new apiError(400, "Expected Number in Height and Weight Field");
+	
+	}
+
+//   if ([weight, height].some((field) => typeof field !== "number")) {
+//     throw new apiError(400, "Expected Number in Height and Weight Field");
+//   }
 
   if (!email.includes("@")) {
     throw new apiError(400, "email is not valid");

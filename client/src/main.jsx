@@ -22,6 +22,9 @@ import Diets from './pages/diets.jsx';
 import Login from './pages/login.jsx';
 import MyWorkouts from './pages/myWorkouts.jsx';
 import BMI from "./pages/bmi.jsx"
+import Signup from './pages/signup.jsx';
+import MyProfile from './pages/myProfile.jsx';
+import GymsNearby from './pages/gymsNearby.jsx';
 
 const routers = createBrowserRouter([{
   path:'/',
@@ -48,8 +51,20 @@ const routers = createBrowserRouter([{
       element: <Diets/>
     },
     {
+      path:'gymsNearby',
+      element: <GymsNearby/>
+    },
+    {
       path:'login',
       element: <Login/>
+    },
+    {
+      path:'myProfile',
+      element: <MyProfile/>
+    },
+    {
+      path:'signup',
+      element: <Signup/>
     },
     {
       path: 'allWorkouts',
