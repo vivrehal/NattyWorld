@@ -1,17 +1,18 @@
 import React,{ useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../features/userSlice";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState(null);
   
   const currUser=useSelector(state=>state.user)
-  console.log(currUser)
   useEffect(() => {
-    // console.log(currUser)
-    setloggedInUser(currUser?.loggedInUser?.name)
-  })
+    console.log(currUser)
+    setloggedInUser(currUser?.name)
+  },[currUser])
 
 
 
@@ -41,13 +42,15 @@ const NavBar = () => {
         },
         });
     const  response=await res.json();
-    if(response.status>=400){
+    if(res.status>=400){
         alert("Error while logging out")
         console.log(response.error)
         return
     }
+    dispatch(setUser({}))
+    localStorage.removeItem("user")
     alert("Logged Out Successfully")
-    navigate("/");
+    navigate("/login");
 }
 
   const [isToggled, setisToggled] = useState(false);
