@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import workoutImg from "../assets/workout.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import Testimonials from "../components/Testimonials";
@@ -8,13 +8,6 @@ const Home = () => {
   const [currentUser, setcurrentUser] = useState("");  
 
   const navigate = useNavigate(); 
-
-  useEffect(() => {
-    const user=JSON.parse(localStorage.getItem('user'));
-    console.log(user?.name)
-    setcurrentUser(user?.name);
-}, [setcurrentUser, localStorage])
-
 
   return (
     <>

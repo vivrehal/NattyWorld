@@ -11,7 +11,8 @@ const getAllDiets = asyncHandler(async(req, res) => {
           return res.status(200).json(new ApiResponse(200,dbRes,"Diet retrieved successfully"))
         },
         (dbErr) => {
-            throw new apiError(400,"error while fetching diets from db",[dbErr])
+            // throw new apiError(400,"error while fetching diets from db",[dbErr])
+			res.status(400).json(new ApiResponse(400,{},`error while fetching diets from db ${dbErr}`))
           }
     );
 })
@@ -51,7 +52,8 @@ const addDiet = asyncHandler(async(req, res) => {
 	)
 
 	if(!diet){
-		throw new apiError(502, "could not add deit to db from model method")
+		// throw new apiError(502, "could not add deit to db from model method")
+		res.status(502).json(new ApiResponse(502,{}, "could not add deit to db from model method"))
 	}
 
 	// Adding the workoutID to user's workout array
@@ -70,7 +72,8 @@ const addDiet = asyncHandler(async(req, res) => {
     )
 
 	if(!newUser){
-		throw new apiError(501, "cannot add diet in userSchema")
+		// throw new apiError(501, "cannot add diet in userSchema")
+		res.status(501).json(new ApiResponse(501,{}, "cannot add diet in userSchema"))
 	}
 
 	res

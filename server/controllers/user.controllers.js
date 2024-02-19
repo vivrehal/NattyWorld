@@ -19,7 +19,8 @@ const registerUser = asyncHandler(async (req, res) => {
   console.log(username, name);
 
   if ([username, name, email, password].some((field) => field.trim() === "")) {
-    throw new apiError(400, "All fields required");
+    // throw new apiError(400, "All fields required");
+    res.status(400).json(new ApiResponse(400, {}, "All fields required"));
   }
   // console.log(typeof weight)
   
@@ -27,7 +28,8 @@ const registerUser = asyncHandler(async (req, res) => {
 		  weight=parseInt(weight);
 		  height=parseInt(height);
 	} catch (error) {
-		throw new apiError(400, "Expected Number in Height and Weight Field");
+		// throw new apiError(400, "Expected Number in Height and Weight Field");
+    res.status(400).json(new ApiResponse(400, {}, "Expected Number in Height and Weight Field"));
 	
 	}
 
@@ -36,17 +38,16 @@ const registerUser = asyncHandler(async (req, res) => {
 //   }
 
   if (!email.includes("@")) {
-    throw new apiError(400, "email is not valid");
+    // throw new apiError(400, "email is not valid");
+    res.status(400).json(new ApiResponse(400, {}, "email is not valid"));
   }
 
   const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-zA-Z]).{8,}$/;
 
   if (!passwordRegex.test(password)) {
     // console.log(passwordRegex.test("123vivek@"))
-    throw new apiError(
-      400,
-      "Password should contain minimum eight characters, at least one letter, one number and one special character"
-    );
+    // throw new apiError(400,"Password should contain minimum eight characters, at least one letter, one number and one special character");
+    res.status(400).json(new ApiResponse(400, {}, "Password should contain minimum eight characters, at least one letter, one number and one special character"));
   }
 
   const userExists = await userModal.findOne({
@@ -54,7 +55,8 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (userExists) {
-    throw new apiError(409, "User already exists");
+    // throw new apiError(409, "User already exist");
+    res.status(409).json(new ApiResponse(409, {}, "User already exist"));
   }
 
   const user = await userModal.create({
@@ -72,7 +74,8 @@ const registerUser = asyncHandler(async (req, res) => {
     .select("-password -refreshToken");
 
   if (!isUserCreated) {
-    throw new apiError(500, "Something went wrong while registering user");
+    // throw new apiError(500, "Something went wrong while registering user");
+    res.status(500).json(new ApiResponse(500, {}, "Something went wrong while registering user"));
   }
 
   return res
@@ -90,19 +93,22 @@ const loginUser = asyncHandler(async (req, res) => {
   const { usernameOrEmail, password } = req.body;
   console.log(usernameOrEmail + " " + password);
   if (!usernameOrEmail || !password) {
-    throw new apiError(400, "username or password is required");
+    // throw new apiError(400, "username or password is required");
+    res.status(400).json(new ApiResponse(400, {}, "username or password is required"));
   }
 
   const user = await userModal.findOne({ usernameOrEmail });
 
   if (!user) {
-    throw new apiError(404, "User not found");
+    // throw new apiError(404, "User not found");
+    res.status(404).json(new ApiResponse(404, {}, "User not found"));  
   }
 
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
-    throw new apiError(402, "Invalid user credentials");
+    // throw new apiError(402, "Invalid user credentials");
+    res.status(402).json(new ApiResponse(402, {}, "Invalid user credentials"));
   }
 
   const { refreshToken, accessToken } = await generateTokens(user._id);
@@ -155,16 +161,19 @@ const logoutUser = asyncHandler(async (req, res) => {
 const getUserAuthStatus = asyncHandler(async (req, res) => {
   const token = req.cookies?.accessToken;
   if (!token) {
-    throw new apiError(401, "no access token found in cookies");
+    // throw new apiError(401, "no access token found in cookies");
+    res.status(401).json(new ApiResponse(401, {}, "No access token found in cookies"));
   }
   const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   if (!decodedToken) {
-    throw new apiError(401, "Invalid access token please login again");
+    // throw new apiError(401, "Invalid access token please login again");
+    res.status(401).json(new ApiResponse(401, {}, "Invalid access token please login again"));
   }
   const id = decodedToken._id;
   const user = await userModal.findById(id).select("-password -refreshToken");
   if (!user) {
-    throw new apiError(501, "Invalid access token no user matched");
+    // throw new apiError(501, "Invalid access token no user matched");
+    res.status(501).json(new ApiResponse(501, {}, "Invalid access token! No user matched"));
   }
   res.status(200).json(user);
 });
@@ -172,19 +181,23 @@ const getUserAuthStatus = asyncHandler(async (req, res) => {
 const newTokenOnExpiry = asyncHandler(async (req, res) => {
   const token = req.cookies?.refreshToken;
   if (!token) {
-    throw new apiError(401, "no refresh token found in cookies");
+    // throw new apiError(401, "no refresh token found in cookies");
+    res.status(401).json(new ApiResponse(401, {}, "No refresh token found in cookies"));
   }
   const decodedToken = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
   if (!decodedToken) {
-    throw new apiError(401, "Invalid refresh token please login again");
+    // throw new apiError(401, "Invalid refresh token please login again");
+    res.status(401).json(new ApiResponse(401, {}, "Invalid refresh token please login again"));
   }
   const id = decodedToken._id;
   const user = await userModal.findById(id);
   if (!user) {
-    throw new apiError(501, "Invalid refresh token no user matched");
+    // throw new apiError(501, "Invalid refresh token no user matched");
+    res.status(501).json(new ApiResponse(501, {}, "Invalid refresh token no user matched"));
   }
   if (user.refreshToken !== token) {
-    throw new apiError(501, "refresh token not matched with user's token");
+    // throw new apiError(501, "refresh token not matched with user's token");
+    res.status(501).json(new ApiResponse(501, {}, "refresh token not matched with user's token"));
   }
 
   const { accessToken } = generateTokens();

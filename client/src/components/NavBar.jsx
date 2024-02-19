@@ -5,15 +5,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState(null);
 
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if(!userData){
-      return
-    }
-    const user=JSON.parse(userData)
-    console.log(user?.name);
-    setloggedInUser(user?.name);
-  }, [setloggedInUser]);
 
   const items = [
     {

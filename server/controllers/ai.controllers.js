@@ -54,7 +54,8 @@ const getDietFromAi=asyncHandler(async(req,res)=>{
             !Array.isArray(response.choices) || 
             response.choices.length==0
             ){
-                throw new apiError(500, "something went wrong while fetching diet plan")
+                // throw new apiError(500, "something went wrong while fetching diet plan");
+                res.status(500).json(new ApiResponse(500, {}, "something went wrong while fetching diet plan"));
             }
 
             const dietPlan = response.choices[0].message;
@@ -116,7 +117,8 @@ const getWorkoutFromAi=asyncHandler(async(req,res)=>{
         !Array.isArray(response.choices) || 
         response.choices.length==0
         ){
-            throw new apiError(500, "something went wrong while fetching workout plan")
+            // throw new apiError(500, "something went wrong while fetching workout plan")
+            res.status(500).json(new ApiResponse(500, {}, "something went wrong while fetching workout plan"));
         }
 
         const workoutPlan = response.choices[0].message;
