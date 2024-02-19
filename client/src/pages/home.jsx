@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import workoutImg from "../assets/workout.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import Testimonials from "../components/Testimonials";
@@ -6,6 +7,11 @@ import Services from "../components/Services";
 const Home = () => {
 
   const [currentUser, setcurrentUser] = useState("");  
+  const currUser=useSelector(state=>state.user)
+  useEffect(() => {
+    // console.log(currUser)
+    setcurrentUser(currUser?.loggedInUser?.name)
+  })
 
   const navigate = useNavigate(); 
 

@@ -28,7 +28,7 @@ const findNearbyGyms=asyncHandler(async(req, res)=>{
     } catch (error) {
         console.error(error);
         // throw new apiError(502, "Error while fetching nearby gyms")
-        res.status(502).json(new ApiResponse(502,{}, "Error while fetching nearby gyms"))
+        return res.status(502).json(new ApiResponse(502,{}, "Error while fetching nearby gyms"))
     }
 })
 

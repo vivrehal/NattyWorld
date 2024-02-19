@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState(null);
+  
+  const currUser=useSelector(state=>state.user)
+  console.log(currUser)
+  useEffect(() => {
+    // console.log(currUser)
+    setloggedInUser(currUser?.loggedInUser?.name)
+  })
+
 
 
   const items = [

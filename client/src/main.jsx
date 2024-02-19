@@ -12,6 +12,9 @@ import MyDiets from './pages/myDiets.jsx';
 import GenerateDiet from './pages/generateDiet.jsx';
 import GenerateWorkout from './pages//generateWorkout.jsx';
 import Workouts from './pages/workouts.jsx'
+import { Provider } from 'react-redux';
+import store from './app/store.js';
+
 
 
 import {
@@ -84,6 +87,8 @@ const routers = createBrowserRouter([{
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Provider  store={store}>
     <RouterProvider router={routers}/>
+    </Provider>
   </React.StrictMode>,
 )

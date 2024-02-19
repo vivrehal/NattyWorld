@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import loginBanner from "../assets/loginBanner.png";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/userSlice";
 
 const Login = () => {
-
+  const dispatch=useDispatch()
   const navigate=useNavigate()
   const [formData, setFormData] = useState({});
 
@@ -28,13 +30,16 @@ const Login = () => {
         return
       }
       const response=await res.json();
-
-      if(response.status>=400){
-        alert("Error while validating User")
-        console.log(response.error)
+      if(res.status>=400){
+        console.log("inside if")
+        alert(response?.message)
+        // console.log(response.error+" ")
         return
       }
+      console.log(response.data)
+      dispatch(setUser(response?.data))
       navigate('/')
+
 
     } catch (error) {
       alert(error)

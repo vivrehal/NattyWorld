@@ -27,7 +27,7 @@ workoutModal.showAllWorkout = (successCallBack, errorCallBack, res) => {
         .catch((error) => {
             // exceptionHandler
             // console.log(error);
-            res.status(400).json(new apiError(501, "error while fetching workouts from db ",[error]))
+            return res.status(400).json(new apiError(501, "error while fetching workouts from db ",[error]))
         })
 }
 
@@ -52,7 +52,7 @@ workoutModal.addNewWorkout = async (newWorkout) => {
     const workout=await workoutModal.create(newWorkout)
     if(!workout){
         // throw new apiError(501, "could not add workout in db")
-        res.status(501).json(new ApiResponse(501,{}, "could not add workout in db"))
+        return res.status(501).json(new ApiResponse(501,{}, "could not add workout in db"))
     }
     return workout
       

@@ -12,7 +12,7 @@ const getAllWorkouts=asyncHandler(async(req, res) => {
           },
           (dbErr) => {
             // throw new apiError(400,"error while fetching workouts from db ",[dbErr])
-			res.status(400).json(new ApiResponse(400,{},`error while fetching workouts from db ${dbErr}`))
+			return res.status(400).json(new ApiResponse(400,{},`error while fetching workouts from db ${dbErr}`))
           },
     );
 })
@@ -52,7 +52,7 @@ const addWorkout=asyncHandler(async(req, res) => {
 
 	if(!workout){
 		// throw new apiError(502, "could not add workout to db from model method")
-		res.status(502).json(new ApiResponse(502,{}, "could not add workout to db from model method"))
+		return res.status(502).json(new ApiResponse(502,{}, "could not add workout to db from model method"))
 	}
 
 	// Adding the workoutID to user's workout array
@@ -72,7 +72,7 @@ const addWorkout=asyncHandler(async(req, res) => {
 
 	if(!newUser){
 		// throw new apiError(501, "cannot add workout in userSchema")
-		res.status(501).json(new ApiResponse(501,{}, "cannot add workout in userSchema"))
+		return res.status(501).json(new ApiResponse(501,{}, "cannot add workout in userSchema"))
 	}
 
 	res
