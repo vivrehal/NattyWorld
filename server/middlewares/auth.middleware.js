@@ -9,7 +9,8 @@ try {
         req.header("Authorization")?.replace("Bearer ","")
         console.log(token)
         if(!token){
-            throw new apiError(401, "Unauthorized acess")
+            // throw new apiError(401, "Unauthorized acess")
+            res.status(401).json(new ApiResponse(401, {}, "Unauthorized acess"));
         }
         
         const decodedToken=jwt.verify(
@@ -25,7 +26,8 @@ try {
             // console.log("authorization complete")
         next();
 } catch (error) {
-    throw new apiError(404, error?.mesage || "Invalid access token")
+    // throw new apiError(404, error?.mesage || "Invalid access token")
+    res.status(404).json(new ApiResponse(404, {}, error?.mesage || "Invalid access token"));
 }
 })
 

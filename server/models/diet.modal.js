@@ -26,7 +26,8 @@ dietModal.showAllDiet = (successCallBack, errorCallBack, res) => {
         )
         .catch((error) => {
             // exceptionHandler
-            console.log(error);
+            // console.log(error);
+            res.status(400).json(new apiError(501, "error while fetching diets from db", [error]))
         })
 }
 
@@ -50,11 +51,13 @@ dietModal.addNewDiet = async(newDiet) => {
       console.log(newDiet)
         const diet=await dietModal.create(newDiet)
         if(!diet){
-            throw new apiError(501, "could not add diet in db")
+            // throw new apiError(501, "could not add diet in db")
+            res.status(501).json(new ApiResponse(501,{}, "could not add diet in db"))
         }
         return diet
     } catch (error) {
-        throw new apiError(501, "error while adding diet in db")
+        // throw new apiError(501, "error while adding diet in db")
+        res.status(501).json(new ApiResponse(501,{}, "error while adding diet in db"))
     }
 }
 
