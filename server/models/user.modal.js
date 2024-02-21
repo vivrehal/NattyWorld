@@ -159,5 +159,38 @@ userModal.deleteUser = (reqID, successCallBack, errorCallBack, res) => {
       });
 };
 
+userModal.getUserWorkouts = (reqID, successCallBack, errorCallBack, res) => {
+    userModal.findById(reqID)
+      .populate("workouts")
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+
+}
+
+userModal.getUserDiets = (reqID, successCallBack, errorCallBack, res) => {
+    userModal.findById(reqID)
+      .populate("diets")
+      .then(
+        (dbRes) => {
+          successCallBack(dbRes);
+        },
+        (dbErr) => {
+          errorCallBack(dbErr);
+        }
+      )
+      .catch((error) => {
+        exceptionHandler(res, error);
+      });
+      
+}
 // userModal.addWorkout = (re)
 export { userModal };

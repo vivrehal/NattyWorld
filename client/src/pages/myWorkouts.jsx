@@ -4,57 +4,24 @@ import SidebarItem from "../components/sidebarItem.jsx";
 const MyWorkouts = () => {
 	const [workoutPlans, setWorkout] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
-	const [user, setUser] = useState({});
 
-	const fetchWorkoutByID = async (workoutID) =>{
-		if(workoutID) return await fetch("/api/v1/workouts/workoutList/" + workoutID)
+	const fetchWorkoutsArray = async () =>{
+		return await fetch("/api/v1/users/getUserWorkouts")
 								.then((res) => {
 									return res.json();
+								})
+								.then((data) => {
+									return data["workouts"];
 								});
 	}
 	useEffect(() => {
 		const fetchWorkout = async () => {
-			if(!user["workouts"]) return ;
-			let workoutData = await user["workouts"];
-			// console.log(data)
-			const promise =  workoutData.map((ele) => {
-				// workoutPlans.push(fetchworkoutByID(ele))
-				// console.log(workoutPlans.slice(-1));forEach
-				return fetchWorkoutByID(ele);
-			});
-			const resolvedworkoutPlans = await Promise.all(promise);
-			setWorkout(resolvedworkoutPlans);
+			const newWorkoutPlans = await fetchWorkoutsArray();
+			setWorkout(newWorkoutPlans);
 		};
-		const login = async () => {
-			const response = await fetch("/api/v1/users/login", {
-				method: "POST",
-				body : JSON.stringify({
-					"usernameOrEmail" : "vivrehal",
-					"password" : "qwertyyyy12@."				
-				}),
-				headers: {
-					"Content-Type": "application/json"
-				}
-			});
-			// console.log(await response.json())
-			// .then((res) =>{
-			// 	console.log(res)
-			// 	return res
-			// })
-			// .then((res) => {
-			// 	console.log(res)
-			// })
-			if(response.ok){
-				let data = await response.json();
-				// console.log(data["data"]["loggedInUser"])
-				setUser(data["data"]["loggedInUser"])
-			}
-			fetchWorkout();
-		}
 
-		login()
-		// fetchworkout();
-	}, [user]);
+		fetchWorkout();
+	}, []);
 	// };
 	
 	const changeActiveIndex = (newIndex) => {

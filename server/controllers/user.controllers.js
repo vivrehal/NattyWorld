@@ -157,7 +157,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User Logged out"));
 });
-
+ 
 const getUserAuthStatus = asyncHandler(async (req, res) => {
   const token = req.cookies?.accessToken;
   if (!token) {
@@ -303,6 +303,45 @@ const getUserById = asyncHandler(async (req, res) => {
   );
 });
 
+const getUserWorkouts = asyncHandler(async (req, res) => {
+  let reqID = req.user._id;
+  userModal.getUserWorkouts(
+    reqID,
+    (dbRes) => {
+      if (dbRes) {
+        res.send(dbRes);
+      } else {
+        res.status(404);
+        res.json({ message: "Record does not exist" });
+      }
+    },
+    (dbErr) => {
+      res.status(400);
+      res.json({ name: dbErr.name, message: dbErr.message });
+    }
+  )
+}
+);
+
+const getUserDiets = asyncHandler(async (req, res) => {
+  let reqID = req.user._id;
+  userModal.getUserDiets(
+    reqID,
+    (dbRes) => {
+      if (dbRes) {
+        res.send(dbRes);
+      } else {
+        res.status(404);
+        res.json({ message: "Record does not exist" });
+      }
+    },
+    (dbErr) => {
+      res.status(400);
+      res.json({ name: dbErr.name, message: dbErr.message });
+    }
+  )
+}
+)
 export {
   registerUser,
   loginUser,
@@ -312,4 +351,6 @@ export {
   newTokenOnExpiry,
   getUserById,
   getUserAuthStatus,
+  getUserWorkouts,
+  getUserDiets
 };
