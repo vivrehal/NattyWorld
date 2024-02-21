@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
+import BodyTextArea from "../components/BodyTextArea.jsx";
 
 const Workouts = () => {
 	const [workoutPlans, setWorkout] = useState([]);
-	const [activeIndex, setIndex] = useState(0);
+	const [activeIndex, setIndex] = useState(NaN);
 	useEffect(() => {
 		const fetchWorkout = async () => {
 			await fetch("/api/v1/workouts/workoutList")
@@ -35,7 +36,8 @@ const Workouts = () => {
 		return "";
 	}
 	const getPlanBody = () => {
-		if(workoutPlans != undefined && workoutPlans != null) {
+		if(workoutPlans) {
+			console.log(workoutPlans[activeIndex]?.plan);
 			return workoutPlans[activeIndex]?.plan;
 		}
 
@@ -61,14 +63,12 @@ const Workouts = () => {
       
 			{/* Workout Display */}
 			<div
-				className="flex-grow overflow-auto mt-20 bg-black text-gray-200 text-[18px] w-[72%] h-[90vh] "
+				className="flex-grow overflow-auto mt-20 bg-[#171717] text-gray-200 text-[18px] w-[72%] h-[90vh] "
 				// style={{ marginLeft: "20%" }}
 			>
 				{/* Content of the Workout display */}
 				<h1 className="font-bold mx-auto text-gray-200 text-[30px]">{getPlanName()}</h1>
-				<div className="plan-body">
-					{getPlanBody()}
-				</div>
+				<BodyTextArea plan={getPlanBody()} />
 			</div>
 		</div>
 	);

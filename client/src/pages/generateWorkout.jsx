@@ -39,12 +39,12 @@ const GenerateWorkout = () => {
     setWorkoutPlan(response.data.workoutPlan.content);
   };
 
-  const saveWorkout = async (formData) => {
+  const saveWorkout = async () => {
     const workoutDetails={
-      title:`${formData.fitnessGoal} | ${formData.splitType} | ${formData.gender} | ${formData.workoutDuration}`,
+      name:`${formData.fitnessGoal} | ${formData.splitType} | ${formData.gender} | ${formData.workoutDuration} hrs`,
       plan : workoutPlan
     }
-    const res = await fetch("/api/v1/workout/addWorkout", {
+    const res = await fetch("/api/v1/workouts/addWorkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,6 +55,7 @@ const GenerateWorkout = () => {
     if (!response?.data) {
       alert("Cannot save workout Plan");
     }
+    alert("Workout Plan Saved Successfully");
   };
 
   const handleSubmit = async (e) => {
