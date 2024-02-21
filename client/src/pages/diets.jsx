@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
+import BodyTextArea from "../components/BodyTextArea.jsx";
 
 const Diets = () => {
 	const [dietPlans, setDiet] = useState([]);
@@ -36,7 +37,7 @@ const Diets = () => {
 	}
 	const getPlanBody = () => {
 		if(dietPlans != undefined && dietPlans != null) {
-			return dietPlans[activeIndex]?.plan;
+			return <BodyTextArea plan={dietPlans[activeIndex]?.plan} /> ;
 		}
 
 		return "";

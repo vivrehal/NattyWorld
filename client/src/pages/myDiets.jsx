@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
+import BodyTextArea from "../components/BodyTextArea.jsx";
 
 const MyDiets = () => {
 	const [dietPlans, setDiet] = useState([]);
@@ -38,7 +39,7 @@ const MyDiets = () => {
 	}
 	const getPlanBody = () => {
 		if(dietPlans != undefined && dietPlans != null) {
-			return dietPlans[activeIndex]?.plan;
+			return <BodyTextArea plan={dietPlans[activeIndex]?.plan}/>;
 		}
 
 		return "";
@@ -62,7 +63,7 @@ const MyDiets = () => {
 			</div>
 			{/* Diet Display */}
 			<div
-				className="flex-grow overflow-auto mt-20 bg-black text-gray-200 text-[18px] w-[72%] h-[90vh] "
+				className="flex-grow overflow-auto mt-20 bg-black text-gray-200 text-[18px] w-[72%] h-[100vh] "
 				// style={{ marginLeft: "20%" }}
 			>
 				{/* Content of the diet display */}
