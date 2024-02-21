@@ -31,13 +31,13 @@ const Login = () => {
       }
       const response=await res.json();
       if(res.status>=400){
-        console.log("inside if")
+        // console.log("inside if")
         alert(response?.message)
         // console.log(response.error+" ")
         return
       }
-      console.log(response.data)
-      dispatch(setUser(response?.data))
+      // console.log(response.data)
+      dispatch(setUser(response?.data?.loggedInUser))
       navigate('/')
 
 

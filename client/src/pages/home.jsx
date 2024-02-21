@@ -10,7 +10,7 @@ const Home = () => {
   const currUser=useSelector(state=>state.user)
   useEffect(() => {
     // console.log(currUser)
-    setcurrentUser(currUser?.loggedInUser?.name)
+    setcurrentUser(currUser?.name)
   })
 
   const navigate = useNavigate(); 
