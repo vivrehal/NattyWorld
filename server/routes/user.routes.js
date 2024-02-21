@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { loginUser, logoutUser, registerUser, updateUser, deleteUser, newTokenOnExpiry, getUserById, getUserAuthStatus } from "../controllers/user.controllers.js";
+import { loginUser, logoutUser, registerUser, updateUser,
+       deleteUser, newTokenOnExpiry, getUserById,
+       getUserAuthStatus, getUserWorkouts, getUserDiets }
+       from "../controllers/user.controllers.js";
 import verifyJWT from "../middlewares/auth.middleware.js";
 
 const router=Router();
@@ -14,6 +17,9 @@ router.route("/deleteUser/:reqID").delete(verifyJWT,deleteUser)
 router.route("/logout").post(verifyJWT,logoutUser)
 router.route("/getAuthStatus").post(getUserAuthStatus)
 router.route("/refresh_token").post(newTokenOnExpiry)
+
+router.route("/getUserWorkouts").get(verifyJWT, getUserWorkouts);
+router.route("/getUserDiets").get(verifyJWT, getUserDiets);
 
 router.route("/getUser/:reqID").get(verifyJWT, getUserById)
 

@@ -4,48 +4,23 @@ import SidebarItem from "../components/sidebarItem.jsx";
 const MyDiets = () => {
 	const [dietPlans, setDiet] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
-	const [user, setUser] = useState({});
 
-	const fetchDietByID = async (dietID) =>{
-		if(dietID) return await fetch("/api/v1/diet/dietList/" + dietID)
+	const fetchDietsArray = async () =>{
+		return await fetch("/api/v1/users/getUserDiets")
 								.then((res) => {
 									return res.json();
+								})
+								.then((data) => {
+									return data["diets"];
 								});
 	}
 	useEffect(() => {
 		const fetchDiet = async () => {
-			if(!user["diets"]) return ;
-			let dietData = await user["diets"];
-			const promise =  dietData.map((ele) => {
-				return fetchDietByID(ele);
-			});
-			const resolvedDietPlans = await Promise.all(promise);
-			setDiet(resolvedDietPlans);
+			const newDietPlans = await fetchDietsArray();
+			setDiet(newDietPlans);
 		};
-		const login = async () => {
-			const response = await fetch("/api/v1/users/login", {
-				method: "POST",
-				body : JSON.stringify({
-					"usernameOrEmail" : "vivrehal",
-					"password" : "qwertyyyy12@."				
-				}),
-				headers: {
-					"Content-Type": "application/json"
-				}
-			});
-
-			if(response.ok){
-				let data = await response.json();
-				// console.log(data["data"]["loggedInUser"])
-				setUser(data["data"]["loggedInUser"])
-			}
-			fetchDiet();
-		}
-
-		login()
-		// fetchDiet();
-	}, [user]);
-	// };
+		fetchDiet();
+	}, []);
 	
 	const changeActiveIndex = (newIndex) => {
 		setIndex(newIndex);

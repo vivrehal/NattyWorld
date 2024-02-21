@@ -6,7 +6,7 @@ const Workouts = () => {
 	const [activeIndex, setIndex] = useState(0);
 	useEffect(() => {
 		const fetchWorkout = async () => {
-			await fetch("http://localhost:9000/api/v1/workouts/workoutList")
+			await fetch("/api/v1/workouts/workoutList")
 				.then(async (res) => {
 					let x = await res.json();
 					setWorkout(x["data"]);
