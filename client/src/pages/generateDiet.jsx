@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import BodyTextArea from "../components/BodyTextArea.jsx";
 const GenerateDiet = () => {
   const [dietPlan, setDietPlan] = useState("");
   const [currentUser, setcurrentUser] = useState(null)
@@ -259,17 +259,9 @@ const GenerateDiet = () => {
             </form>
           </div>
         </div>
-        <div className="rightList w-[100%] h-[90vh] p-4 flex flex-col">
+        <div className="rightList w-[100%] h-[100vh] p-4 flex flex-col">
           <div className="inpText w-[100%] h-[90%]">
-            <textarea
-              name=""
-              id=""
-              value={dietPlan}
-              cols="30"
-              rows="10"
-              className="h-[100%] w-[100%] overflow-y-auto resize-none border-none focus:outline-none border-4 bg-[#171717] rounded-xl p-4 text-white"
-              readOnly={true}
-            ></textarea>
+                  <BodyTextArea plan={dietPlan}/>
           </div>
           <div className="generateBtn flex flex-row w-[100%] h-[10%] justify-center items-center">
                 <button
