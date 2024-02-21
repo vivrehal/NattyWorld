@@ -46,7 +46,7 @@ const Services = () => {
 
 
   return (
-    <div className="features w-[100%] flex flex-col rounded-[2em] py-6 gap-4">
+    <div className="features w-[100%] flex flex-col rounded-[2em] py-6 gap-4" id="services_container">
     <div className="featureTitle self-center text-3xl font-bold">
       <h2>CHOOSE AMONG VARIOUS FEATURES !</h2>
     </div>

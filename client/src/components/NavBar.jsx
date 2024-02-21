@@ -2,6 +2,7 @@ import React,{ useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../features/userSlice";
+import { Link } from "react-scroll"
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -20,14 +21,27 @@ const NavBar = () => {
     {
       name: "Home",
       href: "/",
+      scroll_id: "home_container"
     },
     {
       name: "Services",
       href: "#",
+      scroll_id: "services_container"
     },
     {
       name: "About Us",
       href: "#",
+      scroll_id: "aboutUs_container"
+    },
+    {
+      name: "Diets",
+      href: "/allDiets",
+      scroll_id: "#"
+    },
+    {
+      name: "Workouts",
+      href: "/allWorkouts",
+      scroll_id: "#"
     },
   ];
 
@@ -65,10 +79,19 @@ const NavBar = () => {
           <div className="pageList w-[50%]">
             <ul className="flex list-none flex-row justify-center gap-16">
               {items.map((item, index) => (
-                <NavLink to={item.href} key={index}>
-                  <li className="navList">{item.name}</li>
-                </NavLink>
+                <Link 
+                to={item.scroll_id}
+                activeClass="active"
+                spy={true} 
+                smooth={true}
+                className="cursor-pointer"
+                >
+                  <NavLink to={item.href} key={index}>
+                    <li className="navList">{item.name}</li>
+                  </NavLink>
+                </Link>
               ))}
+
             </ul>
           </div>
           <div className="flex userProf w-[20%] justify-end">
@@ -89,6 +112,22 @@ const NavBar = () => {
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
                       >
                         My Profile
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/myDiets"
+                        className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
+                      >
+                        My Diets
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/myWorkouts"
+                        className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
+                      >
+                        My Workouts
                       </NavLink>
                     </li>
                     <li>
