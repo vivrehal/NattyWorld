@@ -29,8 +29,6 @@ const userSchema = new mongoose.Schema({
     dob : {
         type: Date,
         required: true,
-        unique: true,
-        lowercase: true
     },
     workouts : [{
         type: mongoose.Schema.ObjectId,
@@ -49,20 +47,12 @@ const userSchema = new mongoose.Schema({
         ref : "Diet"
     },
     weight:{
-        type: Number,
+        type: String,
         required: true,
-        validate:{
-            validator: Number.isInteger,
-            message: `weight is not an number`
-        }
     },
     height:{
-        type: Number,
+        type: String,
         required: true,
-        validate:{
-            validator: Number.isInteger,
-            message: `height is not an number`
-        }
     },
     refreshToken:{
         type: String

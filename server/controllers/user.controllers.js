@@ -21,15 +21,13 @@ const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json(new ApiResponse(400, {}, "All fields required"));
   }
   // console.log(typeof weight)
-  
-	try {
-		  weight=parseInt(weight);
-		  height=parseInt(height);
-	} catch (error) {
-		// throw new apiError(400, "Expected Number in Height and Weight Field");
-    return res.status(400).json(new ApiResponse(400, {}, "Expected Number in Height and Weight Field"));
-	
-	}
+
+		  const w=parseInt(weight);
+		  const h=parseInt(height); 
+      if(typeof w !== "number" || typeof h !== "number"){
+        return res.status(400).json(new ApiResponse(400, {}, "Expected Number in Height and Weight Field"));  
+      }
+      // console.log(typeof w, typeof h)
 
 //   if ([weight, height].some((field) => typeof field !== "number")) {
 //     throw new apiError(400, "Expected Number in Height and Weight Field");
@@ -56,16 +54,23 @@ const registerUser = asyncHandler(async (req, res) => {
     // throw new apiError(409, "User already exist");
     return res.status(409).json(new ApiResponse(409, {}, "User already exist"));
   }
-
+  
+  // console.log(w,h,name, email, password, dob, username)
   const user = await userModal.create({
     name,
     email,
     username: username.toLowerCase(),
     password,
     dob,
-    weight,
-    height,
+    weight:w,
+    height:h,
   });
+  // console.log("after")
+  
+  if(!user){
+    console.log(user)
+   return res.status(500).json(new ApiResponse(500, {}, "Something went wrong while registering user"));
+  }
 
   const isUserCreated = await userModal
     .findById(user._id)
@@ -75,10 +80,12 @@ const registerUser = asyncHandler(async (req, res) => {
     // throw new apiError(500, "Something went wrong while registering user");
     return res.status(500).json(new ApiResponse(500, {}, "Something went wrong while registering user"));
   }
+  // console.log("jiji")
 
   return res
     .status(201)
     .json(new ApiResponse(200, isUserCreated, "User registered successfully"));
+
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -95,7 +102,14 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.status(400).json(new ApiResponse(400, {}, "username or password is required"));
   }
 
-  const user = await userModal.findOne({ usernameOrEmail });
+  const user = await userModal.findOne({ $or: [
+    {
+      username: usernameOrEmail
+    },
+    {
+      email: usernameOrEmail
+    }]
+  });
 
   if (!user) {
     // throw new apiError(404, "User not found");
@@ -205,13 +219,11 @@ const newTokenOnExpiry = asyncHandler(async (req, res) => {
   res
     .status(200)
     .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
     .json(
       new ApiResponse(
         200,
         {
           accessToken,
-          refreshToken,
         },
         "new Access Token generated successfully"
       )

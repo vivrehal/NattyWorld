@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { apiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 const dietSchema = new mongoose.Schema(
 {
@@ -52,12 +53,12 @@ dietModal.addNewDiet = async(newDiet) => {
         const diet=await dietModal.create(newDiet)
         if(!diet){
             // throw new apiError(501, "could not add diet in db")
-            return res.status(501).json(new ApiResponse(501,{}, "could not add diet in db"))
+            return (new ApiResponse(501,{}, "could not add diet in db"))
         }
         return diet
     } catch (error) {
         // throw new apiError(501, "error while adding diet in db")
-        return res.status(501).json(new ApiResponse(501,{}, "error while adding diet in db"))
+        return (new ApiResponse(501,{}, "error while adding diet in db"))
     }
 }
 

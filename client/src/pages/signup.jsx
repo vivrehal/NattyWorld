@@ -27,9 +27,9 @@ const Signup = () => {
       }
       const response=await res.json();
 
-      if(response.status>=400){
+      if(res.status>=400){
         alert("Error while registering User")
-        console.log(response.error)
+        console.log(response.message)
         return
       }
       alert("User Registered Successfully")
@@ -92,6 +92,19 @@ const Signup = () => {
               </div>
               <div className="w-[100%]">
                 <label className="text-white" htmlFor="name">
+                  DOB
+                </label>
+                <br />
+                <input
+                  name="dob"
+                  onChange={(e) => handleInput(e)}
+                  className="py-1 px-4 w-[100%] rounded-md focus:outline-none"
+                  type="date"
+                  max={new Date().toISOString().split("T")[0]}
+                />
+              </div>
+              <div className="w-[100%]">
+                <label className="text-white" htmlFor="name">
                   Height (cms)
                 </label>
                 <br />
@@ -111,7 +124,7 @@ const Signup = () => {
                   name="weight"
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md focus:outline-none"
-                  type="text"
+                  type="number"
                 />
               </div>
               <div className="w-[100%]">
