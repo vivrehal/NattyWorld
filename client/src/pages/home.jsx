@@ -4,6 +4,7 @@ import workoutImg from "../assets/workout.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import Testimonials from "../components/Testimonials";
 import Services from "../components/Services";
+
 const Home = () => {
 
   const [currentUser, setcurrentUser] = useState("");  
@@ -17,7 +18,7 @@ const Home = () => {
 
   return (
     <>
-      <div className=" px-16 pb-[12em] flex flex-col items-center bg-[#0d0d0d] text-slate-50 overflow-hidden">
+      <div className=" px-16 pb-[12em] flex flex-col items-center bg-[#0d0d0d] text-slate-50 overflow-hidden" id="home_container">
         <div className="hero h-[100vh] w-[100%] flex flex-row">
           <div className="leftContainer w-[50%] flex flex-col items-center justify-center">
             <div className="welcomeCon flex flex-col justify-start gap-4">
@@ -50,7 +51,7 @@ const Home = () => {
             />
           </div>
         </div>
-        <Services/>
+        <Services />
       </div>
     </>
   );

@@ -7,7 +7,7 @@ const Diets = () => {
 	const [activeIndex, setIndex] = useState(0);
 	useEffect(() => {
 		const fetchDiet = async () => {
-			await fetch("http://localhost:9000/api/v1/diet/dietList")
+			await fetch("/api/v1/diet/dietList")
 				.then(async (res) => {
 					let x = await res.json();
 					setDiet(x["data"]);

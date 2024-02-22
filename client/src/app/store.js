@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import userSlice from '../features/userSlice';
 
 const persistConfig = {
+  timeout: 500,
   key: 'root',
   storage,
 };

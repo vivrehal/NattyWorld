@@ -117,7 +117,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const loggedInUser = await userModal
     .findById(user._id)
-    .select("-password -refreshToken -__v -createdAt -updatedAt -_id -workouts -diets");
+    .select("-password -refreshToken -__v -createdAt -updatedAt -_id -workouts -diets -myWorkouts -myDiets -myGyms -myGym");
 
   const cookieOptions = options;
   // console.log(logg)
