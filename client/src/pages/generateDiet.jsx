@@ -1,8 +1,22 @@
 import { useState, useEffect } from "react";
 import BodyTextArea from "../components/BodyTextArea.jsx";
+import { useNavigate } from "react-router-dom";
+
+function getAge(dateString) {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return Number(age);
+}
+
 const GenerateDiet = () => {
+  const navigate = useNavigate();
+
   const [dietPlan, setDietPlan] = useState("");
-  const [currentUser, setcurrentUser] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
     height: "",
@@ -19,15 +33,29 @@ const GenerateDiet = () => {
     totalCalories: "",
   });
 
+  const [currentUser, setUser] = useState({});
+
+	const getUserData = async () => {
+		await fetch("/api/v1/users/getAuthStatus", {
+            method: "POST"
+        })
+			.then(async (res) => {
+				if(res.status > 299) navigate("/login");
+				let x = await res.json();
+				setUser(x);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
   useEffect(() => {
-    const user=JSON.parse(localStorage.getItem('user'));
-    // console.log(user?.loggedInUser?.name)
-    setcurrentUser(user);
-}, [setcurrentUser])
+    getUserData();
+  }, []);
 
   const handleInput = (e) => {
+    console.log(formData);
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // console.log(formData);
   };
 
   const generateDietByAI = async () => {
@@ -51,7 +79,7 @@ const GenerateDiet = () => {
       name:`${formData.fitnessGoal} | ${formData.foodSource} | ${formData.gender} | ${formData.totalCalories}`,
       plan : dietPlan
     }
-    console.log(dietDetails)
+    console.log(formData)
     const res = await fetch("/api/v1/diet/addDiet", {
       method: "POST",
       headers: {
@@ -131,7 +159,7 @@ const GenerateDiet = () => {
                   onChange={(e) => handleInput(e)}
                 >
                   <option value="">Select Gender</option>
-                  <option value="male">Male</option>
+                  <option value="male" defaultChecked>Male</option>
                   <option value="female">Female</option>
                 </select>
               </div>
@@ -145,6 +173,7 @@ const GenerateDiet = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  defaultValue={Number(getAge(currentUser?.dob))}
                 />
               </div>
               <div className="">

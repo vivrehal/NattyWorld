@@ -49,19 +49,33 @@ dietModal.findDietByID = (reqID, successCallBack, errorCallBack) =>{
 }
 
 dietModal.addNewDiet = async(newDiet) => {
+    // try {
+    //   console.log("New Diet:")
+    //   console.log(newDiet)
+    //   const diet=dietModal.create(newDiet)
+    //   .then((dbRes) => {
+    //       console.log("Diet:")
+    //       console.log(dbRes)
+    //   })
+    //     if(!diet || diet == null){
+    //         return {msg: "Could not add diet in db"}
+    //     }
+    //     return diet
+    // } catch (error) {
+    //     return {msg: "Error while adding diet in db"}
+    // }
+
     try {
-      console.log("New Diet:")
-      console.log(newDiet)
       const diet=await dietModal.create(newDiet)
-      console.log("Diet:")
-      console.log(diet)
-        if(!diet){
-            return {msg: "Could not add diet in db"}
-        }
-        return diet
-    } catch (error) {
-        return {msg: "Error while adding diet in db"}
-    }
+      if(!diet){
+          // throw new apiError(501, "could not add diet in db")
+          return { msg:"could not add diet in db"}
+      }
+      return diet
+} catch (error) {
+  console.log(error);
+  return (new ApiResponse(501,{}, "could not add diet in db"))
+}
 }
 
 

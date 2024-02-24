@@ -17,7 +17,6 @@ const MyProfile = () => {
 			.catch((err) => {
 				console.log(err);
 			});
-
 	};
     
     useEffect(() => {
