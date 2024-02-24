@@ -33,11 +33,11 @@ const MyWorkouts = () => {
 	});
 	const getPlanName = () => {
 		// console.log()
-		if(workoutPlans != undefined && workoutPlans != null) {
+		if(workoutPlans != undefined && workoutPlans != null && workoutPlans.length > 0) {
 			return workoutPlans[activeIndex]?.name;
 		}
 
-		return "";
+		return "No Workout Plan added yet!";
 	}
 	const getPlanBody = () => {
 		if(workoutPlans != undefined && workoutPlans != null) {
@@ -69,7 +69,7 @@ const MyWorkouts = () => {
 				// style={{ marginLeft: "20%" }}
 			>
 				{/* Content of the workout display */}
-				<h1 className="font-bold mx-auto text-gray-200 text-[30px]">{getPlanName()}</h1>
+				<h1 className="font-bold mx-auto text-center text-gray-200 text-[30px]">{getPlanName()}</h1>
 				<BodyTextArea plan={getPlanBody()} />
 			</div>
 		</div>

@@ -67,7 +67,7 @@ const Workouts = () => {
 				// style={{ marginLeft: "20%" }}
 			>
 				{/* Content of the Workout display */}
-				<h1 className="font-bold mx-auto text-gray-200 text-[30px]">{getPlanName()}</h1>
+				<h1 className="font-bold text-center text-gray-200 text-[30px]">{getPlanName()}</h1>
 				<BodyTextArea plan={getPlanBody()} />
 			</div>
 		</div>
