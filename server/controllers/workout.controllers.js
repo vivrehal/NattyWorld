@@ -46,15 +46,15 @@ const addWorkout=asyncHandler(async(req, res) => {
     const newWorkout = req.body;
 	const user=req.user
 
+	// console.log("controller add workout : "); console.log(new)
 	const workout=await workoutModal.addNewWorkout(
 		newWorkout
 	)
 
-	if(!workout){
+	if(workout.statusCode >299){
 		// throw new apiError(502, "could not add workout to db from model method")
 		return res.status(502).json(new ApiResponse(502,{}, "could not add workout to db from model method"))
 	}
-	console.log("here")
 	// Adding the workoutID to user's workout array
 	user.workouts.push(workout._id);
 

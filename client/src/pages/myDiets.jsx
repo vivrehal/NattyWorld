@@ -31,11 +31,11 @@ const MyDiets = () => {
 	});
 	const getPlanName = () => {
 		// console.log()
-		if(dietPlans != undefined && dietPlans != null) {
+		if(dietPlans != undefined && dietPlans != null && dietPlans.length > 0) {
 			return dietPlans[activeIndex]?.name;
 		}
 
-		return "";
+		return "No Diet Plan added yet!";
 	}
 	const getPlanBody = () => {
 		if(dietPlans != undefined && dietPlans != null) {
@@ -63,11 +63,11 @@ const MyDiets = () => {
 			</div>
 			{/* Diet Display */}
 			<div
-				className="flex-grow overflow-auto mt-20 bg-black text-gray-200 text-[18px] w-[72%] h-[100vh] "
+				className="flex-grow overflow-auto mt-20 ml-auto mr-auto bg-black text-gray-200 text-[18px] w-[72%] h-[100vh] "
 				// style={{ marginLeft: "20%" }}
 			>
 				{/* Content of the diet display */}
-				<h1 className="font-bold mx-auto text-gray-200 text-[30px]">{getPlanName()}</h1>
+				<h1 className="font-bold text-center text-gray-200 text-[30px]">{getPlanName()}</h1>
 				<div className="plan-body">
 					{getPlanBody()}
 				</div>

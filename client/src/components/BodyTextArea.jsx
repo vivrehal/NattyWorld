@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const BodyTextArea = (props) => {
 	return (
 		<div className="w-[100%]">
@@ -13,5 +15,10 @@ const BodyTextArea = (props) => {
 		</div>
 	);
 };
+
+BodyTextArea.propTypes = {
+	plan: PropTypes.string,
+};
+
 
 export default BodyTextArea;

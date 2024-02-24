@@ -115,6 +115,7 @@ const NavBar = () => {
                 spy={true} 
                 smooth={true}
                 className="cursor-pointer"
+                key={index} // Add key prop with a unique value
                 >
                   <NavLink to={item.href} key={index}>
                     <li className="navList">{item.name}</li>

@@ -16,7 +16,6 @@ import { Provider } from 'react-redux';
 import store from './app/store.js';
 
 
-
 import {
   createBrowserRouter,
   RouterProvider,
@@ -81,6 +80,10 @@ const routers = createBrowserRouter([{
     },{
       path: 'bmi',
       element:<BMI/>
+    },
+    {
+      path:'myprofile',
+      element:<MyProfile/>
     }
 
   ]}

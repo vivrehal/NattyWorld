@@ -63,7 +63,7 @@ const Diets = () => {
 				className="flex-grow overflow-auto mt-20 bg-black text-gray-200 text-[18px] w-[72%] h-[90vh] "
 			>
 				{/* Content of the diet display */}
-				<h1 className="font-bold ml-10 text-gray-200 text-[30px]">{getPlanName()}</h1>
+				<h1 className="font-bold text-center text-gray-200 text-[30px]">{getPlanName()}</h1>
 				<div className="plan-body w-[100%] h-[100%]">
 					{getPlanBody()}
 				</div>
