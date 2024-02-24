@@ -17,7 +17,7 @@ const BodyTextArea = (props) => {
 };
 
 BodyTextArea.propTypes = {
-	plan: PropTypes.string.isRequired,
+	plan: PropTypes.string,
 };
 
 
