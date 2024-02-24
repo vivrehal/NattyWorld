@@ -10,8 +10,9 @@ const dietSchema = new mongoose.Schema(
         unique: true,
     },
     plan: {
-        type : String, // Link of the pdf of the diet
-        unique : true
+        type : String, 
+        unique : true,
+        required : true
     }
 },{
     timestamps:true
@@ -49,16 +50,17 @@ dietModal.findDietByID = (reqID, successCallBack, errorCallBack) =>{
 
 dietModal.addNewDiet = async(newDiet) => {
     try {
+      console.log("New Diet:")
       console.log(newDiet)
-        const diet=await dietModal.create(newDiet)
+      const diet=await dietModal.create(newDiet)
+      console.log("Diet:")
+      console.log(diet)
         if(!diet){
-            // throw new apiError(501, "could not add diet in db")
-            return (new ApiResponse(501,{}, "could not add diet in db"))
+            return {msg: "Could not add diet in db"}
         }
         return diet
     } catch (error) {
-        // throw new apiError(501, "error while adding diet in db")
-        return (new ApiResponse(501,{}, "error while adding diet in db"))
+        return {msg: "Error while adding diet in db"}
     }
 }
 

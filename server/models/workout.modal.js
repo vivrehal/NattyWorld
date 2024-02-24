@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { apiError } from "../utils/apiError.js";
 // import { userModal } from "./user.modal.js";
-
+import { ApiResponse } from "../utils/ApiResponse.js";
 const workoutSchema = new mongoose.Schema({
     name : {
         type: String,
@@ -25,8 +25,6 @@ workoutModal.showAllWorkout = (successCallBack, errorCallBack, res) => {
             (dbErr) => {errorCallBack(dbErr)}
         )
         .catch((error) => {
-            // exceptionHandler
-            // console.log(error);
             return res.status(400).json(new apiError(501, "error while fetching workouts from db ",[error]))
         })
 }
@@ -47,14 +45,19 @@ workoutModal.findWorkoutByID = (reqId, successCallBack, errorCallBack) =>{
 }
 
 workoutModal.addNewWorkout = async (newWorkout) => {
-	// console.log(userID);
+    console.log(newWorkout);
 
-    const workout=await workoutModal.create(newWorkout)
-    if(!workout){
-        // throw new apiError(501, "could not add workout in db")
-        return res.status(501).json(new ApiResponse(501,{}, "could not add workout in db"))
-    }
-    return workout
+  try {
+        const workout=await workoutModal.create(newWorkout)
+        if(!workout){
+            // throw new apiError(501, "could not add workout in db")
+            return { msg:"could not add workout in db"}
+        }
+        return workout
+  } catch (error) {
+    console.log(error);
+    return (new ApiResponse(501,{}, "could not add workout in db"))
+  }
       
 }
 

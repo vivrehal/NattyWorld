@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
+import BodyTextArea from "../components/BodyTextArea.jsx";
 
 const MyWorkouts = () => {
 	const [workoutPlans, setWorkout] = useState([]);
@@ -69,9 +70,7 @@ const MyWorkouts = () => {
 			>
 				{/* Content of the workout display */}
 				<h1 className="font-bold mx-auto text-gray-200 text-[30px]">{getPlanName()}</h1>
-				<div className="plan-body">
-					{getPlanBody()}
-				</div>
+				<BodyTextArea plan={getPlanBody()} />
 			</div>
 		</div>
 	);

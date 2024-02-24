@@ -27,10 +27,10 @@ const GenerateDiet = () => {
 
   const handleInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
+    // console.log(formData);
   };
 
-  const generateDietByAI = async (formData) => {
+  const generateDietByAI = async () => {
     const res = await fetch("/api/v1/ai/generateDiet", {
       method: "POST",
       headers: {
@@ -42,14 +42,16 @@ const GenerateDiet = () => {
     if (!response?.data?.dietPlan?.content) {
       alert("Cannot fetch Diet Plan");
     }
+    // console.log();
     setDietPlan(response.data.dietPlan.content);
   };
 
-  const saveDiet = async (formData) => {
+  const saveDiet = async () => {
     const dietDetails={
       name:`${formData.fitnessGoal} | ${formData.foodSource} | ${formData.gender} | ${formData.totalCalories}`,
       plan : dietPlan
     }
+    console.log(dietDetails)
     const res = await fetch("/api/v1/diet/addDiet", {
       method: "POST",
       headers: {
@@ -266,11 +268,11 @@ const GenerateDiet = () => {
           <div className="generateBtn flex flex-row w-[100%] h-[10%] justify-center items-center">
                 <button
                   onClick={(e) => {
-                    saveDiet(formData);
+                    saveDiet();
                   }}
                   className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]"
                 >
-                  ADD TO MY WORKOUT
+                  Add to my Diets
                 </button>
           </div>
         </div>

@@ -47,9 +47,8 @@ const addDiet = asyncHandler(async(req, res) => {
 	const newDiet = req.body;
 	const user=req.user
 
-	const diet=await dietModal.addNewDiet(
-		newDiet
-	)
+	// console.log(newDiet)
+	const diet=await dietModal.addNewDiet(newDiet)
 
 	if(!diet){
 		// throw new apiError(502, "could not add deit to db from model method")
