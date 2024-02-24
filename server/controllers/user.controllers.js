@@ -178,11 +178,13 @@ const getUserAuthStatus = asyncHandler(async (req, res) => {
     // throw new apiError(401, "no access token found in cookies");
     return res.status(401).json(new ApiResponse(401, {}, "No access token found in cookies"));
   }
-  const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  if (!decodedToken) {
-    // throw new apiError(401, "Invalid access token please login again");
-    return res.status(401).json(new ApiResponse(401, {}, "Invalid access token please login again"));
-  }
+  try {
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    
+    if (!decodedToken) {
+      // throw new apiError(401, "Invalid access token please login again");
+      return res.status(401).json(new ApiResponse(401, {}, "Invalid access token please login again"));
+    }
   const id = decodedToken._id;
   const user = await userModal.findById(id).select("-password -refreshToken");
   if (!user) {
@@ -190,6 +192,9 @@ const getUserAuthStatus = asyncHandler(async (req, res) => {
     return res.status(501).json(new ApiResponse(501, {}, "Invalid access token! No user matched"));
   }
   res.status(200).json(user);
+} catch (error) {
+  res.status(401).json(new ApiResponse(401, {}, "Invalid access token please login again"));
+}
 });
 
 const newTokenOnExpiry = asyncHandler(async (req, res) => {
@@ -204,7 +209,7 @@ const newTokenOnExpiry = asyncHandler(async (req, res) => {
     return res.status(401).json(new ApiResponse(401, {}, "Invalid refresh token please login again"));
   }
   const id = decodedToken._id;
-  const user = await userModal.findById(id);
+  const user = await userModal.findById(id).select("-password -workouts -diets");
   if (!user) {
     // throw new apiError(501, "Invalid refresh token no user matched");
     return res.status(501).json(new ApiResponse(501, {}, "Invalid refresh token no user matched"));
@@ -214,7 +219,8 @@ const newTokenOnExpiry = asyncHandler(async (req, res) => {
     return res.status(501).json(new ApiResponse(501, {}, "refresh token not matched with user's token"));
   }
 
-  const { accessToken } = generateTokens();
+  const { accessToken } = await generateTokens(user._id, false);
+  // console.log(accessToken+" ngt")
 
   res
     .status(200)
@@ -223,7 +229,7 @@ const newTokenOnExpiry = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         {
-          accessToken,
+          user, accessToken,
         },
         "new Access Token generated successfully"
       )

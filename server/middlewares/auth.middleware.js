@@ -1,16 +1,19 @@
+import { newTokenOnExpiry } from "../controllers/user.controllers.js";
 import { userModal } from "../models/user.modal.js";
 import { apiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken"
 
 const verifyJWT=asyncHandler(async(req,res,next)=>{
 try {
-        const token=req.cookies?.accessToken || 
+        let token=req.cookies?.accessToken || 
         req.header("Authorization")?.replace("Bearer ","")
-        console.log(token)
-        if(!token){
+        // console.log(token)
+        if(token==="undefined"){
             // throw new apiError(401, "Unauthorized acess")
-            return res.status(401).json(new ApiResponse(401, {}, "Unauthorized acess"));
+                return res.status(401).json(new ApiResponse(401, {}, "Unauthorized acess"));
+                
         }
         
         const decodedToken=jwt.verify(

@@ -9,11 +9,39 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState(null);
   
-  const currUser=useSelector(state=>state.user)
+  const getUserData = async () => {
+    const user=await fetch("/api/v1/users/getAuthStatus",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+    })
+    if(user.status>=300){
+      const tryNewToken=await fetch("/api/v1/users/refresh_token ",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+      })
+      if(tryNewToken.status>=300){
+        dispatch(setUser({}))
+        navigate("/login")
+        return
+      }
+      const res=await tryNewToken.json();
+      setloggedInUser(res.data.user.name)
+      dispatch(setUser(res.data.user))
+      navigate("/")
+      return
+      
+    }
+    const res=await user.json();
+    setloggedInUser(res.name)
+    dispatch(setUser(res))
+  }
   useEffect(() => {
-    console.log(currUser)
-    setloggedInUser(currUser?.name)
-  },[currUser])
+    getUserData()
+  },[loggedInUser])
 
 
 
@@ -62,10 +90,12 @@ const NavBar = () => {
         return
     }
     dispatch(setUser({}))
-    localStorage.removeItem("user")
+    setisToggled(false)
     alert("Logged Out Successfully")
     navigate("/login");
 }
+
+
 
   const [isToggled, setisToggled] = useState(false);
   // console.log(isLoggedIn)
@@ -98,8 +128,8 @@ const NavBar = () => {
             {loggedInUser ? (
               <div className="dropdown">
                 <button
-                  onClick={() => {
-                    setisToggled(!isToggled);
+                  onClick={()=>{
+                    setisToggled(!isToggled)
                   }}
                 >
                   {loggedInUser?.toUpperCase()}
@@ -110,6 +140,10 @@ const NavBar = () => {
                       <NavLink
                         to="/myProfile"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
+                        onClick={()=>{
+                          setisToggled(false)
+                        }}
+
                       >
                         My Profile
                       </NavLink>
@@ -118,6 +152,9 @@ const NavBar = () => {
                       <NavLink
                         to="/myDiets"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
+                        onClick={()=>{
+                          setisToggled(false)
+                        }}
                       >
                         My Diets
                       </NavLink>
@@ -126,6 +163,9 @@ const NavBar = () => {
                       <NavLink
                         to="/myWorkouts"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
+                        onClick={()=>{
+                          setisToggled(false)
+                        }}
                       >
                         My Workouts
                       </NavLink>

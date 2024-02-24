@@ -1,20 +1,22 @@
 import { userModal } from "../models/user.modal.js"
 import { apiError } from "./apiError.js"
 
-const generateTokens=async(userId)=>{
+const generateTokens=async(userId, flag=true)=>{
     try {
-        console.log(userId)
+        // console.log(userId+"jhgfd")
         const user=await userModal.findById(userId);
         const accessToken=user.generateAccessToken()
         const refreshToken=user.generateRefreshToken()
-
+        if(flag===true){
         user.refreshToken=refreshToken
         await user.save({validateBeforeSave: false})
-
+        }
+        // console.log(accessToken)
         return {accessToken, refreshToken}
         
     } catch (error) {
-        throw new apiError(500,"Something went wrong while generating tokens")
+        console.log(error)
+        return error
     }
 }
 
