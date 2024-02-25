@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SidebarItem from "../components/sidebarItem.jsx";
+import workoutImg from "../assets/workout.png";
 
 function getAge(dateString) {
 	var today = new Date();
@@ -15,7 +17,9 @@ function getAge(dateString) {
 const MyProfile = () => {
 	const navigate = useNavigate();
 	const [user, setUser] = useState({});
+	const [activePage, setActivePage] = useState("My Profile");
 
+	const sidebarItems = ["My Profile", "Update Profile"];
 	const getUserData = async () => {
 		await fetch("/api/v1/users/getAuthStatus", {
 			method: "POST",
@@ -33,6 +37,7 @@ const MyProfile = () => {
 	useEffect(() => {
 		getUserData();
 	}, [user]);
+	useEffect(() => {}, [activePage]);
 
 	const updateUserData = () => {
 		const newWeight = document.getElementById("weight")?.value || user.weight;
@@ -58,96 +63,171 @@ const MyProfile = () => {
 				console.log(err);
 			});
 		setUser(newUser);
-	}
+	};
+
+	const getSidebarItems = () => {
+		return sidebarItems.map((item) => {
+			return <SidebarItem key={item} name={item} index={item} changeIndex={changeActivePage} />;
+		});
+	};
+
+	// Changing Active Page
+	const changeActivePage = (newPage) => {
+		setActivePage(newPage);
+	};
+
+	const getActivePage = () => {
+		if (activePage === "My Profile") {
+			// User Profile
+			return (
+				<>
+					<div
+						className="sidebar flex-box mt-20 lg:left-0 w-[35%] overflow-y-auto text-center bg-black
+				border-2 border-white z-10 rounded-lg m-8 ml-20  shadow shadow-white-100 p-8"
+					>
+						<div className="text-gray-100 text-xl">
+							<div className="p-2.5 flex items-center">
+								<h1 className="font-bold text-gray-200 text-[40px] mx-auto border-b-2 w-[100%] p-5 ">
+									My Profile
+								</h1>
+							</div>
+							<div className="userData text-gray-200 text-[18px] mx-auto">
+								<div className="p-2.5 mt-1 flex items-center">
+									<h1 className=" text-[38px] font-extrabold">{user.name}</h1>
+								</div>
+								<div className=" pl-2 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">@{user.username}</b>
+									</span>
+								</div>
+
+								<div className="p-2.5 mt-1 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">Email:</b> {user.email}
+									</span>
+								</div>
+								<div className="p-2.5 mt-1 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">Age:</b> {getAge(user.dob)}
+									</span>
+								</div>
+								<div className="p-2.5 mt-1 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">Current Weight: </b> {user.weight} Kgs
+									</span>
+								</div>
+								<div className="p-2.5 mt-1 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">Height:</b> {user.height} cms
+									</span>
+								</div>
+
+								<div className="p-2.5 mt-1 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">Saved Workouts: </b>
+										{user.workouts?.length || "No workouts saved yet"}
+									</span>
+								</div>
+								<div className="p-2.5 mt-1 flex items-center">
+									<span className="text-gray-200 text-[18px] ">
+										<b className="w-[30%]">Saved Diets: </b>
+										{user.diets?.length || "No diets saved yet"}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</>
+			);
+		} else if (activePage === "Update Profile") {
+			// User Profile Updation Form
+			return (
+				<>
+					{/* User Profile Updation Form */}
+					<div className="updation-form w-[45%] p-14 mt-20 items-center border border-white z-10 rounded-lg ml-auto mb-24 shadow shadow-white-100">
+						<h1 className="font-bold text-center text-gray-200 text-[35px] border-b-2 border-white">Profile Updation Form</h1>
+						<br />
+						<form className=" align-middle w-[90%] ml-4">
+							{/* Height Input */}
+							<div className=" mt-1 flex items-start">
+								<label htmlFor="height" className="text-gray-200 text-[18px]">
+									Height:
+								</label>
+								<input
+									type="number"
+									id="height"
+									name="height"
+									className="text-gray-200 text-[18px] bg-black border border-white ml-auto"
+									defaultValue={user.height}
+									min={50}
+								/>
+							</div>
+
+							{/* Weight Input */}
+							<div className="mt-1 flex items-center">
+								<label htmlFor="weight" className="text-gray-200 text-[18px]">
+									Weight:
+								</label>
+								<input
+									type="number"
+									id="weight"
+									name="weight"
+									className="text-gray-200 text-[18px] bg-black border border-white ml-auto"
+									defaultValue={user.weight}
+									min={20}
+								/>
+							</div>
+
+							<div className="mt-1 flex items-center">
+								<label htmlFor="Current Password" className="text-gray-200 text-[18px]">
+									Current Password:
+								</label>
+								<input
+									type="password"
+									id="Current Password"
+									name="Current Password"
+									className="text-gray-200 text-[18px] bg-black border border-white ml-auto"
+									min={20}
+								/>
+							</div>
+
+							<div className="mt-1 flex items-center">
+								<label htmlFor="New Password" className="text-gray-200 text-[18px]">
+									New Password:
+								</label>
+								<input
+									type="password"
+									id="New Password"
+									name="New Password"
+									className="text-gray-200 text-[18px] bg-black border border-white ml-auto"
+									min={20}
+								/>
+							</div>
+						</form>
+						<div className=" flex justify-center mt-8">
+							<button
+								className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]"
+								onClick={updateUserData}>
+								Update
+							</button>
+						</div>
+					</div>
+				</>
+			);
+		}
+	};
 	return (
 		<div className="flex">
-			{/* User Details */}
-			<div
-				className="sidebar flex-box mt-16 lg:left-0 w-[25%] overflow-y-auto text-center bg-black
-				border-2 border-white z-10 rounded-lg m-8  shadow shadow-white-100"
-			>
-				<div className="text-gray-100 text-xl">
-					<div className="p-2.5 mt-1 flex items-center">
-						<h1 className="font-bold text-gray-200 text-[22px] mx-auto border-b-2 w-[100%] p-5 ">My Profile</h1>
-					</div>
-					<div className="userData text-gray-200 text-[18px] mx-auto">
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Name: </b>
-								{user.name}
-							</span>
-						</div>
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Username: </b>
-								{user.username}
-							</span>
-						</div>
+			{/* SideBar */}
+			<div className="sidebar mt-16 ">{getSidebarItems()}</div>
+			<br />
 
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Email:</b> {user.email}
-							</span>
-						</div>
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Age:</b> {getAge(user.dob)}
-							</span>
-						</div>
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Current Weight: </b> {user.weight} Kgs
-							</span>
-						</div>
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Height:</b> {user.height} cms
-							</span>
-						</div>
+			{/* Active Page */}
+			{getActivePage()}
 
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Saved Workouts: </b>
-								{user.workouts?.length || "No workouts saved yet"}
-							</span>
-						</div>
-						<div className="p-2.5 mt-1 flex items-center">
-							<span className="text-gray-200 text-[18px] ">
-								<b className="w-[30%]">Saved Diets: </b>
-								{user.diets?.length || "No diets saved yet"}
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			{/* User Profile Updation Form */}
-			<div className="updation-form w-[70%] mt-16 items-center">
-				<h1 className="font-bold text-center text-gray-200 text-[30px]">Profile Updation Form</h1>
-				<br />
-				<form className="ml-8 align-middle w-[90%]">
-					{/* Height Input */}
-					<div className="p-2.5 mt-1 flex items-center">
-						<label htmlFor="height" className="text-gray-200 text-[18px] w-[10%]">
-							Height:
-						</label>
-						<input type="number" id="height" name="height" 
-								className="text-gray-200 text-[18px] bg-black border border-white" 
-								defaultValue={user.height} min={50}/>
-					</div>
-
-					{/* Weight Input */}
-					<div className="p-2.5 mt-1 flex items-center">
-						<label htmlFor="weight" className="text-gray-200 text-[18px] w-[10%]">
-							Weight:
-						</label>
-						<input type="number" id="weight" name="weight" 
-								className="text-gray-200 text-[18px] bg-black border border-white" 
-								defaultValue={user.weight} min={20}/>
-					</div>
-				</form>
-					<button className="ml-auto py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]" 
-					onClick={updateUserData}> Update </button>
+			<div className="rightComtainer w-[40%] flex flex-col items-center justify-center">
+						<img src={workoutImg} alt="Body Builders doing Workout" className="w-[100%]" />
 			</div>
 		</div>
 	);
