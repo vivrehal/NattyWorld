@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const GenerateWorkout = () => {
   const [workoutPlan, setWorkoutPlan] = useState("");
@@ -55,7 +55,7 @@ const GenerateWorkout = () => {
     if (!response?.data) {
       alert("Cannot save workout Plan");
     }
-    alert("Workout Plan Saved Successfully");
+    else alert("Workout Plan Saved Successfully");
   };
 
   const handleSubmit = async (e) => {

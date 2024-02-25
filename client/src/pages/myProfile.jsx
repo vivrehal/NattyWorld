@@ -42,9 +42,11 @@ const MyProfile = () => {
 	const updateUserData = () => {
 		const newWeight = document.getElementById("weight")?.value || user.weight;
 		const newHeight = document.getElementById("height")?.value || user.height;
+		const newtPassword = document.getElementById("New Password")?.value;
 		let newUser = user;
 		newUser.weight = newWeight;
 		newUser.height = newHeight;
+		if(newtPassword) newUser.password = newtPassword;	
 		fetch("/api/v1/users/updateUser/" + user._id, {
 			method: "PUT",
 			headers: {
@@ -179,7 +181,7 @@ const MyProfile = () => {
 								/>
 							</div>
 
-							<div className="mt-1 flex items-center">
+							{/* <div className="mt-1 flex items-center">
 								<label htmlFor="Current Password" className="text-gray-200 text-[18px]">
 									Current Password:
 								</label>
@@ -190,7 +192,7 @@ const MyProfile = () => {
 									className="text-gray-200 text-[18px] bg-black border border-white ml-auto"
 									min={20}
 								/>
-							</div>
+							</div> */}
 
 							<div className="mt-1 flex items-center">
 								<label htmlFor="New Password" className="text-gray-200 text-[18px]">
@@ -204,6 +206,7 @@ const MyProfile = () => {
 									min={20}
 								/>
 							</div>
+							<div className="text-gray-200 text-[13px]"> (Leave empty if you don't wish<br/> to change your password)</div>
 						</form>
 						<div className=" flex justify-center mt-8">
 							<button

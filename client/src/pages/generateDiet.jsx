@@ -90,8 +90,9 @@ const GenerateDiet = () => {
     const response = await res.json();
 
     if (!response?.data) {
-      alert("Cannot save Diet Plan");
-    } 
+      alert("Cannot save diet Plan");
+    }
+    else alert("Diet Plan Saved Successfully");
 
   };
 

@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
@@ -20,7 +20,8 @@ const Signup = () => {
         },
         body: JSON.stringify(formData),
       })
-      if(!res){
+      console.log(res)
+      if(!res.ok){
         alert("Error while adding User")
         console.log("Error while validating User")
         return

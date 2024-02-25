@@ -4,7 +4,7 @@ import BodyTextArea from "../components/BodyTextArea.jsx";
 
 const Workouts = () => {
 	const [workoutPlans, setWorkout] = useState([]);
-	const [activeIndex, setIndex] = useState(NaN);
+	const [activeIndex, setIndex] = useState(0);
 	useEffect(() => {
 		const fetchWorkout = async () => {
 			await fetch("/api/v1/workouts/workoutList")

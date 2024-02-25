@@ -17,32 +17,26 @@ const registerUser = asyncHandler(async (req, res) => {
   console.log(username, name);
 
   if ([username, name, email, password].some((field) => field.trim() === "")) {
-    // throw new apiError(400, "All fields required");
     return res.status(400).json(new ApiResponse(400, {}, "All fields required"));
   }
-  // console.log(typeof weight)
 
 		  const w=parseInt(weight);
 		  const h=parseInt(height); 
       if(typeof w !== "number" || typeof h !== "number"){
         return res.status(400).json(new ApiResponse(400, {}, "Expected Number in Height and Weight Field"));  
       }
-      // console.log(typeof w, typeof h)
 
 //   if ([weight, height].some((field) => typeof field !== "number")) {
 //     throw new apiError(400, "Expected Number in Height and Weight Field");
 //   }
 
   if (!email.includes("@")) {
-    // throw new apiError(400, "email is not valid");
     return res.status(400).json(new ApiResponse(400, {}, "email is not valid"));
   }
 
   const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-zA-Z]).{8,}$/;
 
   if (!passwordRegex.test(password)) {
-    // console.log(passwordRegex.test("123vivek@"))
-    // throw new apiError(400,"Password should contain minimum eight characters, at least one letter, one number and one special character");
     return res.status(400).json(new ApiResponse(400, {}, "Password should contain minimum eight characters, at least one letter, one number and one special character"));
   }
 
@@ -51,7 +45,6 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (userExists) {
-    // throw new apiError(409, "User already exist");
     return res.status(409).json(new ApiResponse(409, {}, "User already exist"));
   }
   
@@ -68,7 +61,6 @@ const registerUser = asyncHandler(async (req, res) => {
   // console.log("after")
   
   if(!user){
-    console.log(user)
    return res.status(500).json(new ApiResponse(500, {}, "Something went wrong while registering user"));
   }
 
@@ -77,10 +69,8 @@ const registerUser = asyncHandler(async (req, res) => {
     .select("-password -refreshToken");
 
   if (!isUserCreated) {
-    // throw new apiError(500, "Something went wrong while registering user");
     return res.status(500).json(new ApiResponse(500, {}, "Something went wrong while registering user"));
   }
-  // console.log("jiji")
 
   return res
     .status(201)
@@ -98,7 +88,6 @@ const loginUser = asyncHandler(async (req, res) => {
   const { usernameOrEmail, password } = req.body;
   console.log(usernameOrEmail + " " + password);
   if (!usernameOrEmail || !password) {
-    // throw new apiError(400, "username or password is required");
     return res.status(400).json(new ApiResponse(400, {}, "username or password is required"));
   }
 
@@ -112,7 +101,6 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    // throw new apiError(404, "User not found");
     return res.status(404).json(new ApiResponse(404, {}, "User not found"));  
   }
 
@@ -121,20 +109,17 @@ const loginUser = asyncHandler(async (req, res) => {
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
-    // throw new apiError(402, "Invalid user credentials");
     return res.status(402).json(new ApiResponse(402, {}, "Invalid user credentials"));
   }
 
   const { refreshToken, accessToken } = await generateTokens(user._id);
 
-  // console.log(refreshToken)
 
   const loggedInUser = await userModal
     .findById(user._id)
     .select("-password -refreshToken -__v -createdAt -updatedAt -_id -workouts -diets -myWorkouts -myDiets -myGyms -myGym");
 
   const cookieOptions = options;
-  // console.log(logg)
   return res
     .status(200)
     .cookie("accessToken", accessToken, cookieOptions)
