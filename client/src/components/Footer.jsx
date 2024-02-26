@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTwitter, faFacebook, faInstagram, faLinkedin} from '@fortawesome/free-brands-svg-icons';
-import React from 'react';
 
 const Footer = () => {
   return (
@@ -8,8 +7,8 @@ const Footer = () => {
     <footer className=" bg-[#37373766] text-gray-300 pt-8 py-4 px-16 border-t-2 border-t-white" id="aboutUs_container">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">
         <div>
-          <h2 className="text-2xl lg:text-3xl font-semibold">Company Name</h2>
-          <p className="mt-2">A short description of the company.</p>
+          <h2 className="text-2xl lg:text-3xl font-semibold">Natty World</h2>
+          <p className="mt-2">Your Ultimate Destination for Fitness Excellence!</p>
           <div className="mt-4 flex space-x-4">
             <a href="#" className="text-gray-300 hover:text-white"><FontAwesomeIcon icon={faTwitter} /></a>
             <a href="#" className="text-gray-300 hover:text-white"><FontAwesomeIcon icon={faFacebook} /></a>
@@ -35,7 +34,7 @@ const Footer = () => {
           <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-instagram"></i></a>
           <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-linkedin"></i></a>
         </p>
-        <p className="mt-4">&copy; {new Date().getFullYear()} Company Name. All rights reserved.</p>
+        <p className="mt-4">&copy; {new Date().getFullYear()} Natty World. All rights reserved.</p>
       </div>
     </footer>
     </>

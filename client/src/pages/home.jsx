@@ -31,7 +31,7 @@ const Home = () => {
                 )}
               </h1>
               <p className="text-3xl">
-                Welcome to NattyWorld - Your Ultimate Destination for Fitness
+                NattyWorld - Your Ultimate Destination for Fitness
                 Excellence!
               </p>
               <p>

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { loginUser, logoutUser, registerUser, updateUser,
        deleteUser, newTokenOnExpiry, getUserById,
-       getUserAuthStatus, getUserWorkouts, getUserDiets }
+       getUserAuthStatus, getUserWorkouts, getUserDiets, updateProfile }
        from "../controllers/user.controllers.js";
 import verifyJWT from "../middlewares/auth.middleware.js";
 
@@ -13,6 +13,7 @@ router.route("/login").post(loginUser)
 
 // secured routes
 router.route("/updateUser/:reqID").put(verifyJWT,updateUser)
+router.route("/updateProfile/:reqID").put(verifyJWT,updateProfile)
 router.route("/deleteUser/:reqID").delete(verifyJWT,deleteUser)
 router.route("/logout").post(verifyJWT,logoutUser)
 router.route("/getAuthStatus").post(getUserAuthStatus)

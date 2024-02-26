@@ -36,18 +36,24 @@ const MyProfile = () => {
 
 	useEffect(() => {
 		getUserData();
-	}, [user]);
-	useEffect(() => {}, [activePage]);
+	}, [activePage]);
+	// useEffect(() => {}, [activePage]);
 
 	const updateUserData = () => {
 		const newWeight = document.getElementById("weight")?.value || user.weight;
 		const newHeight = document.getElementById("height")?.value || user.height;
-		const newtPassword = document.getElementById("New Password")?.value;
+		const oldPassword = document.getElementById("Old Password")?.value || "None";
+		if(oldPassword == "None") {
+			alert("Please enter your current password to update your profile");
+			return;
+		}
+		const newPassword = document.getElementById("New Password")?.value || "None";
 		let newUser = user;
 		newUser.weight = newWeight;
 		newUser.height = newHeight;
-		if(newtPassword) newUser.password = newtPassword;	
-		fetch("/api/v1/users/updateUser/" + user._id, {
+		newUser.oldpassword = oldPassword;	
+		newUser.newpassword = newPassword;	
+		fetch("/api/v1/users/updateProfile/" + user._id, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -56,7 +62,10 @@ const MyProfile = () => {
 		})
 			.then(async (res) => {
 				if (res.status > 299) {
-					console.log("Failed to update user");
+					await res.json().then((data) => {
+						alert("Failed to update user :" + data.message);
+					});
+					
 				} else {
 					alert("User updated successfully");
 				}
@@ -181,18 +190,18 @@ const MyProfile = () => {
 								/>
 							</div>
 
-							{/* <div className="mt-1 flex items-center">
+							<div className="mt-1 flex items-center">
 								<label htmlFor="Current Password" className="text-gray-200 text-[18px]">
 									Current Password:
 								</label>
 								<input
 									type="password"
-									id="Current Password"
+									id="Old Password"
 									name="Current Password"
 									className="text-gray-200 text-[18px] bg-black border border-white ml-auto"
 									min={20}
 								/>
-							</div> */}
+							</div>
 
 							<div className="mt-1 flex items-center">
 								<label htmlFor="New Password" className="text-gray-200 text-[18px]">
@@ -223,14 +232,14 @@ const MyProfile = () => {
 	return (
 		<div className="flex">
 			{/* SideBar */}
-			<div className="sidebar mt-16 ">{getSidebarItems()}</div>
+			<div className="sidebar mt-16 border-r-2 border-white">{getSidebarItems()}</div>
 			<br />
 
 			{/* Active Page */}
 			{getActivePage()}
 
 			<div className="rightComtainer w-[40%] flex flex-col items-center justify-center">
-						<img src={workoutImg} alt="Body Builders doing Workout" className="w-[100%]" />
+				<img src={workoutImg} alt="Body Builders doing Workout" className="w-[100%]" />
 			</div>
 		</div>
 	);
