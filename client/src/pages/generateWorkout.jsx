@@ -1,14 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";  
 
 const GenerateWorkout = () => {
   const [workoutPlan, setWorkoutPlan] = useState("");
+
+
+  function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return Number(age);
+  }
+
+  const [userLoggedIn, setuserLoggedIn] = useState({})
+
+  const userCurrent=useSelector((state)=>state.user);
+
+  useEffect(() => {
+    setuserLoggedIn(userCurrent);
+    console.log(userLoggedIn)
+  }, [setuserLoggedIn, userCurrent])
+  
+   
   const [formData, setFormData] = useState({
-        name:"", 
+        name:"",
         workoutLevel:"", 
-        age:"", 
+        age:"",
         gender:"", 
         weight:"", 
-        height:"", 
+        height:"",
         daysAvailable:"", 
         weakMuscle:"", 
         workoutType:"",
@@ -80,6 +104,7 @@ const GenerateWorkout = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md focus:outline-none"
                   type="text"
+                  defaultValue={userLoggedIn?.name}
                 />
               </div>
 
@@ -93,6 +118,7 @@ const GenerateWorkout = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  defaultValue={userLoggedIn?.height}
                 />
               </div>
               <div className="">
@@ -105,6 +131,7 @@ const GenerateWorkout = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  defaultValue={userLoggedIn?.weight}
                 />
               </div>
               <div className="">
@@ -134,6 +161,7 @@ const GenerateWorkout = () => {
                   onChange={(e) => handleInput(e)}
                   className="py-1 px-4 w-[100%] rounded-md "
                   type="number"
+                  defaultValue={getAge(userLoggedIn?.dob)}
                 />
               </div>
               <div className="">

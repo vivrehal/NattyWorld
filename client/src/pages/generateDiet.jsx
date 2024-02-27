@@ -302,7 +302,7 @@ const GenerateDiet = () => {
                   }}
                   className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]"
                 >
-                  Add to my Diets
+                  ADD TO MY DIETS
                 </button>
           </div>
         </div>

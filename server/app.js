@@ -32,5 +32,5 @@ app.use("/api/v1/users",userRouter) // (/api/v1 is just for convention for defin
 app.use("/api/v1/workouts",workoutRouter)
 app.use("/api/v1/diet",dietRouter);
 app.use("/api/v1/ai",aiRouter);
-app.use("/api/v1/gym",gymRouter)
+app.use("/api/v1/gyms",gymRouter)
 export {app}

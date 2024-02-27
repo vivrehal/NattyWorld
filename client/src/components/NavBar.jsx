@@ -29,14 +29,14 @@ const NavBar = () => {
         return
       }
       const res=await tryNewToken.json();
-      setloggedInUser(res.data.user.name)
-      dispatch(setUser(res.data.user))
+      setloggedInUser(res?.data?.user?.name)
+      dispatch(setUser(res?.data?.user))
       navigate("/")
       return
       
     }
     const res=await user.json();
-    setloggedInUser(res.name)
+    setloggedInUser(res?.name)
     dispatch(setUser(res))
   }
   useEffect(() => {
@@ -53,7 +53,7 @@ const NavBar = () => {
     },
     {
       name: "Services",
-      href: "#",
+      href: "/",
       scroll_id: "services_container"
     },
     {
