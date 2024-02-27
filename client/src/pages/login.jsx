@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import loginBanner from "../assets/loginBanner.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../features/userSlice";
 
 const Login = () => {
+
+
+
   const dispatch=useDispatch()
   const navigate=useNavigate()
+
+
+const currUser=useSelector(state=>state.user?.name)
+  useEffect(() => {
+    if(currUser){
+      navigate('/')
+    }
+  }, []);
+
   const [formData, setFormData] = useState({});
 
   const handleInput = (e) => {

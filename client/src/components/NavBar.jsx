@@ -7,7 +7,7 @@ import { Link } from "react-scroll"
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loggedInUser, setloggedInUser] = useState(null);
+  const [loggedInUser, setloggedInUser] = useState({});
   
   const getUserData = async () => {
     const user=await fetch("/api/v1/users/getAuthStatus",{
@@ -29,19 +29,19 @@ const NavBar = () => {
         return
       }
       const res=await tryNewToken.json();
-      setloggedInUser(res?.data?.user?.name)
+      setloggedInUser(res?.data?.user)
       dispatch(setUser(res?.data?.user))
       navigate("/")
       return
       
     }
     const res=await user.json();
-    setloggedInUser(res?.name)
+    setloggedInUser(res)
     dispatch(setUser(res))
   }
   useEffect(() => {
     getUserData()
-  },[loggedInUser])
+  },[setloggedInUser])
 
 
 
@@ -75,7 +75,6 @@ const NavBar = () => {
 
   const logoutUser = async(e) => {
     e.preventDefault();
-    localStorage.removeItem("user");
     setloggedInUser(null);
     const res=await fetch("/api/v1/users/logout", {
         method: "POST",
@@ -126,14 +125,14 @@ const NavBar = () => {
             </ul>
           </div>
           <div className="flex userProf w-[20%] justify-end">
-            {loggedInUser ? (
+            {loggedInUser?.name ? (
               <div className="dropdown">
                 <button
                   onClick={()=>{
                     setisToggled(!isToggled)
                   }}
                 >
-                  {loggedInUser?.toUpperCase()}
+                  {loggedInUser?.name.toUpperCase()}
                 </button>
                 {isToggled && (
                   <ul className="dropdown-menu -menu absolute top-[70%] right-6 mt-0 bg-[#171717] text-white rounded-md shadow-lg">

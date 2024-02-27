@@ -12,7 +12,7 @@ try {
         // console.log(token)
         if(token==="undefined"){
             // throw new apiError(401, "Unauthorized acess")
-                return res.status(401).json(new ApiResponse(401, {}, "Unauthorized acess"));
+                return res.status(499).json(new ApiResponse(401, {}, "Unauthorized acess"));
                 
         }
         
@@ -30,7 +30,7 @@ try {
         next();
 } catch (error) {
     // throw new apiError(404, error?.mesage || "Invalid access token")
-    return res.status(404).json(new ApiResponse(404, {}, error?.mesage || "Invalid access token"));
+    return res.status(499).json(new ApiResponse(404, {}, error?.mesage || "Invalid access token"));
 }
 })
 

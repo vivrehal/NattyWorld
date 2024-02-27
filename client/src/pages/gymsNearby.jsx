@@ -1,9 +1,10 @@
 
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const GymsNearby = () => {
 
-
+  const navigate = useNavigate();
   const [coordinates, setCoordinates] = useState({
   })
 
@@ -42,6 +43,15 @@ const GymsNearby = () => {
         }
       })
     });
+    if(res.status === 499) {
+      alert("Session Expired");
+      navigate("/login");
+      return
+    }
+    if(res.status >= 300) {
+      alert("Error fetching gyms");
+      return
+    }
     console.log(coordinates)
     const data = await res.json();
     console.log(data);
