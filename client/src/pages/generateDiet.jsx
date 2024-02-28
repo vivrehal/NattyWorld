@@ -59,7 +59,7 @@ const GenerateDiet = () => {
   };
 
   const generateDietByAI = async () => {
-    const res = await fetch("api/v1/ai/generateDiet", {
+    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/ai/generateDiet", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

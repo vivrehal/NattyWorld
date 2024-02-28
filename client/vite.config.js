@@ -6,11 +6,11 @@ export default defineConfig({
   server:{
     proxy: {
       // '/api':'https://nattyworld-server.onrender.com'
-      '/api': {
-        target: 'https://nattyworld-server.onrender.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api'),
-      }
+      // '/api': {
+      //   target: 'https://nattyworld-server.onrender.com',
+      //   // changeOrigin: true,
+      //   rewrite: (path) => path.replace(/^\/api/, '/api'),
+      // }
     },
   },
   plugins: [react()],

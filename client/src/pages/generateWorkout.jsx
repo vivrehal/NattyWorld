@@ -49,7 +49,7 @@ const GenerateWorkout = () => {
   };
 
   const generateWorkoutByAI = async (formData) => {
-    const res = await fetch("/api/v1/ai/generateWorkout", {
+    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/ai/generateWorkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,7 +7,7 @@ const MyWorkouts = () => {
 	const [activeIndex, setIndex] = useState(0);
 
 	const fetchWorkoutsArray = async () =>{
-		return await fetch("api/v1/users/getUserWorkouts")
+		return await fetch("https://nattyworld-server.onrender.com/api/v1/users/getUserWorkouts")
 								.then((res) => {
 									return res.json();
 								})

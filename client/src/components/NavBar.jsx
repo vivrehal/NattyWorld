@@ -76,7 +76,7 @@ const NavBar = () => {
   const logoutUser = async(e) => {
     e.preventDefault();
     setloggedInUser(null);
-    const res=await fetch("/api/v1/users/logout", {
+    const res=await fetch("https://nattyworld-server.onrender.com/api/v1/users/logout", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
