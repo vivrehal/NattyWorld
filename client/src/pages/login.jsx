@@ -15,7 +15,7 @@ const Login = () => {
 const currUser=useSelector(state=>state.user?.name)
   useEffect(() => {
     if(currUser){
-      navigate('/')
+      // navigate('/')
     }
   }, []);
 
