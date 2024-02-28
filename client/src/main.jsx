@@ -26,7 +26,7 @@ import MyWorkouts from './pages/myWorkouts.jsx';
 import BMI from "./pages/bmi.jsx"
 import Signup from './pages/signup.jsx';
 import MyProfile from './pages/myProfile.jsx';
-import GymsNearby from './pages/GymsNearby.jsx';
+import GymsNearby from './pages/gymsNearby.jsx';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 
