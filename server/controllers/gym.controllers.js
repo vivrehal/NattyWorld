@@ -17,6 +17,7 @@ const findNearbyGyms=asyncHandler(async(req, res)=>{
         'X-RapidAPI-Key': process.env.RAPID_API_KEY,
         'X-RapidAPI-Host': 'map-places.p.rapidapi.com'
     }
+        
     };
 
 

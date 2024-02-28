@@ -40,8 +40,13 @@ const NavBar = () => {
     dispatch(setUser(res))
   }
   useEffect(() => {
-    getUserData()
-  },[setloggedInUser])
+    (async()=>{
+      await getUserData()
+    }
+    )()
+  },[])
+
+  const user=useSelector(state=>state.user);
 
 
 
@@ -125,14 +130,14 @@ const NavBar = () => {
             </ul>
           </div>
           <div className="flex userProf w-[20%] justify-end">
-            {loggedInUser?.name ? (
+            {user?.name ? (
               <div className="dropdown">
                 <button
                   onClick={()=>{
                     setisToggled(!isToggled)
                   }}
                 >
-                  {loggedInUser?.name.toUpperCase()}
+                  {user?.name.toUpperCase()}
                 </button>
                 {isToggled && (
                   <ul className="dropdown-menu -menu absolute top-[70%] right-6 mt-0 bg-[#171717] text-white rounded-md shadow-lg">
