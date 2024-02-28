@@ -15,7 +15,7 @@ const Login = () => {
 const currUser=useSelector(state=>state.user?.name)
   useEffect(() => {
     if(currUser){
-      navigate('/')
+      // navigate('/')
     }
   }, []);
 
@@ -29,7 +29,7 @@ const currUser=useSelector(state=>state.user?.name)
   const handleSubmit=async(e)=>{
     try {
       e.preventDefault()
-      const res=await fetch('/api/v1/users/login',{
+      const res=await fetch('https://nattyworld-server.onrender.com/api/v1/users/login',{
         method: "POST",
         headers: {
           "Content-Type": "application/json",

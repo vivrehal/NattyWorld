@@ -21,7 +21,7 @@ const MyProfile = () => {
 
 	const sidebarItems = ["My Profile", "Update Profile"];
 	const getUserData = async () => {
-		await fetch("/api/v1/users/getAuthStatus", {
+		await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus", {
 			method: "POST",
 		})
 			.then(async (res) => {
