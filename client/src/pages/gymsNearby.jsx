@@ -52,7 +52,7 @@ const GymsNearby = () => {
       return;
     }
     if (res.status >= 300) {
-      // alert("Error fetching gyms");
+      alert("Error fetching gyms");
       return;
     }
     console.log(coordinates);
