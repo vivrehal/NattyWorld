@@ -10,27 +10,32 @@ const NavBar = () => {
   const [loggedInUser, setloggedInUser] = useState({});
   
   const getUserData = async () => {
-    const user=await fetch("/api/v1/users/getAuthStatus",{
+    const user=await fetch("http://localhost:9000/api/v1/users/getAuthStatus",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
       },
+      body:JSON.stringify({accessToken:localStorage.getItem("accessToken")})
     })
-    if(user.status>=300){
-      const tryNewToken=await fetch("/api/v1/users/refresh_token ",{
+    if(user?.status>=300){
+      const tryNewToken=await fetch("http://localhost:9000//api/v1/users/refresh_token ",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
         },
+        body:JSON.stringify({refreshToken:localStorage.getItem("refreshToken")})
       })
       if(tryNewToken.status>=300){
         dispatch(setUser({}))
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         navigate("/login")
         return
       }
       const res=await tryNewToken.json();
       setloggedInUser(res?.data?.user)
       dispatch(setUser(res?.data?.user))
+      localStorage.setItem("accessToken", res?.data?.accessToken)
       navigate("/")
       return
       
@@ -81,11 +86,12 @@ const NavBar = () => {
   const logoutUser = async(e) => {
     e.preventDefault();
     setloggedInUser(null);
-    const res=await fetch("https://nattyworld-server.onrender.com/api/v1/users/logout", {
+    const res=await fetch("/api/v1/users/logout", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
+        body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
         });
     const  response=await res.json();
     if(res.status>=400){

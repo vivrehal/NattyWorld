@@ -35,23 +35,43 @@ const GenerateDiet = () => {
 
   const [currentUser, setUser] = useState({});
 
-	const getUserData = async () => {
-		await fetch("/api/v1/users/getAuthStatus", {
-            method: "POST"
-        })
-			.then(async (res) => {
-				if(res.status > 299) navigate("/login");
-				let x = await res.json();
-				setUser(x);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+  const getUserData = async () => {
+    const user = await fetch("http://localhost:9000/api/v1/users/getAuthStatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
+    });
+    if (user?.status >= 300) {
+      const tryNewToken = await fetch("http://localhost:9000/api/v1/users/refresh_token ", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken: localStorage.getItem("refreshToken") }),
+      });
+      if (tryNewToken.status >= 300) {
+        dispatch(setUser({}));
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        navigate("/login");
+        return;
+      }
+      const res = await tryNewToken.json();
+      setUser(res?.data?.user);
+      localStorage.setItem("accessToken", res?.data?.accessToken);
+      navigate("/");
+      return;
+    }
+    const res = await user.json();
+    setUser(res);
+  }
 
   useEffect(() => {
     getUserData();
   }, []);
+
 
   const handleInput = (e) => {
     console.log(formData);
@@ -59,19 +79,19 @@ const GenerateDiet = () => {
   };
 
   const generateDietByAI = async () => {
-    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/ai/generateDiet", {
+    const res = await fetch("http://localhost:9000/api/v1/ai/generateDiet", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({...formData,accessToken:localStorage.getItem("accessToken")}),
     });
     const response = await res.json();
     if (!response?.data?.dietPlan?.content) {
       alert("Cannot fetch Diet Plan");
     }
     // console.log();
-    setDietPlan(response.data.dietPlan.content);
+    setDietPlan(response?.data?.dietPlan?.content);
   };
 
   const saveDiet = async () => {
@@ -80,12 +100,12 @@ const GenerateDiet = () => {
       plan : dietPlan
     }
     console.log(formData)
-    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/diet/addDiet", {
+    const res = await fetch("http://localhost:9000/api/v1/diet/addDiet", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dietDetails),
+      body: JSON.stringify({...dietDetails,acessToken:localStorage.getItem("accessToken")}),
     });
     const response = await res.json();
 

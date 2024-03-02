@@ -7,7 +7,7 @@ import { userModal } from "../models/user.modal.js";
 
 const getAllDiets = asyncHandler(async(req, res) => {
     dietModal.showAllDiet(
-        (dbRes) => {
+        (dbRes) => { 
           return res.status(200).json(new ApiResponse(200,dbRes,"Diet retrieved successfully"))
         },
         (dbErr) => {

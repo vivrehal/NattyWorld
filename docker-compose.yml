@@ -11,22 +11,24 @@ services:
     container_name: backend
     ports:
       - "9000:9000"
-    env_file: ./.env
     environment:
-      - DB_URI='mongodb+srv://dhimanvivek777:sXDwALG6apXJ7yzM@cluster0.p5gxsym.mongodb.net/?retryWrites=true&w=majority'
+      - DB_URI=mongodb+srv://dhimanvivek777:sXDwALG6apXJ7yzM@cluster0.p5gxsym.mongodb.net/?retryWrites=true&w=majority
       - PORT=9000
       - CORS_ORIGIN=*
-      - ACCESS_TOKEN_EXPIRY="1d"
-      - ACCESS_TOKEN_SECRET="18b805022aab7544e28c3f2bb54451b51b5jhg7"
-      - REFRESH_TOKEN_EXPIRY="7d"
-      - REFRESH_TOKEN_SECRET="66a1515b80273f2b0273f2bb54451b51b54f3deaa3"
-      - AI_ASSISTANT_ID="asst_jlee5PxpgnBTN0GDM2Q7Xz9k"
-      - AI_ASSISTANT_MODEL="gpt-3.5-turbo-0125"
-      - OPENAI_API_KEY="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"
-      - RAPID_API_KEY="de77b70360mshe31a35cf9368116p130addjsn4950fe550bb3"    
+      - ACCESS_TOKEN_EXPIRY=1d
+      - ACCESS_TOKEN_SECRET=18b805022aab7544e28c3f2bb54451b51b5jhg7
+      - REFRESH_TOKEN_EXPIRY=7d
+      - REFRESH_TOKEN_SECRET=66a1515b80273f2b0273f2bb54451b51b54f3deaa3
+      - AI_ASSISTANT_ID=asst_jlee5PxpgnBTN0GDM2Q7Xz9k
+      - AI_ASSISTANT_MODEL=gpt-3.5-turbo-0125
+      - OPENAI_API_KEY=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
+      - RAPID_API_KEY=de77b70360mshe31a35cf9368116p130addjsn4950fe550bb3  
+    volumes:
+      - ./server:/app
+    networks:
+      - natty_world 
       
-    depends_on:
-      - mongodb
+
 
   # Client service
   client:
@@ -36,7 +38,18 @@ services:
 
     container_name: frontend
     ports:
-      - "5173:5173"
+      - "3000:3000"
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./client:/app
+    networks:
+      - natty_world
     depends_on:
       - server
+
+networks:
+  natty_world:
+    driver: bridge
+
 

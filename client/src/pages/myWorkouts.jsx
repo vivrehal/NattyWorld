@@ -7,13 +7,20 @@ const MyWorkouts = () => {
 	const [activeIndex, setIndex] = useState(0);
 
 	const fetchWorkoutsArray = async () =>{
-		return await fetch("https://nattyworld-server.onrender.com/api/v1/users/getUserWorkouts")
-								.then((res) => {
-									return res.json();
-								})
-								.then((data) => {
-									return data["workouts"];
-								});
+		return await fetch("http://localhost:9000/api/v1/users/getUserWorkouts",{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
+								
+			}) 
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				return data["workouts"];
+			});
 	}
 	useEffect(() => {
 		const fetchWorkout = async () => {
