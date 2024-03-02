@@ -52,6 +52,8 @@ const currUser=useSelector(state=>state.user?.name)
       localStorage.setItem('accessToken',response?.data?.accessToken)
       localStorage.setItem('refreshToken',response?.data?.refreshToken)
       dispatch(setUser(response?.data?.loggedInUser))
+      localStorage.setItem('accessToken',JSON.stringify(response?.data?.accessToken))
+      localStorage.setItem('refreshToken',JSON.stringify(response?.data?.refreshToken))
       navigate('/')
 
 
