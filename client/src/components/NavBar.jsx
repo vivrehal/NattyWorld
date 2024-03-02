@@ -15,6 +15,8 @@ const NavBar = () => {
       headers:{
         "Content-Type":"application/json"
       },
+      body:JSON.stringify({
+        accessToken:localStorage.getItem('accessToken')      })
     })
     if(user.status>=300){
       const tryNewToken=await fetch("/api/v1/users/refresh_token ",{
@@ -22,6 +24,9 @@ const NavBar = () => {
         headers:{
           "Content-Type":"application/json"
         },
+        body:JSON.stringify({
+          refreshToken:localStorage.getItem('refreshToken')
+        })
       })
       if(tryNewToken.status>=300){
         dispatch(setUser({}))

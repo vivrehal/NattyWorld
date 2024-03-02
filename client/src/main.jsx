@@ -27,8 +27,7 @@ import BMI from "./pages/bmi.jsx"
 import Signup from './pages/signup.jsx';
 import MyProfile from './pages/myProfile.jsx';
 import GymsNearby from './pages/gymsNearby.jsx';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
+
 
 const routers = createBrowserRouter([{
   path:'/',
@@ -89,13 +88,10 @@ const routers = createBrowserRouter([{
   ]}
 ]);
 
-const persistor = persistStore(store);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider  store={store}>
-      <PersistGate persistor={persistor}>
         <RouterProvider router={routers}/>
-      </PersistGate>
     </Provider>
   </React.StrictMode>,
 )
