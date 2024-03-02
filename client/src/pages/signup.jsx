@@ -53,7 +53,7 @@ const Signup = () => {
             </h2>
             <form
               method="POST"
-              className=" flex flex-col gap-6 w-[60%] self-center items-center"
+              className=" flex flex-col gap-6 w-[60%] self-center items-center" 
             >
               <div className="w-[100%]">
                 <label className="text-white" htmlFor="name">

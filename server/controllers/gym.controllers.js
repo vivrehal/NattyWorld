@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import axios from 'axios';
 
 const findNearbyGyms=asyncHandler(async(req, res)=>{
-    const {coordinates}=req.body
+    const {coordinates}=req.body 
     const options = {
     method: 'GET',
     url: 'https://map-places.p.rapidapi.com/nearbysearch/json',

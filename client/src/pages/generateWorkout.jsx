@@ -74,7 +74,7 @@ const GenerateWorkout = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(workoutDetails),
-    });
+    }); 
     const response = await res.json();
     if (!response?.data) {
       alert("Cannot save workout Plan");

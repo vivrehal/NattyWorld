@@ -22,7 +22,7 @@ const GymsNearby = () => {
   }, []);
 
   useEffect(() => {
-    if (coordinates?.lat && coordinates?.long) {
+    if (coordinates?.lat && coordinates?.long) { 
       getGyms();
     }
   }, [coordinates]);

@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { workoutModal } from "../models/workout.modal.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
-import { userModal } from "../models/user.modal.js";
+import { userModal } from "../models/user.modal.js"; 
 import mongoose from "mongoose";
 
 const getAllWorkouts=asyncHandler(async(req, res) => {

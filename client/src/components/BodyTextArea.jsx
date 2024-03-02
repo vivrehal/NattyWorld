@@ -13,7 +13,7 @@ const BodyTextArea = (props) => {
 				readOnly={true}
 			></textarea>
 		</div>
-	);
+	); 
 };
 
 BodyTextArea.propTypes = {

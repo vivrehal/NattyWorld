@@ -10,7 +10,7 @@ const getDietFromAi=asyncHandler(async(req,res)=>{
             apiKey : process.env.OPENAI_API_KEY
         });
 
-        console.log("reached")
+        console.log("reached") 
         const{
             name, 
             country, 

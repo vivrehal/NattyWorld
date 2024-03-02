@@ -61,7 +61,7 @@ const Workouts = () => {
 				{sidebarItems}
 			</div>
       
-			{/* Workout Display */}
+			{/* Workout Display */} 
 			<div
 				className="flex-grow overflow-auto mt-20 bg-[#171717] text-gray-200 text-[18px] w-[72%] h-[90vh] "
 				// style={{ marginLeft: "20%" }}

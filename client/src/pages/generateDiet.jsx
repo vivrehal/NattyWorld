@@ -81,7 +81,7 @@ const GenerateDiet = () => {
     }
     console.log(formData)
     const res = await fetch("https://nattyworld-server.onrender.com/api/v1/diet/addDiet", {
-      method: "POST",
+      method: "POST", 
       headers: {
         "Content-Type": "application/json",
       },

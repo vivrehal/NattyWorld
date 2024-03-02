@@ -104,7 +104,7 @@ const MyProfile = () => {
 							</div>
 							<div className="userData text-gray-200 text-[18px] mx-auto">
 								<div className="p-2.5 mt-1 flex items-center">
-									<h1 className=" text-[38px] font-extrabold">{user.name}</h1>
+									<h1 className=" text-[38px] font-extrabold">{user.name}</h1> 
 								</div>
 								<div className=" pl-2 flex items-center">
 									<span className="text-gray-200 text-[18px] ">

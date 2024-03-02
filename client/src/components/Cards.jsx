@@ -10,7 +10,7 @@ const Cards = (props) => {
             </h1>
             <p className="gymPhoto">
               <img src={props.gym?.icon} alt="No Preview Available" />
-            </p>
+            </p> 
             <p className="gymRating my-3">
               Rating: {props.gym?.rating} ({props.gym?.user_ratings_total})
             </p>

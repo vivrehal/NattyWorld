@@ -12,6 +12,6 @@ dietRouter.route("/addDiet").post(verifyJWT, addDiet);
 
 dietRouter.route("/updateDiet/:reqID").put(updateDiet)
 
-dietRouter.route("/deleteDiet/:reqID").delete(deleteDiet)
+dietRouter.route("/deleteDiet/:reqID").delete(deleteDiet) 
 
 export default dietRouter;

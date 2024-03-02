@@ -8,7 +8,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState({});
-  
+   
   const getUserData = async () => {
     const user=await fetch("/api/v1/users/getAuthStatus",{
       method:"POST",

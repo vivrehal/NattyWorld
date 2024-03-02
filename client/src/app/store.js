@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userSlice from '../features/userSlice';
 
 
-const store = configureStore({
+const store = configureStore({ 
   reducer: userSlice,
   // Add any middleware or enhancers here
 });

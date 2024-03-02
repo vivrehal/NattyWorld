@@ -13,7 +13,7 @@ import GenerateDiet from './pages/generateDiet.jsx';
 import GenerateWorkout from './pages//generateWorkout.jsx';
 import Workouts from './pages/workouts.jsx'
 import { Provider } from 'react-redux';
-import store from './app/store.js';
+import store from './app/store.js'; 
 
 
 import {

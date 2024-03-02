@@ -12,6 +12,6 @@ router.route("/addWorkout").post(verifyJWT,  addWorkout)
 
 router.route("/updateWorkout/:reqID").put(updateWorkout)
 
-router.route("/deleteWorkout/:reqID").delete(deleteWorkout)
+router.route("/deleteWorkout/:reqID").delete(deleteWorkout) 
 
 export default router;

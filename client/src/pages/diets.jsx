@@ -9,7 +9,7 @@ const Diets = () => {
 		const fetchDiet = async () => {
 			await fetch("https://nattyworld-server.onrender.com/api/v1/diet/dietList")
 				.then(async (res) => {
-					let x = await res.json();
+					let x = await res.json(); 
 					setDiet(x["data"]);
 				})
 				.catch((err) => {

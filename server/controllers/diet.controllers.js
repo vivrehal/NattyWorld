@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { dietModal } from "../models/diet.modal.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { apiError } from "../utils/apiError.js"
-import mongoose from "mongoose";
+import mongoose from "mongoose"; 
 import { userModal } from "../models/user.modal.js";
 
 const getAllDiets = asyncHandler(async(req, res) => {

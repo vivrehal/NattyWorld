@@ -38,7 +38,7 @@ const currUser=useSelector(state=>state.user?.name)
       })
       if(!res){
         alert("Error while validating User")
-        console.log("Error while validating User")
+        console.log("Error while validating User") 
         return
       }
       const response=await res.json();

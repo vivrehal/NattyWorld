@@ -76,4 +76,4 @@ const MyWorkouts = () => {
 	);
 };
 
-export default MyWorkouts;
+export default MyWorkouts; 

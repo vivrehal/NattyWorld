@@ -6,4 +6,4 @@ const router = Router()
 router.route("/findNearby").post(verifyJWT, findNearbyGyms)
 
 
-export default router
+export default router 

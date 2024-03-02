@@ -54,7 +54,7 @@ const MyDiets = () => {
 				border-r-2 border-white z-10"
 			>
 				<div className="text-gray-100 text-xl">
-					<div className="p-2.5 mt-1 flex items-center">
+					<div className="p-2.5 mt-1 flex items-center"> 
 						<h1 className="font-bold text-gray-200 text-[18px]">My Diets</h1>
 					</div>
 				</div>

@@ -9,7 +9,7 @@ import {
   faCalculator,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Services = () => {
+const Services = () => { 
 
     const features = [
         {

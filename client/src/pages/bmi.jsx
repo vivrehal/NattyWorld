@@ -8,7 +8,7 @@ const BMI = () => {
 	const calculate = () => {
 		const age = document.getElementById("age").value;
 		const weight = document.getElementById("weight")?.value;
-		const height = (document.getElementById("height")?.value)/100;
+		const height = (document.getElementById("height")?.value)/100; 
 		const neck = document.getElementById("neck")?.value;
 		const waist = document.getElementById("waist")?.value;
 		// Checking for Null values and NaN values

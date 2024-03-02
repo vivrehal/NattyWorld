@@ -7,7 +7,7 @@ const router=Router();
 
 
 router.route("/generateDiet").post(verifyJWT, getDietFromAi)
-router.route("/generateWorkout").post(verifyJWT,getWorkoutFromAi)
+router.route("/generateWorkout").post(verifyJWT,getWorkoutFromAi) 
 
 
 export default router

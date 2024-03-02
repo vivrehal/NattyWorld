@@ -162,7 +162,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 		.json(new ApiResponse(200, {}, "User Logged out"));
 });
 
-const getUserAuthStatus = asyncHandler(async (req, res) => {
+const getUserAuthStatus = asyncHandler(async (req, res) => { 
 	const token = req.cookies?.accessToken;
 	if (!token) {
 		// throw new apiError(401, "no access token found in cookies");
