@@ -14,7 +14,7 @@ const NavBar = () => {
       method:"POST",
       headers:{
         "Content-Type":"application/json"
-      },
+      }, 
       body:JSON.stringify({
         accessToken:localStorage.getItem('accessToken')      })
     })
