@@ -7,7 +7,7 @@ const MyWorkouts = () => {
 	const [activeIndex, setIndex] = useState(0);
 
 	const fetchWorkoutsArray = async () =>{
-		return await fetch("http://localhost:9000/api/v1/users/getUserWorkouts",{
+		return await fetch("http://54.224.131.168:9000/api/v1/users/getUserWorkouts",{
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
