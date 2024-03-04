@@ -127,6 +127,11 @@ const loginUser = asyncHandler(async (req, res) => {
 	const cookieOptions = options;
 	return res
 		.status(200)
+<<<<<<< HEAD
+		// .cookie("accessToken", accessToken, cookieOptions)
+		// .cookie("refreshToken", refreshToken, cookieOptions)
+=======
+>>>>>>> 81138f76bc324d87d31d62cddaa9f2b017691eae
 		.json(
 			new ApiResponse(
 				200,
@@ -163,11 +168,18 @@ const getUserAuthStatus = asyncHandler(async (req, res) => {
 	console.log(token)
 	if (!token) {
 		// throw new apiError(401, "no access token found in cookies");
-		return res.status(401).json(new ApiResponse(401, {}, "No access token found in cookies"));
+		return res.status(401).json(new ApiResponse(401, {}, "No access token found in Request"));
 	}
 	try {
-		const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
+		console.log("decoded : ")
+		const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, res) => {
+			if (err) {
+				console.log(err);
+				return null;
+			}
+			return res;
+		});
+		console.log(decodedToken)
 		if (!decodedToken) {
 			// throw new apiError(401, "Invalid access token please login again");
 			return res.status(401).json(new ApiResponse(401, {}, "Invalid access token please login again"));
@@ -180,7 +192,8 @@ const getUserAuthStatus = asyncHandler(async (req, res) => {
 		}
 		res.status(200).json(user);
 	} catch (error) {
-		res.status(401).json(new ApiResponse(401, {}, "Invalid access token please login again"));
+		console.log(error)
+		res.status(401).json(new ApiResponse(401, {}, "Error validating User! Please login again!"));
 	}
 });
 
