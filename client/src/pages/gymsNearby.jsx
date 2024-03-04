@@ -34,7 +34,7 @@ const GymsNearby = () => {
 
 
   const getGyms = async () => {
-    const res = await fetch("http://54.224.131.168:9000/api/v1/gyms/findNearby", {
+    const res = await fetch("/api/v1/gyms/findNearby", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

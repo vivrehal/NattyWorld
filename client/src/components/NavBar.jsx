@@ -10,15 +10,21 @@ const NavBar = () => {
   const [loggedInUser, setloggedInUser] = useState({});
    
   const getUserData = async () => {
-    const user=await fetch("http://54.224.131.168:9000/api/v1/users/getAuthStatus",{
+    const user=await fetch("http://localhost:9000/api/v1/users/getAuthStatus",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
+<<<<<<< HEAD
+      }, 
+      body:JSON.stringify({
+        accessToken:localStorage.getItem('accessToken')      })
+=======
       },
       body:JSON.stringify({accessToken:localStorage.getItem("accessToken")})
+>>>>>>> docker-nattyworld
     })
     if(user?.status>=300){
-      const tryNewToken=await fetch("http://54.224.131.168:9000/api/v1/users/refresh_token ",{
+      const tryNewToken=await fetch("http://localhost:9000//api/v1/users/refresh_token ",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"

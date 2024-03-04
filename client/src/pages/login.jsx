@@ -29,7 +29,7 @@ const currUser=useSelector(state=>state.user?.name)
   const handleSubmit=async(e)=>{
     try {
       e.preventDefault()
-      const res=await fetch('http://54.224.131.168:9000/api/v1/users/login',{
+      const res=await fetch('/api/v1/users/login',{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,8 +52,8 @@ const currUser=useSelector(state=>state.user?.name)
       localStorage.setItem('accessToken',response?.data?.accessToken)
       localStorage.setItem('refreshToken',response?.data?.refreshToken)
       dispatch(setUser(response?.data?.loggedInUser))
-      localStorage.setItem('accessToken',JSON.stringify(response?.data?.accessToken))
-      localStorage.setItem('refreshToken',JSON.stringify(response?.data?.refreshToken))
+      // localStorage.setItem('accessToken',JSON.stringify(response?.data?.accessToken))
+      // localStorage.setItem('refreshToken',JSON.stringify(response?.data?.refreshToken))
       navigate('/')
 
 
