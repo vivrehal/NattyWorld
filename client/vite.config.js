@@ -5,15 +5,14 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server:{
     proxy: {
-      // '/api':'https://nattyworld-server.onrender.com/'
-      '/api' : 'http://localhost:9000'
+      '/api':'http://54.224.131.168:9000/'
     },
     watch:{
-      usePolling:true
+      usePolling:true 
     },
-    host: true,
-    strictPort: true,
-    port: 3000
+    host:true,
+    strictPort:true,
+    port:3000
   },
   plugins: [react()],
 })
