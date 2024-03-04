@@ -8,11 +8,11 @@ export default defineConfig({
       '/api':'http://localhost:9000/'
     },
     watch:{
-      usePolling:true
+      usePolling:true 
     },
-    host: true,
-    strictPort: true,
-    port: 3000
+    host:true,
+    strictPort:true,
+    port:3000
   },
   plugins: [react()],
 })

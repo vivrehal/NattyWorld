@@ -34,7 +34,7 @@ const GymsNearby = () => {
 
 
   const getGyms = async () => {
-    const res = await fetch("/api/v1/gyms/findNearby", {
+    const res = await fetch("http://localhost:9000/api/v1/gyms/findNearby", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,10 +44,13 @@ const GymsNearby = () => {
           lat: coordinates?.lat,
           long: coordinates?.long,
         },
+        accessToken: localStorage.getItem("accessToken"),
       }),
     });
     if (res.status === 499) {
       alert("Session Expired");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       navigate("/login");
       return;
     }

@@ -127,8 +127,6 @@ const loginUser = asyncHandler(async (req, res) => {
 	const cookieOptions = options;
 	return res
 		.status(200)
-		.cookie("accessToken", accessToken, cookieOptions)
-		.cookie("refreshToken", refreshToken, cookieOptions)
 		.json(
 			new ApiResponse(
 				200,
@@ -157,13 +155,12 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 	return res
 		.status(200)
-		.clearCookie("accessToken", options)
-		.clearCookie("refreshToken", options)
 		.json(new ApiResponse(200, {}, "User Logged out"));
 });
 
-const getUserAuthStatus = asyncHandler(async (req, res) => { 
-	const token = req.cookies?.accessToken;
+const getUserAuthStatus = asyncHandler(async (req, res) => {
+	const token = req.body?.accessToken;
+	console.log(token)
 	if (!token) {
 		// throw new apiError(401, "no access token found in cookies");
 		return res.status(401).json(new ApiResponse(401, {}, "No access token found in cookies"));
@@ -188,7 +185,7 @@ const getUserAuthStatus = asyncHandler(async (req, res) => {
 });
 
 const newTokenOnExpiry = asyncHandler(async (req, res) => {
-	const token = req.cookies?.refreshToken;
+	const token = req.body?.refreshToken;
 	if (!token) {
 		// throw new apiError(401, "no refresh token found in cookies");
 		return res.status(401).json(new ApiResponse(401, {}, "No refresh token found in cookies"));
@@ -212,7 +209,7 @@ const newTokenOnExpiry = asyncHandler(async (req, res) => {
 	const { accessToken } = await generateTokens(user._id, false);
 	// console.log(accessToken+" ngt")
 
-	res.status(200).cookie("accessToken", accessToken, options).json(
+	res.status(200).json(
 		new ApiResponse(
 			200,
 			{

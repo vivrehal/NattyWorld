@@ -19,8 +19,8 @@ router.route("/logout").post(verifyJWT,logoutUser)
 router.route("/getAuthStatus").post(getUserAuthStatus)
 router.route("/refresh_token").post(newTokenOnExpiry)
 
-router.route("/getUserWorkouts").get(verifyJWT, getUserWorkouts);
-router.route("/getUserDiets").get(verifyJWT, getUserDiets);
+router.route("/getUserWorkouts").post(verifyJWT, getUserWorkouts);
+router.route("/getUserDiets").post(verifyJWT, getUserDiets);
 
 router.route("/getUser/:reqID").get(verifyJWT, getUserById)
 
