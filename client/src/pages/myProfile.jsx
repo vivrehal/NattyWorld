@@ -21,7 +21,7 @@ const MyProfile = () => {
 
 	const sidebarItems = ["My Profile", "Update Profile"];
 	const getUserData = async () => {
-		await fetch("/api/v1/users/getAuthStatus", {
+		await fetch("http://54.224.131.168:9000/api/v1/users/getAuthStatus", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -57,7 +57,7 @@ const MyProfile = () => {
 		newUser.height = newHeight;
 		newUser.oldpassword = oldPassword;	
 		newUser.newpassword = newPassword;	
-		fetch("/api/v1/users/updateProfile/" + user._id, {
+		fetch("http://54.224.131.168:9000/api/v1/users/updateProfile/" + user._id, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

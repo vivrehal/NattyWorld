@@ -49,7 +49,7 @@ const GenerateWorkout = () => {
   };
 
   const generateWorkoutByAI = async (formData) => {
-    const res = await fetch("/api/v1/ai/generateWorkout", {
+    const res = await fetch("http://54.224.131.168:9000/api/v1/ai/generateWorkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const GenerateWorkout = () => {
       name:`${formData.fitnessGoal} | ${formData.splitType} | ${formData.gender} | ${formData.workoutDuration} hrs`,
       plan : workoutPlan
     }
-    const res = await fetch("/api/v1/workouts/addWorkout", {
+    const res = await fetch("http://54.224.131.168:9000/api/v1/workouts/addWorkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
