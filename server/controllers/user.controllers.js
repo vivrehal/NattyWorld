@@ -127,11 +127,6 @@ const loginUser = asyncHandler(async (req, res) => {
 	const cookieOptions = options;
 	return res
 		.status(200)
-<<<<<<< HEAD
-		// .cookie("accessToken", accessToken, cookieOptions)
-		// .cookie("refreshToken", refreshToken, cookieOptions)
-=======
->>>>>>> 81138f76bc324d87d31d62cddaa9f2b017691eae
 		.json(
 			new ApiResponse(
 				200,
