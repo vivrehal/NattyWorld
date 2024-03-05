@@ -50,6 +50,5 @@ services:
 
 networks:
   natty_world:
-    driver: bridge
 
 

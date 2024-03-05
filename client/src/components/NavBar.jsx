@@ -14,8 +14,9 @@ const NavBar = () => {
       method:"POST",
       headers:{
         "Content-Type":"application/json"
-      },
-      body:JSON.stringify({accessToken:localStorage.getItem("accessToken")})
+      }, 
+      body:JSON.stringify({
+        accessToken:localStorage.getItem('accessToken')      })
     })
     if(user?.status>=300){
       const tryNewToken=await fetch("/api/v1/users/refresh_token ",{
@@ -86,7 +87,7 @@ const NavBar = () => {
   const logoutUser = async(e) => {
     e.preventDefault();
     setloggedInUser(null);
-    const res=await fetch("/api/v1/users/logout", {
+    const res=await fetch("http://54.224.131.168:9000/api/v1/users/logout", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

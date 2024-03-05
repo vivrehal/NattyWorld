@@ -20,7 +20,7 @@ try {
             process.env.ACCESS_TOKEN_SECRET
             )
             
-            // console.log(token,"kj/h")
+            console.log(token,"kj/h")
         const user= await userModal.findById(decodedToken?._id)
         .select("-password -refreshToken")
     
@@ -29,7 +29,7 @@ try {
         next();
 } catch (error) {
     // throw new apiError(404, error?.mesage || "Invalid access token")
-    return res.status(499).json(new ApiResponse(404, {}, error?.mesage || "Invalid access token"));
+    return res.status(499).json(new ApiResponse(404, {}, error?.message || "Invalid access token"));
 }
 })
 
