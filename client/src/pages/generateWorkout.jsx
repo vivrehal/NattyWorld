@@ -54,7 +54,7 @@ const GenerateWorkout = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({...formData, token: localStorage.getItem("accessToken")}),
+      body: JSON.stringify({...formData, accessToken: localStorage.getItem("accessToken")}),
     });
     const response = await res.json();
     if (!response?.data?.workoutPlan?.content) {

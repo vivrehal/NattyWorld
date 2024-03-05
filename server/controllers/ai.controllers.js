@@ -5,7 +5,7 @@ import OpenAI from "openai";
 
 
 const getDietFromAi=asyncHandler(async(req,res)=>{
-
+        console.log("reached in ai diet")
         const openai = new OpenAI({
             apiKey : process.env.OPENAI_API_KEY
         });
