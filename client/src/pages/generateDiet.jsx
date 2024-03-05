@@ -36,7 +36,7 @@ const GenerateDiet = () => {
 	const [currentUser, setUser] = useState({});
 
   const getUserData = async () => {
-    const user = await fetch("/api/v1/users/getAuthStatus", {
+    const user = await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const GenerateDiet = () => {
       body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
     });
     if (user?.status >= 300) {
-      const tryNewToken = await fetch("/api/v1/users/refresh_token ", {
+      const tryNewToken = await fetch("https://nattyworld-server.onrender.com/api/v1/users/refresh_token ", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const GenerateDiet = () => {
 	};
 
   const generateDietByAI = async () => {
-    const res = await fetch("/api/v1/ai/generateDiet", {
+    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/ai/generateDiet", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const GenerateDiet = () => {
       plan : dietPlan
     }
     console.log(formData)
-    const res = await fetch("/api/v1/diet/addDiet", {
+    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/diet/addDiet", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

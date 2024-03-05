@@ -34,7 +34,7 @@ const GymsNearby = () => {
 
 
   const getGyms = async () => {
-    const res = await fetch("/api/v1/gyms/findNearby", {
+    const res = await fetch("https://nattyworld-server.onrender.com/api/v1/gyms/findNearby", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

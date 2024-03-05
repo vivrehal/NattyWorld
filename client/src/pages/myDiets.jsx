@@ -7,7 +7,7 @@ const MyDiets = () => {
 	const [activeIndex, setIndex] = useState(0);
 
 	const fetchDietsArray = async () =>{
-		return await fetch("http://54.224.131.168:9000/api/v1/users/getUserDiets",{
+		return await fetch("https://nattyworld-server.onrender.com/api/v1/users/getUserDiets",{
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

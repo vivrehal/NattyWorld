@@ -10,7 +10,7 @@ const NavBar = () => {
   const [loggedInUser, setloggedInUser] = useState({});
    
   const getUserData = async () => {
-    const user=await fetch("/api/v1/users/getAuthStatus",{
+    const user=await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -19,7 +19,7 @@ const NavBar = () => {
         accessToken:localStorage.getItem('accessToken')      })
     })
     if(user?.status>=300){
-      const tryNewToken=await fetch("/api/v1/users/refresh_token ",{
+      const tryNewToken=await fetch("https://nattyworld-server.onrender.com/api/v1/users/refresh_token ",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -87,7 +87,7 @@ const NavBar = () => {
   const logoutUser = async(e) => {
     e.preventDefault();
     setloggedInUser(null);
-    const res=await fetch("http://54.224.131.168:9000/api/v1/users/logout", {
+    const res=await fetch("https://nattyworld-server.onrender.com/api/v1/users/logout", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
