@@ -114,7 +114,7 @@ const NavBar = () => {
       <div className="fixed flex-row bg-[#0d0d0d] h-16 text-slate-50 w-[100vw]">
         <div className="flex flex-row px-10 py-2 justify-between w-[100vw] items-center">
           <div className="siteName w-[20%]">
-            <h1 className="font-bold font-sans text-3xl">NattyWorld</h1>
+            <h1 className="font-bold font-sans text-lg md:text-3xl">NattyWorld</h1>
           </div>
           <div className=" hidden md:block pageList w-[60%]">
             <ul className="flex list-none flex-row justify-center gap-16">
@@ -137,22 +137,25 @@ const NavBar = () => {
 
           <div className="flex userProf w-[50%] justify-end md:w[20%]">
             {user?.name ? (
-              <div className="dropdown">
+              <div className="dropdown pt-2 md:pt-0">
                 <button
                   onClick={() => {
                     setisToggled(!isToggled);
+                    setToggleMenu(false);
                   }}
+                  className="hover:text-red-500"
                 >
                   {user?.name.toUpperCase()}
                 </button>
                 {isToggled && (
-                  <ul className="dropdown-menu -menu absolute top-[70%] right-6 mt-0 bg-[#171717] text-white rounded-md shadow-lg">
+                  <ul className="dropdown-menu -menu absolute top-[70%] right-[15%] md:right-7 mt-0 bg-[#171717] text-white rounded-md shadow-lg">
                     <li>
                       <NavLink
                         to="/myProfile"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
                         onClick={() => {
                           setisToggled(false);
+                
                         }}
                       >
                         My Profile
@@ -206,15 +209,16 @@ const NavBar = () => {
               </button>
             )}
             <button
-              className="block md:hidden hamburger px-3 py-2 hover:bg-blue-700 rounded-md"
+              className="block md:hidden hamburger mx-3 px-3 py-2 hover:bg-blue-700 rounded-md"
               onClick={() => {
                 setToggleMenu(!toggleMenu);
+                setisToggled(false);
               }}
             >
               Menu
             </button>
               {toggleMenu && (
-                <ul className="block md:hidden hamburger dropdown-menu -menu absolute top-[86%] w-[20%] flex flex-col justify-center items-center right-10 mt-0 bg-[#171717] text-white rounded-md shadow-lg">
+                <ul className="block md:hidden hamburger dropdown-menu -menu absolute top-[86%] w-[40%] sm:w-[20%] flex flex-col justify-center items-center right-10 mt-0 bg-[#171717] text-white rounded-md shadow-lg">
                   {items.map((item, index) => (
                     <Link
                       to={item.scroll_id}
