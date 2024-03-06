@@ -111,7 +111,7 @@ const NavBar = () => {
   // console.log(isLoggedIn)
   return (
     <>
-      <div className="fixed flex-row bg-[#0d0d0d] h-16 text-slate-50 w-[100vw]">
+      <div className="fixed flex-row bg-[#0d0d0d] h-16 text-slate-50 w-[100vw] z-10">
         <div className="flex flex-row px-10 py-2 justify-between w-[100vw] items-center">
           <div className="siteName w-[20%]">
             <h1 className="font-bold font-sans text-lg md:text-3xl">NattyWorld</h1>
@@ -135,7 +135,7 @@ const NavBar = () => {
             </ul>
           </div>
 
-          <div className="flex userProf w-[50%] justify-end md:w[20%]">
+          <div className="flex userProf w-[50%] justify-end md:w-[20%]">
             {user?.name ? (
               <div className="dropdown pt-2 md:pt-0">
                 <button

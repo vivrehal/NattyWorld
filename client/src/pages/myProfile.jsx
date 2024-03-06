@@ -97,8 +97,8 @@ const MyProfile = () => {
 			return (
 				<>
 					<div
-						className="sidebar flex-box mt-20 lg:left-0 w-[35%] overflow-y-auto text-center bg-black
-				border-2 border-white z-10 rounded-lg m-8 ml-20  shadow shadow-white-100 p-8"
+						className="sidebar flex-box mt-20 lg:left-0 w-[50%%] overflow-y-auto text-center bg-black
+				border-2 border-white z-10 rounded-lg m-8 ml-20  shadow shadow-white-100 p-8 md:w-[35]% z-0"
 					>
 						<div className="text-gray-100 text-xl">
 							<div className="p-2.5 flex items-center">
@@ -234,7 +234,7 @@ const MyProfile = () => {
 		}
 	};
 	return (
-		<div className="flex">
+		<div className="flex flex-col sm:flex-row">
 			{/* SideBar */}
 			<div className="sidebar mt-16 border-r-2 border-white">{getSidebarItems()}</div>
 			<br />
@@ -242,7 +242,7 @@ const MyProfile = () => {
 			{/* Active Page */}
 			{getActivePage()}
 
-			<div className="rightComtainer w-[40%] flex flex-col items-center justify-center">
+			<div className="  rightComtainer w-[40%]  flex-col items-center justify-center hidden md:flex">
 				<img src={workoutImg} alt="Body Builders doing Workout" className="w-[100%]" />
 			</div>
 		</div>
