@@ -1,114 +1,124 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../features/userSlice";
-import { Link } from "react-scroll"
+import { Link } from "react-scroll";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGripHorizontal } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState({});
-   
+
   const getUserData = async () => {
-    const user=await fetch("http://54.224.131.168:9000/api/v1/users/getAuthStatus",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      }, 
-      body:JSON.stringify({
-        accessToken:localStorage.getItem('accessToken')      })
-    })
-    if(user?.status>=300){
-      const tryNewToken=await fetch("http://54.224.131.168:9000/api/v1/users/refresh_token ",{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
+    const user = await fetch(
+      "http://54.224.131.168:9000/api/v1/users/getAuthStatus",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify({refreshToken:localStorage.getItem("refreshToken")})
-      })
-      if(tryNewToken.status>=300){
-        dispatch(setUser({}))
+        body: JSON.stringify({
+          accessToken: localStorage.getItem("accessToken"),
+        }),
+      }
+    );
+    if (user?.status >= 300) {
+      const tryNewToken = await fetch(
+        "http://54.224.131.168:9000/api/v1/users/refresh_token ",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            refreshToken: localStorage.getItem("refreshToken"),
+          }),
+        }
+      );
+      if (tryNewToken.status >= 300) {
+        dispatch(setUser({}));
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        navigate("/login")
-        return
+        navigate("/login");
+        return;
       }
-      const res=await tryNewToken.json();
-      setloggedInUser(res?.data?.user)
-      dispatch(setUser(res?.data?.user))
-      localStorage.setItem("accessToken", res?.data?.accessToken)
-      navigate("/")
-      return
-      
+      const res = await tryNewToken.json();
+      setloggedInUser(res?.data?.user);
+      dispatch(setUser(res?.data?.user));
+      localStorage.setItem("accessToken", res?.data?.accessToken);
+      navigate("/");
+      return;
     }
-    const res=await user.json();
-    setloggedInUser(res)
-    dispatch(setUser(res))
-  }
+    const res = await user.json();
+    setloggedInUser(res);
+    dispatch(setUser(res));
+  };
   useEffect(() => {
-    (async()=>{
-      await getUserData()
-    }
-    )()
-  },[])
+    (async () => {
+      await getUserData();
+    })();
+  }, []);
 
-  const user=useSelector(state=>state.user);
-
-
+  const user = useSelector((state) => state.user);
 
   const items = [
     {
       name: "Home",
       href: "/",
-      scroll_id: "home_container"
+      scroll_id: "home_container",
     },
     {
       name: "Services",
       href: "/",
-      scroll_id: "services_container"
+      scroll_id: "services_container",
     },
     {
       name: "About Us",
       href: "#",
-      scroll_id: "aboutUs_container"
+      scroll_id: "aboutUs_container",
     },
     {
       name: "Diets",
       href: "/allDiets",
-      scroll_id: "#"
+      scroll_id: "#",
     },
     {
       name: "Workouts",
       href: "/allWorkouts",
-      scroll_id: "#"
+      scroll_id: "#",
     },
   ];
 
-  const logoutUser = async(e) => {
+  const logoutUser = async (e) => {
     e.preventDefault();
     setloggedInUser(null);
-    const res=await fetch("http://54.224.131.168:9000/api/v1/users/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
-        });
-    const  response=await res.json();
-    if(res.status>=400){
-        alert("Error while logging out")
-        console.log(response.error)
-        return
+    const res = await fetch("http://54.224.131.168:9000/api/v1/users/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        accessToken: localStorage.getItem("accessToken"),
+      }),
+    });
+    const response = await res.json();
+    if (res.status >= 400) {
+      alert("Error while logging out");
+      console.log(response.error);
+      return;
     }
-    dispatch(setUser({}))
-    setisToggled(false)
-    alert("Logged Out Successfully")
+    dispatch(setUser({}));
+    setisToggled(false);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    alert("Logged Out Successfully");
     navigate("/login");
-}
-
-
+  };
 
   const [isToggled, setisToggled] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
   // console.log(isLoggedIn)
   return (
     <>
@@ -117,31 +127,31 @@ const NavBar = () => {
           <div className="siteName w-[20%]">
             <h1 className="font-bold font-sans text-3xl">NattyWorld</h1>
           </div>
-          <div className="pageList w-[50%]">
+          <div className=" hidden md:block pageList w-[60%]">
             <ul className="flex list-none flex-row justify-center gap-16">
               {items.map((item, index) => (
-                <Link 
-                to={item.scroll_id}
-                activeClass="active"
-                spy={true} 
-                smooth={true}
-                className="cursor-pointer"
-                key={index} // Add key prop with a unique value
+                <Link
+                  to={item.scroll_id}
+                  activeClass="active"
+                  spy={true}
+                  smooth={true}
+                  className="cursor-pointer hover:text-blue-700 hover:drop-shadow-[0_35px_35px_rgba(255, 255, 255)] "
+                  key={index} // Add key prop with a unique value
                 >
                   <NavLink to={item.href} key={index}>
                     <li className="navList">{item.name}</li>
                   </NavLink>
                 </Link>
               ))}
-
             </ul>
           </div>
-          <div className="flex userProf w-[20%] justify-end">
+
+          <div className="flex userProf w-[50%] justify-end md:w[20%]">
             {user?.name ? (
               <div className="dropdown">
                 <button
-                  onClick={()=>{
-                    setisToggled(!isToggled)
+                  onClick={() => {
+                    setisToggled(!isToggled);
                   }}
                 >
                   {user?.name.toUpperCase()}
@@ -152,10 +162,9 @@ const NavBar = () => {
                       <NavLink
                         to="/myProfile"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
-                        onClick={()=>{
-                          setisToggled(false)
+                        onClick={() => {
+                          setisToggled(false);
                         }}
-
                       >
                         My Profile
                       </NavLink>
@@ -164,8 +173,8 @@ const NavBar = () => {
                       <NavLink
                         to="/myDiets"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
-                        onClick={()=>{
-                          setisToggled(false)
+                        onClick={() => {
+                          setisToggled(false);
                         }}
                       >
                         My Diets
@@ -175,8 +184,8 @@ const NavBar = () => {
                       <NavLink
                         to="/myWorkouts"
                         className="block px-4 py-2 text-sm hover:bg-[#0d0d0d]"
-                        onClick={()=>{
-                          setisToggled(false)
+                        onClick={() => {
+                          setisToggled(false);
                         }}
                       >
                         My Workouts
@@ -202,11 +211,41 @@ const NavBar = () => {
                   e.preventDefault();
                   navigate("/login");
                 }}
-                className="bg-[#0d0d0d] rounded-md px-3 py-2 hover:bg-[#353535]"
+                className="bg-[#0d0d0d] rounded-md text-sm md:text-lg px-3 py-2 hover:bg-blue-700"
               >
                 SIGN UP / LOGIN
               </button>
             )}
+            <button
+              className="block md:hidden hamburger px-3 py-2 hover:bg-blue-700 rounded-md"
+              onClick={() => {
+                setToggleMenu(!toggleMenu);
+              }}
+            >
+              Menu
+            </button>
+              {toggleMenu && (
+                <ul className="block md:hidden hamburger dropdown-menu -menu absolute top-[86%] w-[20%] flex flex-col justify-center items-center right-10 mt-0 bg-[#171717] text-white rounded-md shadow-lg">
+                  {items.map((item, index) => (
+                    <Link
+                      to={item.scroll_id}
+                      activeClass="active"
+                      spy={true}
+                      smooth={true}
+                      className="cursor-pointer hover:text-blue-700 py-3 px-3 "
+                      key={index} // Add key prop with a unique value
+                      onClick={() => {
+                        setToggleMenu(!toggleMenu);
+                        console.log(toggleMenu);
+                      }}
+                    >
+                      <NavLink to={item.href} key={index}>
+                        <li className="navList">{item.name}</li>
+                      </NavLink>
+                    </Link>
+                  ))}
+                </ul>
+              )}
           </div>
         </div>
       </div>

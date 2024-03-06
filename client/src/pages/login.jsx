@@ -121,8 +121,8 @@ const currUser=useSelector(state=>state.user?.name)
             </form>
           </div>
         </div>
-        <div className="rightList w-[40%] h-[90vh] py-16 px-4 flex flex-col justify-center items-center">
-          <div className="inpText w-[100%] h-[90%]">
+        <div className="rightList h-[90vh] py-16 px-4 flex flex-row w-[100%] md:w-[40%] justify-center items-center">
+          <div className="inpText w-[100%] h-[90%] self-center">
             <img src={loginBanner} />
           </div>
         </div>

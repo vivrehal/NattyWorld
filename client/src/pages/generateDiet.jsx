@@ -122,7 +122,7 @@ const GenerateDiet = () => {
 	return (
 		<>
 			<div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
-				<div className="leftList overflow-y-auto h-[90vh] flex flex-col items-center w-[100%] lg:w-[35%] bg-[#171717]">
+				<div className="leftList lg:overflow-y-auto lg:h-[90vh] flex flex-col items-center w-[100%] lg:w-[35%] bg-[#171717]">
 					<div className="formForDiet p-10">
 						<h2 className="text-3xl font-bold text-white pb-8">Generate Your Diet</h2>
 						<form method="POST" className=" flex flex-col gap-6">

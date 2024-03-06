@@ -47,10 +47,10 @@ const Services = () => {
 
   return (
     <div className="features w-[100%] flex flex-col rounded-[2em] py-6 gap-4" id="services_container">
-    <div className="featureTitle self-center text-3xl font-bold">
+    <div className="featureTitle self-center text-xl md:text-3xl pt-24 md:pt-0 font-bold">
       <h2>CHOOSE AMONG VARIOUS FEATURES !</h2>
     </div>
-    <div className="flex flex-row justify-evenly featureWrapper w-[100%] p-4">
+    <div className="flex flex-row justify-evenly flex-wrap featureWrapper w-[100%] p-4">
       {features.map((feature, index) => {
         return (
           <div className=" p-3 bg-[#0d0d0d] rounded-[2em]" key={index}>

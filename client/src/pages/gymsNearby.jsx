@@ -87,10 +87,10 @@ const filteredAndSortedGyms = useMemo(() => {
 return (
   <>
     <div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
-      <div className="leftList overflow-y-auto h-[90vh] flex flex-col items-center w-[100%] lg:w-[20%] bg-[#171717] p-4">
+      <div className="leftList lg:overflow-y-auto lg:h-[90vh] flex flex-col items-center w-[100%] lg:w-[20%] bg-[#171717] p-4">
         <h1 className="text-white text-xl">Filter & Sorting</h1>
-        <div className="formForworkout p-10 text-white text-xl flex flex-col gap-5">
-          <div className="filterByRating flex flex-col gap-2">
+        <div className="formForworkout p-10 text-white flex flex-row lg:flex-col gap-5 text-sm lg:text-lg">
+          <div className="filterByRating flex flex-col gap-2 ">
             <label htmlFor="rating">Filter by Rating:</label>
             <select
               className="px-10 text-black rounded-md"

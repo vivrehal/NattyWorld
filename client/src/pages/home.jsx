@@ -18,14 +18,14 @@ const Home = () => {
 
   return (
     <>
-      <div className=" px-16 pb-[12em] flex flex-col items-center bg-[#0d0d0d] text-slate-50 overflow-hidden" id="home_container">
-        <div className="hero h-[100vh] w-[100%] flex flex-row">
-          <div className="leftContainer w-[50%] flex flex-col items-center justify-center"> 
+      <div className=" px-16 pb-[12em] pt-20 md:pt-0 flex flex-col items-center bg-[#0d0d0d] text-slate-50 overflow-hidden" id="home_container">
+        <div className="hero h-[100vh] w-[100%] flex flex-col md:flex-row">
+          <div className="leftContainer w-[100%] md:w-[50%] flex flex-col items-center justify-center"> 
             <div className="welcomeCon flex flex-col justify-start gap-4">
               <h1 className="text-7xl font-bold">WELCOME</h1>
               <h1 className="text-2xl">
                 {currentUser?.toUpperCase() || (
-                  <button onClick={()=>{navigate('/login')}} className="px-4 py-3 font-semibold rounded-md border-2 border-[#353535a2] hover: hover:bg-[#353535a2]">
+                  <button onClick={()=>{navigate('/login')}} className="px-4 py-3 font-semibold rounded-md border-2 border-[#353535a2] hover: hover:bg-blue-700">
                     SIGN UP / LOGIN
                   </button>
                 )}
@@ -43,7 +43,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <div className="rightComtainer w-[50%] flex flex-col items-center justify-center">
+          <div className="rightComtainer w-[100%] md:w-[50%] flex flex-col items-center justify-center">
             <img
               src={workoutImg}
               alt="Body Builders doing Workout"
