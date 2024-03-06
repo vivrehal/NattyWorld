@@ -106,7 +106,7 @@ const GenerateDiet = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({...dietDetails,acessToken:localStorage.getItem("accessToken")}),
+      body: JSON.stringify({...dietDetails,accessToken:localStorage.getItem("accessToken")}),
     });
     const response = await res.json();
 

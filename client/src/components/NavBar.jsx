@@ -101,6 +101,8 @@ const NavBar = () => {
         return
     }
     dispatch(setUser({}))
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setisToggled(false)
     alert("Logged Out Successfully")
     navigate("/login");

@@ -67,10 +67,10 @@ const getDietFromAi=asyncHandler(async(req,res)=>{
 
 const getWorkoutFromAi=asyncHandler(async(req,res)=>{
     
+    console.log("Workout ai !!!")
     const openai = new OpenAI({
         apiKey : process.env.OPENAI_API_KEY
     });
-    console.log("Workout ai !!!")
 
     const{
         name, 
