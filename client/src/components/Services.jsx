@@ -6,7 +6,8 @@ import {
   faDumbbell,
   faBowlFood,
   faBicycle,
-  faCalculator,
+  faRunning,
+  faEgg
 } from "@fortawesome/free-solid-svg-icons";
 
 const Services = () => { 
@@ -37,11 +38,17 @@ const Services = () => {
           desc: "",
         },
         {
-          title: "Calorie Calculator",
-          image: faCalculator,
-          href: "",
+          title: "View Public Diets",
+          image: faEgg,
+          href: "/alldiets",
           desc: "",
         },
+        {
+          title: "View Public Workouts",
+          image: faRunning,
+          href: "/allworkouts",
+          desc: "",
+        }
       ];
 
 

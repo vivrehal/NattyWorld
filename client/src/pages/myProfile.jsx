@@ -21,7 +21,7 @@ const MyProfile = () => {
 
 	const sidebarItems = ["My Profile", "Update Profile"];
 	const getUserData = async () => {
-		await fetch("http://54.224.131.168:9000/api/v1/users/getAuthStatus", {
+		await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -57,7 +57,7 @@ const MyProfile = () => {
 		newUser.height = newHeight;
 		newUser.oldpassword = oldPassword;	
 		newUser.newpassword = newPassword;	
-		fetch("http://54.224.131.168:9000/api/v1/users/updateProfile/" + user._id, {
+		fetch("https://nattyworld-server.onrender.com/api/v1/users/updateProfile/" + user._id, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

@@ -12,33 +12,24 @@ const NavBar = () => {
   const [loggedInUser, setloggedInUser] = useState({});
 
   const getUserData = async () => {
-    const user = await fetch(
-      "http://54.224.131.168:9000/api/v1/users/getAuthStatus",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const user=await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      }, 
+      body:JSON.stringify({
+        accessToken:localStorage.getItem('accessToken')      })
+    })
+    if(user?.status>=300){
+      const tryNewToken=await fetch("https://nattyworld-server.onrender.com/api/v1/users/refresh_token ",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify({
-          accessToken: localStorage.getItem("accessToken"),
-        }),
-      }
-    );
-    if (user?.status >= 300) {
-      const tryNewToken = await fetch(
-        "http://54.224.131.168:9000/api/v1/users/refresh_token ",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            refreshToken: localStorage.getItem("refreshToken"),
-          }),
-        }
-      );
-      if (tryNewToken.status >= 300) {
-        dispatch(setUser({}));
+        body:JSON.stringify({refreshToken:localStorage.getItem("refreshToken")})
+      })
+      if(tryNewToken.status>=300){
+        dispatch(setUser({}))
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         navigate("/login");
@@ -94,26 +85,24 @@ const NavBar = () => {
   const logoutUser = async (e) => {
     e.preventDefault();
     setloggedInUser(null);
-    const res = await fetch("http://54.224.131.168:9000/api/v1/users/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        accessToken: localStorage.getItem("accessToken"),
-      }),
-    });
-    const response = await res.json();
-    if (res.status >= 400) {
-      alert("Error while logging out");
-      console.log(response.error);
-      return;
+    const res=await fetch("https://nattyworld-server.onrender.com/api/v1/users/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
+        });
+    const  response=await res.json();
+    if(res.status>=400){
+        alert("Error while logging out")
+        console.log(response.error)
+        return
     }
-    dispatch(setUser({}));
-    setisToggled(false);
+    dispatch(setUser({}))
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    alert("Logged Out Successfully");
+    setisToggled(false)
+    alert("Logged Out Successfully")
     navigate("/login");
   };
 

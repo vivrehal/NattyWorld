@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import workoutImg from "../assets/workout.png";
 
 const Signup = () => {
   const navigate=useNavigate()
@@ -13,7 +14,14 @@ const Signup = () => {
   const handleSubmit=async(e)=>{
     try {
       e.preventDefault()
-      const res=await fetch('http://54.224.131.168:9000/api/v1/users/register',{
+      const pass = formData.password;
+      console.log(pass)
+      const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-zA-Z]).{8,}$/;
+      if (!passwordRegex.test(pass)){
+        alert("Password should contain atleast 8 characters, 1 special character, 1 number and 1 alphabet")
+        return ;
+      }
+      const res=await fetch('https://nattyworld-server.onrender.com/api/v1/users/register',{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -163,7 +171,7 @@ const Signup = () => {
         </div>
         <div className="rightList w-[40%] h-[90vh] py-16 px-4 flex flex-col justify-center items-center">
           <div className="inpText w-[100%] h-[90%]">
-            <img src='' />
+            <img src={workoutImg} />
           </div>
         </div>
       </div>
