@@ -1,10 +1,14 @@
 import {useState, useEffect} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import workoutImg from "../assets/workout.png";
+import Otp from '../components/otp';
+import Loading from '../components/Loading';
 
 const Signup = () => {
   const navigate=useNavigate()
   const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [otpVisibility, setOtpVisiblity] = useState(false);
 
   const handleInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -12,48 +16,50 @@ const Signup = () => {
   };
 
   const handleSubmit=async(e)=>{
+    setIsLoading(true)
     try {
       e.preventDefault()
       const pass = formData.password;
       console.log(pass)
       const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-zA-Z]).{8,}$/;
       if (!passwordRegex.test(pass)){
+        setIsLoading(false)
         alert("Password should contain atleast 8 characters, 1 special character, 1 number and 1 alphabet")
         return ;
       }
-      const res=await fetch('https://nattyworld-server.onrender.com/api/v1/users/register',{
+
+      const sendOtp=await fetch('/api/v1/users/sendOtp',{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({email:formData.email}),
       })
-      console.log(res)
-      if(!res.ok){
-        alert("Error while adding User")
-        console.log("Error while validating User")
-        return
-      }
-      const response=await res.json();
 
-      if(res.status>=400){
-        alert("Error while registering User")
-        console.log(response.message)
+      if(!sendOtp.ok){
+        setIsLoading(false)
+        alert("Error while sending OTP") 
+        console.log(sendOtp.json().message)
         return
       }
-      alert("User Registered Successfully")
-      navigate('/login')
+
+      setIsLoading(false)
+      setOtpVisiblity(true)
 
     } catch (error) {
+      setIsLoading(false)
       alert(error)
       console.log(error)
     }
+    setIsLoading(false)
   }
 
 
   return (
     <>
-      <div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
+      {isLoading && <Loading/>}
+      {otpVisibility && <Otp user={formData}/>}
+      {!otpVisibility && <div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
         <div className="leftList flex flex-col items-center w-[100%] lg:w-[60%]">
           <div className="formForDiet p-10 w-[100%] h-[100%] flex flex-col justify-center bg-[#171717]">
             <h2 className="text-4xl font-bold text-white pb-8 self-center">
@@ -154,7 +160,7 @@ const Signup = () => {
                   onClick={(e) => {
                     handleSubmit(e);
                   }}
-                  className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-[#00000079]"
+                  className=" py-2 px-4 rounded-md text-white bg-[#585858] hover:bg-blue-700"
                 >
                   Register
                 </button>
@@ -174,7 +180,7 @@ const Signup = () => {
             <img src={workoutImg} />
           </div>
         </div>
-      </div>
+      </div>}
     </>
   )
 }

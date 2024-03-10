@@ -3,9 +3,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import loginBanner from "../assets/loginBanner.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../features/userSlice";
+import Loading from "../components/Loading";
 
 const Login = () => {
 
+
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const dispatch=useDispatch()
@@ -28,6 +31,7 @@ const currUser=useSelector(state=>state.user?.name)
 
   const handleSubmit=async(e)=>{
     try {
+      setIsLoading(true)
       e.preventDefault()
       const res=await fetch('https://nattyworld-server.onrender.com/api/v1/users/login',{
         method: "POST",
@@ -37,6 +41,7 @@ const currUser=useSelector(state=>state.user?.name)
         body: JSON.stringify(formData),
       })
       if(!res){
+        setIsLoading(false)
         alert("Error while validating User")
         console.log("Error while validating User") 
         return
@@ -44,6 +49,7 @@ const currUser=useSelector(state=>state.user?.name)
       const response=await res.json();
       if(res.status>=400){
         // console.log("inside if")
+        setIsLoading(false)
         alert(response?.message)
         // console.log(response.error+" ")
         return
@@ -52,6 +58,7 @@ const currUser=useSelector(state=>state.user?.name)
       localStorage.setItem('accessToken',response?.data?.accessToken)
       localStorage.setItem('refreshToken',response?.data?.refreshToken)
       dispatch(setUser(response?.data?.loggedInUser))
+      setIsLoading(false)
       // localStorage.setItem('accessToken',JSON.stringify(response?.data?.accessToken))
       // localStorage.setItem('refreshToken',JSON.stringify(response?.data?.refreshToken))
       navigate('/')
@@ -66,6 +73,7 @@ const currUser=useSelector(state=>state.user?.name)
 
   return (
     <>
+      { isLoading && <Loading/>}
       <div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
         <div className="leftList flex flex-col items-center w-[100%] lg:w-[60%]">
           <div className="formForDiet p-10 w-[100%] h-[100%] flex flex-col justify-center bg-[#171717]">

@@ -26,7 +26,7 @@ const Footer = () => {
         </nav>
       </div>
       <div className="mt-8 lg:mt-12 border-t border-gray-800 pt-4 text-center">
-        <p className="text-lg lg:text-xl font-semibold">"An inspiring quote here."</p>
+        <p className="text-lg lg:text-xl font-semibold">"Light Weight Baby !!"</p>
         <p className="mt-2">Follow us on social media for more updates!</p>
         <p className="mt-4 flex justify-center space-x-4">
           <a href="#" className="text-gray-300 hover:text-white"><i className="fab fa-twitter"></i></a>

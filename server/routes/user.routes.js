@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { loginUser, logoutUser, registerUser, updateUser,
        deleteUser, newTokenOnExpiry, getUserById,
-       getUserAuthStatus, getUserWorkouts, getUserDiets, updateProfile }
+       getUserAuthStatus, getUserWorkouts, getUserDiets, updateProfile, sendOtp, verifyOtp }
        from "../controllers/user.controllers.js";
 import verifyJWT from "../middlewares/auth.middleware.js";
 
@@ -23,5 +23,8 @@ router.route("/getUserWorkouts").post(verifyJWT, getUserWorkouts);
 router.route("/getUserDiets").post(verifyJWT, getUserDiets);
 
 router.route("/getUser/:reqID").get(verifyJWT, getUserById)
+
+router.route("/sendOtp").post(sendOtp)  
+router.route("/verifyOtp").post(verifyOtp)  
 
 export default router

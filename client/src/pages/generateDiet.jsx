@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import BodyTextArea from "../components/BodyTextArea.jsx";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Loading from "../components/Loading.jsx";
 
 function getAge(dateString) {
 	var today = new Date();
@@ -33,44 +35,14 @@ const GenerateDiet = () => {
 		totalCalories: "",
 	});
 
-	const [currentUser, setUser] = useState({});
+	const [currentUser, setcurrentUser] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
 
-  const getUserData = async () => {
-    const user = await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ accessToken: localStorage.getItem("accessToken") }),
-    });
-    if (user?.status >= 300) {
-      const tryNewToken = await fetch("https://nattyworld-server.onrender.com/api/v1/users/refresh_token ", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refreshToken: localStorage.getItem("refreshToken") }),
-      });
-      if (tryNewToken.status >= 300) {
-        dispatch(setUser({}));
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        navigate("/login");
-        return;
-      }
-      const res = await tryNewToken.json();
-      setUser(res?.data?.user);
-      localStorage.setItem("accessToken", res?.data?.accessToken);
-      navigate("/");
-      return;
-    }
-    const res = await user.json();
-    setUser(res);
-  }
+	const userCurrent=useSelector((state) => state.user);
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+	useEffect(() => {
+		setcurrentUser(userCurrent);
+	}, [userCurrent]);
 
 
 	const handleInput = (e) => {
@@ -79,6 +51,7 @@ const GenerateDiet = () => {
 	};
 
   const generateDietByAI = async () => {
+	setIsLoading(true);
     const res = await fetch("https://nattyworld-server.onrender.com/api/v1/ai/generateDiet", {
     // const res = await fetch("https://localhost:9000/api/v1/ai/generateDiet", {
       method: "POST",
@@ -89,13 +62,17 @@ const GenerateDiet = () => {
     });
     const response = await res.json();
     if (!response?.data?.dietPlan?.content) {
+		setIsLoading(false);
       alert("Cannot fetch Diet Plan");
     }
     // console.log();
     setDietPlan(response?.data?.dietPlan?.content);
+	setIsLoading(false);
   };
 
   const saveDiet = async () => {
+	setIsLoading(true);	
+	if(!dietPlan) return alert("Please generate diet plan first")
     const dietDetails={
       name:`${formData.fitnessGoal} | ${formData.foodSource} | ${formData.gender} | ${formData.totalCalories}`,
       plan : dietPlan
@@ -111,8 +88,12 @@ const GenerateDiet = () => {
     const response = await res.json();
 
 		if (!response?.data) {
+			setIsLoading(false);
 			alert("Cannot save diet Plan");
-		} else alert("Diet Plan Saved Successfully");
+		} else{
+			setIsLoading(false);
+			alert("Diet Plan Saved Successfully");
+		}
 	};
 
 	const handleSubmit = async (e) => {
@@ -121,7 +102,8 @@ const GenerateDiet = () => {
 	};
 
 	return (
-		<>
+		<>	
+			{isLoading && <Loading/>}
 			<div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
 				<div className="leftList lg:overflow-y-auto lg:h-[90vh] flex flex-col items-center w-[100%] lg:w-[35%] bg-[#171717]">
 					<div className="formForDiet p-10">

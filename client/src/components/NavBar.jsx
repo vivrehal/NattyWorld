@@ -5,13 +5,16 @@ import { setUser } from "../features/userSlice";
 import { Link } from "react-scroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripHorizontal } from "@fortawesome/free-solid-svg-icons";
+import Loading from "./Loading.jsx";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loggedInUser, setloggedInUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const getUserData = async () => {
+    setIsLoading(true);
     const user=await fetch("https://nattyworld-server.onrender.com/api/v1/users/getAuthStatus",{
       method:"POST",
       headers:{
@@ -32,6 +35,7 @@ const NavBar = () => {
         dispatch(setUser({}))
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        setIsLoading(false);
         navigate("/login");
         return;
       }
@@ -39,12 +43,14 @@ const NavBar = () => {
       setloggedInUser(res?.data?.user);
       dispatch(setUser(res?.data?.user));
       localStorage.setItem("accessToken", res?.data?.accessToken);
+      setIsLoading(false);
       navigate("/");
       return;
     }
     const res = await user.json();
     setloggedInUser(res);
     dispatch(setUser(res));
+    setIsLoading(false);
   };
   useEffect(() => {
     (async () => {
@@ -53,6 +59,7 @@ const NavBar = () => {
   }, []);
 
   const user = useSelector((state) => state.user);
+
 
   const items = [
     {
@@ -84,6 +91,7 @@ const NavBar = () => {
 
   const logoutUser = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setloggedInUser(null);
     const res=await fetch("https://nattyworld-server.onrender.com/api/v1/users/logout", {
         method: "POST",
@@ -94,6 +102,7 @@ const NavBar = () => {
         });
     const  response=await res.json();
     if(res.status>=400){
+        setIsLoading(false);
         alert("Error while logging out")
         console.log(response.error)
         return
@@ -102,19 +111,21 @@ const NavBar = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setisToggled(false)
+    setIsLoading(false);
     alert("Logged Out Successfully")
     navigate("/login");
   };
 
   const [isToggled, setisToggled] = useState(false);
-  const [toggleMenu, setToggleMenu] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false); 
   // console.log(isLoggedIn)
   return (
     <>
+      {isLoading && <Loading/>}
       <div className="fixed flex-row bg-[#0d0d0d] h-16 text-slate-50 w-[100vw] z-10">
         <div className="flex flex-row px-10 py-2 justify-between w-[100vw] items-center">
           <div className="siteName w-[20%]">
-            <h1 className="font-bold font-sans text-lg md:text-3xl">NattyWorld</h1>
+            <NavLink to="/"><h1 className="font-bold font-sans text-lg md:text-3xl">NattyWorld</h1></NavLink>
           </div>
           <div className=" hidden md:block pageList w-[60%]">
             <ul className="flex list-none flex-row justify-center gap-16">

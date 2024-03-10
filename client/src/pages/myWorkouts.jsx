@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
 import BodyTextArea from "../components/BodyTextArea.jsx";
+import Loading from "../components/Loading.jsx";
 
 const MyWorkouts = () => {
 	const [workoutPlans, setWorkout] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);	
 
 	const fetchWorkoutsArray = async () =>{
 		return await fetch("https://nattyworld-server.onrender.com/api/v1/users/getUserWorkouts",{
@@ -23,12 +25,14 @@ const MyWorkouts = () => {
 			});
 	}
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchWorkout = async () => {
 			const newWorkoutPlans = await fetchWorkoutsArray();
 			setWorkout(newWorkoutPlans);
 		};
 
 		fetchWorkout();
+		setIsLoading(false);
 	}, []);
 	// };
 	
@@ -56,6 +60,8 @@ const MyWorkouts = () => {
 
 
 	return (
+		<>
+		{isLoading && <Loading/>}
 		<div className="flex">
 			{/* SideBar */}
 			<div
@@ -80,6 +86,7 @@ const MyWorkouts = () => {
 				<BodyTextArea plan={getPlanBody()} />
 			</div>
 		</div>
+		</>
 	);
 };
 

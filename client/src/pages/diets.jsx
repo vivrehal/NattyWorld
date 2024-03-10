@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
 import BodyTextArea from "../components/BodyTextArea.jsx";
+import Loading from "../components/Loading.jsx";
 
 const Diets = () => {
 	const [dietPlans, setDiet] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchDiet = async () => {
 			await fetch("https://nattyworld-server.onrender.com/api/v1/diet/dietList")
 				.then(async (res) => {
@@ -18,6 +21,7 @@ const Diets = () => {
 		};
 
 		fetchDiet();
+		setIsLoading(false);
 	}, []);
 	// };
 	
@@ -44,6 +48,8 @@ const Diets = () => {
 
 
 	return (
+		<>
+		{isLoading && <Loading />}
 		<div className="flex">
 			{/* SideBar */}
 			<div
@@ -69,6 +75,7 @@ const Diets = () => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 

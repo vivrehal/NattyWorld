@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import SidebarItem from "../components/sidebarItem.jsx";
 import BodyTextArea from "../components/BodyTextArea.jsx";
+import Loading from "../components/Loading.jsx";
 
 const MyDiets = () => {
+	const [isLoading, setIsLoading] = useState(false);
 	const [dietPlans, setDiet] = useState([]);
 	const [activeIndex, setIndex] = useState(0);
 
@@ -23,11 +25,13 @@ const MyDiets = () => {
 			});
 	}
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchDiet = async () => {
 			const newDietPlans = await fetchDietsArray();
 			setDiet(newDietPlans);
 		};
 		fetchDiet();
+		setIsLoading(false);
 	}, []);
 	
 	const changeActiveIndex = (newIndex) => {
@@ -54,6 +58,8 @@ const MyDiets = () => {
 
 
 	return (
+		<>
+		{isLoading && <Loading/>}
 		<div className="flex">
 			{/* SideBar */}
 			<div
@@ -80,6 +86,7 @@ const MyDiets = () => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 

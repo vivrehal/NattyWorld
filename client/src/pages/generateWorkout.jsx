@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";  
+import Loading from "../components/Loading";
+
 
 const GenerateWorkout = () => {
   const [workoutPlan, setWorkoutPlan] = useState("");
@@ -17,6 +19,7 @@ const GenerateWorkout = () => {
   }
 
   const [userLoggedIn, setuserLoggedIn] = useState({})
+  const [isLoading, setIsLoading] = useState(false);
 
   const userCurrent=useSelector((state)=>state.user);
 
@@ -49,6 +52,7 @@ const GenerateWorkout = () => {
   };
 
   const generateWorkoutByAI = async (formData) => {
+    setIsLoading(true);
     const res = await fetch("https://nattyworld-server.onrender.com/api/v1/ai/generateWorkout", {
       method: "POST",
       headers: {
@@ -61,9 +65,16 @@ const GenerateWorkout = () => {
       alert("Cannot fetch workout Plan");
     }
     setWorkoutPlan(response.data.workoutPlan.content);
+    setIsLoading(false);
   };
 
   const saveWorkout = async () => {
+    setIsLoading(true);
+    if(workoutPlan===""){
+      setIsLoading(false);
+      alert("Please Generate Workout Plan First");
+      return
+    }
     const workoutDetails={
       name:`${formData.fitnessGoal} | ${formData.splitType} | ${formData.gender} | ${formData.workoutDuration} hrs`,
       plan : workoutPlan
@@ -77,9 +88,14 @@ const GenerateWorkout = () => {
     });
     const response = await res.json();
     if (!response?.data) {
+      setIsLoading(false);
       alert("Cannot save workout Plan");
+      return
     }
-    else alert("Workout Plan Saved Successfully");
+    else{
+      setIsLoading(false);
+      alert("Workout Plan Saved Successfully");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -89,6 +105,7 @@ const GenerateWorkout = () => {
 
   return (
     <>
+    { isLoading && <Loading/>}
       <div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
         <div className="leftList lg:overflow-y-auto lg:h-[90vh] flex flex-col items-center w-[100%] lg:w-[35%] bg-[#171717]">
           <div className="formForworkout p-10">

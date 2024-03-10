@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SidebarItem from "../components/sidebarItem.jsx";
 import workoutImg from "../assets/workout.png";
+import Loading from "../components/Loading.jsx";
 
 function getAge(dateString) {
 	var today = new Date();
@@ -16,6 +17,7 @@ function getAge(dateString) {
 
 const MyProfile = () => {
 	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState(false);
 	const [user, setUser] = useState({});
 	const [activePage, setActivePage] = useState("My Profile");
 
@@ -31,15 +33,20 @@ const MyProfile = () => {
 			.then(async (res) => {
 				if (res.status > 299) navigate("/login");
 				let x = await res.json();
+				
 				setUser(x);
 			})
 			.catch((err) => {
+				
 				console.log(err);
 			});
+		
 	};
 
 	useEffect(() => {
+		setIsLoading(true);
 		getUserData();
+		setIsLoading(false);
 	}, [activePage]);
 	// useEffect(() => {}, [activePage]);
 
@@ -57,6 +64,7 @@ const MyProfile = () => {
 		newUser.height = newHeight;
 		newUser.oldpassword = oldPassword;	
 		newUser.newpassword = newPassword;	
+		setIsLoading(true);
 		fetch("https://nattyworld-server.onrender.com/api/v1/users/updateProfile/" + user._id, {
 			method: "PUT",
 			headers: {
@@ -67,16 +75,20 @@ const MyProfile = () => {
 			.then(async (res) => {
 				if (res.status > 299) {
 					await res.json().then((data) => {
+						setIsLoading(false);
 						alert("Failed to update user :" + data.message);
 					});
 					
 				} else {
+					setIsLoading(false);
 					alert("User updated successfully");
 				}
 			})
 			.catch((err) => {
+				setIsLoading(false);
 				console.log(err);
 			});
+		setIsLoading(false);
 		setUser(newUser);
 	};
 
@@ -92,10 +104,13 @@ const MyProfile = () => {
 	};
 
 	const getActivePage = () => {
+		
 		if (activePage === "My Profile") {
+			{isLoading && <Loading/>}
 			// User Profile
 			return (
 				<>
+					
 					<div
 						className="sidebar flex-box mt-20 lg:left-0 w-[50%%] overflow-y-auto text-center bg-black
 				border-2 border-white z-10 rounded-lg m-8 ml-20  shadow shadow-white-100 p-8 md:w-[35]% z-0"
@@ -156,6 +171,7 @@ const MyProfile = () => {
 				</>
 			);
 		} else if (activePage === "Update Profile") {
+			{isLoading && <Loading/>}
 			// User Profile Updation Form
 			return (
 				<>
@@ -234,6 +250,8 @@ const MyProfile = () => {
 		}
 	};
 	return (
+		<>
+		{isLoading && <Loading/>}
 		<div className="flex flex-col sm:flex-row">
 			{/* SideBar */}
 			<div className="sidebar mt-16 border-r-2 border-white">{getSidebarItems()}</div>
@@ -246,6 +264,7 @@ const MyProfile = () => {
 				<img src={workoutImg} alt="Body Builders doing Workout" className="w-[100%]" />
 			</div>
 		</div>
+		</>
 	);
 };
 

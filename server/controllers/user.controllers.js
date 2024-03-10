@@ -6,6 +6,8 @@ import options from "../utils/cookieOptions.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import sendOtpUtil from "../utils/sendOtp.js";
+import otpModal from "../models/otp.modal.js";
 
 const registerUser = asyncHandler(async (req, res) => {
 	// get data from frontend
@@ -81,6 +83,28 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	return res.status(201).json(new ApiResponse(200, isUserCreated, "User registered successfully"));
 });
+
+const sendOtp = asyncHandler(async (req, res) => {
+	const { email } = req.body;	
+	console.log(email);
+	sendOtpUtil(email);
+	return res.status(200).json(new ApiResponse(200, {}, "OTP sent successfully"));
+})
+
+const verifyOtp = asyncHandler(async (req, res) => {
+	const { email, otp } = req.body;
+	const orgOtp = await otpModal.findOne({email: email}); 
+
+	if(!orgOtp){
+		return res.status(400).json(new ApiResponse(400, {}, "OTP not found"));
+	}
+
+	if(orgOtp.otp == otp){
+		otpModal.deleteOne({email: email});
+		return res.status(200).json(new ApiResponse(200, {}, "OTP verified successfully"));
+	}
+	return res.status(400).json(new ApiResponse(402, {}, "Invalid OTP"));
+})
 
 const loginUser = asyncHandler(async (req, res) => {
 	//get credentials
@@ -411,4 +435,6 @@ export {
 	getUserWorkouts,
 	getUserDiets,
 	updateProfile,
+	sendOtp,
+	verifyOtp
 };

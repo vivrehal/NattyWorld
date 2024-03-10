@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Cards from "../components/Cards";
+import Loading from "../components/Loading";
 
 const GymsNearby = () => {
   const navigate = useNavigate();
   const [coordinates, setCoordinates] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const [Gyms, setGyms] = useState([]);
 
@@ -34,6 +36,7 @@ const GymsNearby = () => {
 
 
   const getGyms = async () => {
+    setIsLoading(true);
     const res = await fetch("https://nattyworld-server.onrender.com/api/v1/gyms/findNearby", {
       method: "POST",
       headers: {
@@ -48,6 +51,7 @@ const GymsNearby = () => {
       }),
     });
     if (res.status === 499) {
+      setIsLoading(false);
       alert("Session Expired");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
@@ -55,6 +59,7 @@ const GymsNearby = () => {
       return;
     }
     if (res.status >= 300) {
+      setIsLoading(false);
       alert("Error fetching gyms");
       return;
     }
@@ -63,6 +68,7 @@ const GymsNearby = () => {
     console.log(data);
     setGyms(data?.data?.results);
     console.log(Gyms);
+    setIsLoading(false);
   };
 
  
@@ -86,6 +92,7 @@ const filteredAndSortedGyms = useMemo(() => {
 
 return (
   <>
+    {isLoading && <Loading/>}
     <div className="flex-col pt-16 bg-[#0d0d0d] flex lg:flex-row ">
       <div className="leftList lg:overflow-y-auto lg:h-[90vh] flex flex-col items-center w-[100%] lg:w-[20%] bg-[#171717] p-4">
         <h1 className="text-white text-xl">Filter & Sorting</h1>

@@ -22,7 +22,7 @@ const Home = () => {
         <div className="hero h-[100vh] w-[100%] flex flex-col md:flex-row">
           <div className="leftContainer w-[100%] md:w-[50%] flex flex-col items-center justify-center"> 
             <div className="welcomeCon flex flex-col justify-start gap-4">
-              <h1 className="text-7xl font-bold">WELCOME</h1>
+              <h1 className="text-xl md:text-7xl font-bold">WELCOME</h1>
               <h1 className="text-2xl">
                 {currentUser?.toUpperCase() || (
                   <button onClick={()=>{navigate('/login')}} className="px-4 py-3 font-semibold rounded-md border-2 border-[#353535a2] hover: hover:bg-blue-700">
