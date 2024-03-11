@@ -28,7 +28,7 @@ const Signup = () => {
         return ;
       }
 
-      const sendOtp=await fetch('/api/v1/users/sendOtp',{
+      const sendOtp=await fetch('https://nattyworld-server.onrender.com/api/v1/users/sendOtp',{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
