@@ -13,7 +13,7 @@ const Otp = (props) => {
     const handleSubmit = async(e)=>{
         setIsLoading(true)
         e.preventDefault();
-        const res=await fetch('/api/v1/users/verifyOtp',{
+        const res=await fetch('https://nattyworld-server.onrender.com/api/v1/users/verifyOtp',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const Otp = (props) => {
 
         console.log(props.user)
 
-        const userRes=await fetch('/api/v1/users/register',{
+        const userRes=await fetch('https://nattyworld-server.onrender.com/api/v1/users/register',{
             method: "POST",
             headers: {
               "Content-Type": "application/json",
