@@ -16,13 +16,13 @@ const sendOtpUtil=async(email)=>{
         // send email
 
         const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
-        auth: {
-            user: "bernita.gibson73@ethereal.email",
-            pass: "W2bb4nKQNpUSVGVEBw",
-        },
+            service: 'gmail',
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT, 
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD 
+            }
         });
 
         async function main() {
