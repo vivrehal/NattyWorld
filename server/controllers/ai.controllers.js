@@ -45,7 +45,7 @@ const getDietFromAi=asyncHandler(async(req,res)=>{
             const response=await openai.chat.completions.create({
                 messages: [{ role:'user', content: prompt }],
                 model: "gpt-3.5-turbo",
-                max_tokens: 100,
+                // max_tokens: 100,
               });
     
             // console.log(response)
@@ -108,7 +108,7 @@ const getWorkoutFromAi=asyncHandler(async(req,res)=>{
         const response=await openai.chat.completions.create({
             messages: [{ role:'user', content: prompt }],
             model: "gpt-3.5-turbo",
-            max_tokens: 100,
+            // max_tokens: 100,
           });
 
         // console.log(response)
